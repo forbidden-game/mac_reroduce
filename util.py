@@ -26,8 +26,8 @@ def load_RML2016(args):
 
     if args.ab_choose == 'RML201610A':
         if args.snr_tat == "ALL":
-            filename_train_sne = args.RML2016a_path + "train_ALL_SNR_MV_dataset"
-            filename_test_sne = args.RML2016a_path + "test_ALL_SNR_MV_dataset"
+            filename_train_sne = "data/processed/RML2016.10a/" + "train_ALL_SNR_MV_dataset"
+            filename_test_sne = "data/processed/RML2016.10a/" + "test_ALL_SNR_MV_dataset"
 
             IQ_train = load_pickle(filename_train_sne)
             IQ_test = load_pickle(filename_test_sne)
@@ -36,8 +36,8 @@ def load_RML2016(args):
             test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs)
             indics = 0
         else:
-            filename_train_sne = args.RML2016a_path + str(args.snr_tat) + "_train_MV_dataset"
-            filename_test_sne = args.RML2016a_path + str(args.snr_tat) + "_test_MV_dataset"
+            filename_train_sne = "data/processed/RML2016.10a/" + str(args.snr_tat) + "_train_MV_dataset"
+            filename_test_sne = "data/processed/RML2016.10a/" + str(args.snr_tat) + "_test_MV_dataset"
             IQ_train = load_pickle(filename_train_sne)
             IQ_test = load_pickle(filename_test_sne)
             
@@ -88,8 +88,8 @@ def load_RML2016(args):
     elif args.ab_choose == 'RML201610B':
 
         #选择2016b的数据集
-        filename_train_sne = args.RML2016b_path + str(args.snr_tat) + "_MT4_train_dataset"
-        filename_test_sne = args.RML2016b_path + str(args.snr_tat) + "_MT4_test_dataset"
+        filename_train_sne = "data/processed/RML2016.10b/" + str(args.snr_tat) + "_MT4_train_dataset"
+        filename_test_sne = "data/processed/RML2016.10b/" + str(args.snr_tat) + "_MT4_test_dataset"
         IQ_train = load_pickle(filename_train_sne)
         IQ_test = load_pickle(filename_test_sne)
         # 给予数据集读入时三个参数，数据、标签、以及每个样本在当前数据集中的标号
@@ -100,13 +100,14 @@ def load_RML2016(args):
         train_sampler = None
         train_loader_IQ = data.DataLoader(dataset=new_dataset, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
         test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
+        indics = 0
 
     else:
         assert args.ab_choose == 'RML2018'
         #选择2018的数据集
 
-        filename_train_sne = args.RML2018_path +"_MV4_snr_"+ str(args.snr_tat) + "_train_dataset"
-        filename_test_sne = args.RML2018_path +"_MV4_snr_"+ str(args.snr_tat) + "_test_dataset"
+        filename_train_sne = "data/processed/RML2018/" + "RML2018_MV4_snr_"+ str(args.snr_tat) + "_train_dataset"
+        filename_test_sne = "data/processed/RML2018/" + "RML2018_MV4_snr_"+ str(args.snr_tat) + "_test_dataset"
         IQ_train = load_pickle(filename_train_sne)
         IQ_test = load_pickle(filename_test_sne)
         # 采用随机的index
@@ -130,12 +131,10 @@ def load_RML2016(args):
             count_num = args.N_shot  # 50 shot
             # 从0到10遍历，每个数字选取10个
 
-            for i in range(24):  # 0到10共11个数字
+            for i in range(24):  # 24 classes for RML2018
                 count = 0
-                cout_idx = 0
-                for num in a1:
-                    cout_idx = cout_idx + 1
-                    if num == i:
+                for cout_idx, num in enumerate(shuffled_label):
+                    if num.item() == i:  # Convert tensor to scalar for comparison
                         a1_selected.append(shuffled_label[cout_idx].unsqueeze(dim=0))
                         a0_selected.append(shuffled_data[cout_idx, :, :].unsqueeze(dim=0))
                         a3_selected.append(a3[cout_idx].unsqueeze(dim=0))
