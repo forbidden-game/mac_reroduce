@@ -31,63 +31,60 @@ def load_RML2016(args):
 
             IQ_train = load_pickle(filename_train_sne)
             IQ_test = load_pickle(filename_test_sne)
+            new_dataset = IQ_train  # For consistency with return statement
             train_loader_IQ = data.DataLoader(dataset=IQ_train, batch_size=args.batch_size, shuffle=True, **kwargs)
             test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs)
+            indics = 0
         else:
             filename_train_sne = args.RML2016a_path + str(args.snr_tat) + "_train_MV_dataset"
             filename_test_sne = args.RML2016a_path + str(args.snr_tat) + "_test_MV_dataset"
             IQ_train = load_pickle(filename_train_sne)
             IQ_test = load_pickle(filename_test_sne)
-            # 采用随机的index
-            indics = torch.randperm(len(IQ_train.tensors[0]))
-            # 加载保存的index
-            # indics = torch.load("73.7_6dBbest_indice.pt")
-
+            
+            # For pretraining, use full dataset, not few-shot
+            # Few-shot learning should be used only during fine-tuning, not pretraining
             a0 = IQ_train.tensors[0]
             a1 = IQ_train.tensors[1]
-            a3 = torch.arange(0, 8800)
-            shuffled_data = a0[indics]
-            shuffled_label = a1[indics]
-            #给予数据集读入时三个参数，数据、标签、以及每个样本在当前数据集中的标号
+            a3 = IQ_train.tensors[2]
+            
+            # Check if this is few-shot learning (N_shot > 0) and caller wants subset
+            if hasattr(args, 'use_few_shot') and args.use_few_shot and args.N_shot > 0:
+                # Few-shot learning: select N_shot samples per class
+                indics = torch.randperm(len(a0))
+                shuffled_data = a0[indics]
+                shuffled_label = a1[indics]
+                shuffled_indices = a3[indics]
 
+                a1_selected = []
+                a0_selected = []
+                a3_selected = []
 
-            a1_selected = []
-            a0_selected = []
-            a3_selected = []
+                count_num = args.N_shot   # N shot per class
+                
+                for i in range(11):  # 11 classes for RML2016.10a
+                    count = 0
+                    for idx, label in enumerate(shuffled_label):
+                        if label == i:
+                            a1_selected.append(shuffled_label[idx].unsqueeze(dim=0))
+                            a0_selected.append(shuffled_data[idx].unsqueeze(dim=0))
+                            a3_selected.append(shuffled_indices[idx].unsqueeze(dim=0))
+                            count += 1
+                            if count == count_num:
+                                break
+                
+                print(f"Selected {len(a1_selected)} samples for few-shot learning")
+                a1_selected = torch.cat(a1_selected)
+                a0_selected = torch.cat(a0_selected)
+                a3_selected = torch.cat(a3_selected)
+                new_dataset = TensorDataset(a0_selected, a1_selected, a3_selected)
+            else:
+                # Full dataset for pretraining
+                new_dataset = TensorDataset(a0, a1, a3)
 
-            count_num = args.N_shot   # 50 shot
-            # 从0到10遍历，每个数字选取10个
-
-            for i in range(11):  # 0到10共11个数字
-                count = 0
-                cout_idx = 0
-                for num in a1:
-                    cout_idx = cout_idx + 1
-                    if num == i:
-                        a1_selected.append(shuffled_label[cout_idx].unsqueeze(dim=0))
-                        a0_selected.append(shuffled_data[cout_idx, :, :].unsqueeze(dim=0))
-                        a3_selected.append(a3[cout_idx].unsqueeze(dim=0))
-                        count += 1
-                        if count == count_num:
-                            break
-            # 输出选中数字列表
-            print(len(a1_selected))
-            a1_selected = torch.cat(a1_selected)
-            a0_selected = torch.cat(a0_selected)
-            a3_selected = torch.cat(a3_selected)
-            new_dataset = TensorDataset(a0_selected, a1_selected, a3_selected)
-            # new_dataset = TensorDataset(a0[10:120, :, :], a1[10:120], a3[10:120])   #控制选择的输入数据集大小
-
-            # #part train sample
-            # data_temp = IQ_train.tensors[0]
-            # label_temp = IQ_train.tensors[1]
-            # IQ_train = data.TensorDataset(data_temp[0:8800,:,:], label_temp[0:8800])
-
-            # train_loader_IQ = data.DataLoader(dataset=IQ_train, batch_size=args.batch_size, shuffle=True,  **kwargs)
-            # test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True,  **kwargs)
             train_sampler = None
-            train_loader_IQ = data.DataLoader(new_dataset, batch_size=args.batch_size, shuffle=True,  **kwargs, sampler=train_sampler)
-            test_loader_IQ = data.DataLoader(IQ_test, batch_size=args.batch_size, shuffle=True,  **kwargs, sampler=train_sampler)
+            train_loader_IQ = data.DataLoader(new_dataset, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
+            test_loader_IQ = data.DataLoader(IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
+            indics = 0
     elif args.ab_choose == 'RML201610B':
 
         #选择2016b的数据集

@@ -4,7 +4,7 @@ import numpy as np
 
 # def load_data(filename=r'D:/research_review/RML201610a/LSTM2/data/RML2016.10b.dat'):
 def load_data(
-        filename=r'D:\PYALL\RML2016\RML2016.10b.dat'):
+        filename='data/RML2016.10b.dat'):
     Xd = pickle.load(open(filename, 'rb'), encoding='iso-8859-1')  # Xd2(22W,2,128)
     mods, snrs = [sorted(list(set([k[j] for k in Xd.keys()]))) for j in [0, 1]]
     X = []

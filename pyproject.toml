@@ -7,35 +7,11 @@ name = "mac-framework"
 version = "1.0.0"
 description = "Multi-representation domain Attentive Contrastive learning for unsupervised automatic modulation recognition"
 readme = "README.md"
-license = {file = "LICENSE"}
-requires-python = ">=3.8"
+requires-python = "==3.10"
 authors = [
     {name = "MAC Framework Team", email = "mac@example.com"},
 ]
-keywords = [
-    "deep-learning",
-    "contrastive-learning", 
-    "modulation-recognition",
-    "wireless-communications",
-    "unsupervised-learning",
-    "pytorch",
-]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: Communications :: Ham Radio",
-]
-
 dependencies = [
-    "torch>=1.11.0",
-    "torchvision>=0.12.0",
     "numpy>=1.20.0",
     "scipy>=1.7.0",
     "scikit-learn>=1.0.0",
@@ -49,152 +25,10 @@ dependencies = [
     "pickle5>=0.0.11; python_version<'3.8'",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "black>=22.0.0",
-    "isort>=5.10.0",
-    "flake8>=4.0.0",
-    "mypy>=0.950",
-    "pre-commit>=2.17.0",
-]
-docs = [
-    "sphinx>=4.5.0",
-    "sphinx-rtd-theme>=1.0.0",
-    "sphinx-autodoc-typehints>=1.17.0",
-]
-jupyter = [
-    "jupyter>=1.0.0",
-    "ipykernel>=6.9.0",
-    "ipywidgets>=7.6.0",
-    "plotly>=5.6.0",
-]
-gpu = [
-    "torch>=1.11.0+cu117",
-    "torchvision>=0.12.0+cu117",
-]
-
-[project.urls]
-Homepage = "https://github.com/your-org/mac-framework"
-Repository = "https://github.com/your-org/mac-framework.git"
-Documentation = "https://mac-framework.readthedocs.io"
-"Bug Tracker" = "https://github.com/your-org/mac-framework/issues"
-
 [project.scripts]
 mac-pretrain = "Pretraing_MAC:main"
 mac-finetune = "Fine_tuning_Times:main"
 mac-test = "test_mac_backbone:main"
 
-[tool.uv]
-dev-dependencies = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "black>=22.0.0",
-    "isort>=5.10.0",
-    "flake8>=4.0.0",
-    "mypy>=0.950",
-    "pre-commit>=2.17.0",
-    "jupyterlab>=3.3.0",
-]
-
-[tool.uv.sources]
-# Use PyTorch index for GPU support
-torch = {index = "pytorch"}
-torchvision = {index = "pytorch"}
-
-[[tool.uv.index]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu118"
-explicit = true
-
-[tool.black]
-line-length = 88
-target-version = ['py38']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-line_length = 88
-known_first_party = ["models", "NCE"]
-
-[tool.mypy]
-python_version = "3.8"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-disallow_untyped_decorators = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-warn_unreachable = true
-strict_equality = true
-
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = "-ra -q --strict-markers --strict-config"
-testpaths = ["tests"]
-python_files = ["test_*.py", "*_test.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-
-[tool.coverage.run]
-source = ["models", "NCE"]
-omit = [
-    "*/tests/*",
-    "*/test_*",
-    "setup.py",
-]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if self.debug:",
-    "if settings.DEBUG",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if 0:",
-    "if __name__ == .__main__.:",
-    "class .*\bProtocol\):",
-    "@(abc\.)?abstractmethod",
-]
-
-[tool.ruff]
-target-version = "py38"
-line-length = 88
-select = [
-    "E",  # pycodestyle errors
-    "W",  # pycodestyle warnings
-    "F",  # pyflakes
-    "I",  # isort
-    "B",  # flake8-bugbear
-    "C4", # flake8-comprehensions
-    "UP", # pyupgrade
-]
-ignore = [
-    "E501", # line too long, handled by black
-    "B008", # do not perform function calls in argument defaults
-    "C901", # too complex
-]
-
-[tool.ruff.per-file-ignores]
-"__init__.py" = ["F401"]
-"test_*.py" = ["B011"]
+[tool.hatch.build.targets.wheel]
+packages = ["models", "NCE"]

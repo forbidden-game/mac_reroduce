@@ -78,15 +78,15 @@ def parse_option():
 
     # PATH
     parser.add_argument('--log_path', type=str,
-                        default="D:\\PYALL\\RML2016\\RML2016_10B\\log_1.txt", help="log")
-    parser.add_argument('--RML2016b_path', type=str, default="D:\\PYALL\\RML2016\\RML2016_10B\\pre_snr_train_test\\",
+                        default="logs/", help="log")
+    parser.add_argument('--RML2016b_path', type=str, default="data/",
                         help="RML2016B-MT4 Training and testing dataset path")
-    parser.add_argument('--RML2018_path', type=str, default="D:\pyALL\调制识别数据集\RML2018MV\\",
+    parser.add_argument('--RML2018_path', type=str, default="data/",
                         help="RML2018A-MT4 Training and testing dataset path")
-    parser.add_argument('--RML2016a_path', type=str, default="D:\\pyALL\\调制识别数据集\\RML201610a_new\\py\\",
+    parser.add_argument('--RML2016a_path', type=str, default="data/",
                         help="RML2016A-MT4 Training and testing dataset path")
-    parser.add_argument('--model_path', type=str, default="result\\", help='path to save model')
-    parser.add_argument('--tb_path', type=str, default="result\\", help='path to tensorboard')
+    parser.add_argument('--model_path', type=str, default="result/", help='path to save model')
+    parser.add_argument('--tb_path', type=str, default="result/", help='path to tensorboard')
 
     # THY
     parser.add_argument("--channel",default=50,type=int)
@@ -315,7 +315,7 @@ def train(epoch, train_loader, model, contrast, criterion_l, criterion_ab, optim
         plt.xticks([])
         plt.yticks([])
         # plt.axis("off")
-        plt.savefig("D:/PYALL/2016B_16384_8_lr0.03_t=0.07_view_chose_"+str(opt.view_chose)+"_mod_l_"+str(opt.mod_l)+"_snr_"+str(opt.snr_tat)+"_epoch_"+str(epoch)+".png", dpi=120)
+        plt.savefig(f"result/2016B_16384_8_lr0.03_t=0.07_view_chose_{str(opt.view_chose)}_mod_l_{str(opt.mod_l)}_snr_{str(opt.snr_tat)}_epoch_{str(epoch)}.png", dpi=120)
         plt.close(a1)
         # return f, ax, txts  _view_chose_{args.view_chose}_mod_l_{args.mod_l}
         return txts

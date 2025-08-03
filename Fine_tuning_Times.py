@@ -77,16 +77,16 @@ def parse_option():
     parser.add_argument("--N_shot", default=1000, type=int)
 
     # path definition
-    parser.add_argument('--RML2016b_path', type=str, default="D:\\PYALL\\RML2016\\RML2016_10B\\pre_snr_train_test\\",
+    parser.add_argument('--RML2016b_path', type=str, default="data/",
                         help="RML2016B-MT4 Training and testing dataset path")
-    parser.add_argument('--RML2018_path', type=str, default="D:\\PYALL\\RML2018\\dataset2018_py_new\\",
+    parser.add_argument('--RML2018_path', type=str, default="data/",
                         help="RML2018A-MT4 Training and testing dataset path")
-    parser.add_argument('--RML2016a_path', type=str, default="D:\\PYALL\\RML2016\\datasetsave\\2016MV_NEW\\",
+    parser.add_argument('--RML2016a_path', type=str, default="data/",
                         help="RML2016A-MT4 Training and testing dataset path")
     parser.add_argument('--data_folder', type=str,
-                        default="D:\\pyALL\\调制识别数据集\\RML2016\\数据\\datasetsave\\2016IQAA归一化\\", help='path to data')
-    parser.add_argument('--save_path', type=str, default="liner_result\\", help='path to save linear classifier')
-    parser.add_argument('--tb_path', type=str, default="liner_result\\", help='path to tensorboard')
+                        default="data/", help='path to data')
+    parser.add_argument('--save_path', type=str, default="linear_result/", help='path to save linear classifier')
+    parser.add_argument('--tb_path', type=str, default="linear_result/", help='path to tensorboard')
 
 
 
@@ -432,7 +432,7 @@ def main():
         # args.nce_k = km
         # args.snr_tat = "ALL"
         # 2016A Pre training path
-        args.model_path = rf'./ALL_logs_/new_32768_t=0.07_batch_32_lr_0.03_view_chose_{args.view_chose}_mod_l_{args.mod_l}_snr_{args.snr_tat}/ckpt_epoch_240.pth'
+        args.model_path = os.path.join(args.tb_path, args.model_name, f'ckpt_epoch_{args.epochs}.pth')
         # 2018 Pre training path
         # args.model_path = rf'./2018pretrain_logs_/THY_4.30_2018_k_{args.nce_k}_mon_{args.nce_m}_batch_64_lr_0.01_view_chose_{args.view_chose}_mod_l_{args.mod_l}_snr_{args.snr_tat}/ckpt_epoch_240.pth'
         # args.model_path = rf'./2016B_logs_ablation_DX/D1_2016B_8192_0.9_batch_32_lr_0.01_view_chose_DB_mod_l_AN_snr_{args.snr_tat}/ckpt_epoch_240.pth'
@@ -554,5 +554,3 @@ def main():
 if __name__ == '__main__':
     best_acc1 = 0
     main()
-
-
