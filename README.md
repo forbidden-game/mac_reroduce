@@ -1,254 +1,126 @@
-# MAC Framework - Multi-representation domain Attentive Contrastive learning
+# Multi-Representation Attentive Contrastive Learning (MAC) for AMR
 
-Implementation of the paper "Multi-representation domain attentive contrastive learning based unsupervised automatic modulation recognition" published in Nature Communications.
+This repository contains the official PyTorch implementation for the paper: **"Multi-representation domain attentive contrastive learning based unsupervised automatic modulation recognition"**.
 
-## 📋 Overview
+The project reproduces the MAC model, which leverages unsupervised, multi-domain contrastive pre-training and an attention-based fine-tuning stage to achieve state-of-the-art performance in Automatic Modulation Recognition (AMR).
 
-This framework implements an unsupervised learning approach for automatic modulation recognition (AMR) in wireless communications using multi-domain contrastive learning.
+## Model Architecture
 
-### Key Features
+The implementation correctly mirrors the architecture described in the paper:
 
-- **Multi-domain signal processing**: I-Q, Amplitude-Phase, Instantaneous Frequency, Wavelet, FFT
-- **Contrastive learning**: Inter-domain and intra-domain contrastive mechanisms  
-- **Domain attention**: Dynamic selection of representation domains
-- **Few-shot learning**: Effective with limited labeled data
-- **Multiple datasets**: Support for RML2016.10A/B and RML2018.01A
+1.  **Shared Backbone (`models/backbone.py`)**: A CNN-based feature extractor is shared across all signal representations to learn common underlying features.
+2.  **Multi-Domain Representation (`models/backbone.py`)**: The model transforms raw I-Q signals into four additional domains:
+    *   Amplitude-Phase (AN)
+    *   Instantaneous Frequency (AF)
+    *   Wavelet (WT)
+    *   FFT
+3.  **Contrastive Pre-Training (`Pretraing_MAC.PY`)**: The model is first trained on unlabeled data using a contrastive loss (NCE). It learns to distinguish between different signals by maximizing the similarity between different representations of the same signal (inter-domain) and augmented versions of the source signal (intra-domain).
+4.  **Domain Attention (DA) Fine-Tuning (`models/LinearModel.py`, `Fine_tuning_Times.py`)**: After pre-training, a classifier with a Domain Attention module is attached. This module learns to dynamically weigh the importance of each representation domain's features, which are then used for the final classification.
 
-## 🚀 Quick Start with UV
+## Setup
 
-### Prerequisites
+### 1. Dependencies
 
-Install [uv](https://github.com/astral-sh/uv) - the fast Python package installer:
-
-```bash
-# Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### Environment Setup
-
-1. **Create and activate environment**:
-   ```bash
-   uv venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   # Basic installation
-   uv pip install -e .
-   
-   # Or with GPU support
-   uv pip install -e ".[gpu]"
-   
-   # Or with development tools
-   uv pip install -e ".[dev]"
-   
-   # Or everything
-   uv pip install -e ".[dev,docs,jupyter,gpu]"
-   ```
-
-3. **Quick dependency sync**:
-   ```bash
-   uv sync  # Installs all dependencies from pyproject.toml
-   ```
-
-### Alternative: Direct Script Installation
+First, create and activate a Python virtual environment using `uv`:
 
 ```bash
-# Install specific dependencies for running the framework
-uv pip install torch torchvision numpy scikit-learn matplotlib seaborn tensorboard-logger PyWavelets tqdm h5py
+uv venv
+source .venv/bin/activate
 ```
 
-## 🏃‍♂️ Running the Framework
-
-### Using UV Scripts (Recommended)
-
-After installation, you can use the configured scripts:
+Then, install the required dependencies from `pyproject.toml` using `uv`:
 
 ```bash
-# Test the implementation
-uv run mac-test
-
-# Run pretraining  
-uv run mac-pretrain --ab_choose RML201610A --view_chose ALL --epochs 240
-
-# Run fine-tuning
-uv run mac-finetune --model_path result/ckpt_epoch_240.pth --N_shot 50
+uv pip install -e .
 ```
 
-### Using Python Directly
+This command will install all the necessary packages in editable mode.
 
-```bash
-# Test implementation
-uv run python test_mac_backbone.py
+### 2. Dataset Preparation
 
-# Pretraining (240 epochs)
-uv run python Pretraing_MAC.PY --ab_choose RML201610A --view_chose ALL --mod_l AN --epochs 240
+The code expects the datasets to be pre-processed and saved as pickled PyTorch `TensorDataset` objects. As requested, the following instructions assume all data is placed within a root `data/` folder.
 
-# Fine-tuning with few-shot learning
-uv run python Fine_tuning_Times.py --model_path result/ckpt_epoch_240.pth --N_shot 50 --epochs 120
-```
-
-## 📊 Dataset Support
-
-The framework supports the following datasets:
-
-- **RML2016.10A**: 11 modulation types, 220,000 samples
-- **RML2016.10B**: 10 modulation types, 1,200,000 samples  
-- **RML2018.01A**: 24 modulation types, 2,555,904 samples
-
-Download datasets from [DeepSig](https://www.deepsig.ai/datasets/).
-
-## 🏗️ Architecture
-
-### MAC Backbone Components
-
-1. **Multi-domain Transformations**:
-   - **AN**: Amplitude-Phase representation
-   - **AF**: Instantaneous Frequency
-   - **WT**: Wavelet Transform
-   - **FFT**: Frequency spectrum
-
-2. **Shared CNN Encoder**: 4-layer CNN with batch normalization
-
-3. **Contrastive Learning**:
-   - Inter-domain: Between I-Q and transformed domains
-   - Intra-domain: Augmented I-Q samples
-
-4. **Domain Attention**: Dynamic weighting of domain features
-
-### Training Pipeline
-
-1. **Unsupervised Pretraining** (240 epochs):
-   - Multi-domain contrastive learning
-   - "I-Q single centralization" strategy
-   - Memory bank with momentum updates
-
-2. **Supervised Fine-tuning** (120 epochs):
-   - Linear evaluation or full fine-tuning
-   - Few-shot learning support
-   - Domain attention integration
-
-## 🔧 Configuration
-
-### Key Hyperparameters
-
-```python
-# Contrastive learning
-nce_k = 16384      # Number of negative samples
-nce_t = 0.07       # Temperature parameter  
-nce_m = 0.9        # Momentum coefficient
-
-# Training
-batch_size = 64    # Pretraining batch size
-feat_dim = 128     # Feature dimension
-learning_rate = 0.03  # Pretraining learning rate
-```
-
-### Environment Variables
-
-```bash
-# CUDA settings
-export CUDA_VISIBLE_DEVICES=0
-
-# PyTorch settings  
-export TORCH_HOME=./torch_cache
-```
-
-## 📈 Expected Performance
-
-Based on the paper results:
-
-| Dataset | Few-shot Samples | Accuracy |
-|---------|------------------|----------|
-| RML2016.10A | 100 (10%) | ~78.93% |
-| RML2016.10B | 100 (1.67%) | ~74.15% |
-| RML2018.01A | 100 (2.44%) | ~79.24% |
-
-## 🛠️ Development
-
-### Code Quality Tools
-
-```bash
-# Format code
-uv run black .
-uv run isort .
-
-# Linting
-uv run flake8 .
-uv run ruff check .
-
-# Type checking
-uv run mypy models/
-
-# Testing
-uv run pytest tests/
-```
-
-### Jupyter Development
-
-```bash
-# Install jupyter extras
-uv pip install -e ".[jupyter]"
-
-# Start JupyterLab
-uv run jupyter lab
-```
-
-## 📂 Project Structure
+Create the following directory structure:
 
 ```
-mac-framework/
+.
+├── data/
+│   ├── RML2016.10a/
+│   │   ├── 0_train_MV_dataset
+│   │   ├── 0_test_MV_dataset
+│   │   ├── 2_train_MV_dataset
+│   │   ├── 2_test_MV_dataset
+│   │   └── ... (and so on for each SNR)
+│   └── RML2016.10b/
+│       ├── 0_MT4_train_dataset
+│       ├── 0_MT4_test_dataset
+│       └── ...
 ├── models/
-│   ├── __init__.py
-│   ├── backbone.py          # MAC_backbone implementation
-│   └── LinearModel.py       # Linear classifiers with domain attention
 ├── NCE/
-│   ├── NCEAverage.py        # Memory bank management
-│   └── NCECriterion.py      # Contrastive loss functions
-├── data/                    # Dataset storage
-├── Pretraing_MAC.PY         # Unsupervised pretraining script
-├── Fine_tuning_Times.py     # Supervised fine-tuning script
-├── test_mac_backbone.py     # Test implementation
-├── util.py                  # Utility functions
-├── buildv1.py               # Data augmentation functions
-├── pyproject.toml           # Project configuration
-└── README.md                # This file
+├── Pretraing_MAC.PY
+├── Fine_tuning_Times.py
+└── ... (other project files)
 ```
 
-## 🎯 Citation
+**Note**: The data loading script (`util.py`) constructs file paths based on the dataset name and SNR. Ensure your pickled files match the naming convention shown above (e.g., `{snr}_train_MV_dataset`).
 
-```bibtex
-@article{li2025mac,
-  title={Multi-representation domain attentive contrastive learning based unsupervised automatic modulation recognition},
-  author={Li, Yu and Shi, Xiaoran and Tan, Haoyue and Zhang, Zhenxi and Yang, Xinyao and Zhou, Feng},
-  journal={Nature Communications},
-  volume={16},
-  pages={5951},
-  year={2025},
-  doi={10.1038/s41467-025-60921-z}
-}
+## How to Run
+
+The model reproduction is a two-step process: unsupervised pre-training followed by supervised fine-tuning.
+
+### Step 1: Unsupervised Pre-training
+
+Run the `Pretraing_MAC.PY` script to train the `MAC_backbone` on unlabeled data. This will save a model checkpoint that will be used in the next step.
+
+**Example Command:**
+
+```bash
+python Pretraing_MAC.PY \
+    --ab_choose RML201610A \
+    --RML2016a_path ./data/RML2016.10a/ \
+    --snr_tat 18 \
+    --view_chose ALL \
+    --batch_size 64 \
+    --epochs 240 \
+    --learning_rate 0.01 \
+    --nce_k 16384 \
+    --model_path ./saved_models/ \
+    --tb_path ./tensorboard_logs/
 ```
 
-## 📄 License
+**Key Arguments:**
+*   `--ab_choose`: The dataset to use (`RML201610A`, `RML201610B`, `RML2018`).
+*   `--RML2016a_path`: Path to the dataset directory. **Update this for your chosen dataset.**
+*   `--snr_tat`: The Signal-to-Noise Ratio (SNR) of the data to use for training.
+*   `--view_chose`: Use `ALL` for the full multi-domain model as described in the paper.
+*   `--epochs`: Number of pre-training epochs. The paper uses 240.
+*   `--model_path`: Directory to save the trained model checkpoints.
+*   `--tb_path`: Directory to save TensorBoard logs.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+A checkpoint file (e.g., `ckpt_epoch_240.pth`) will be saved in the specified model path.
 
-## 🤝 Contributing
+### Step 2: Fine-tuning with Domain Attention
 
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+Run the `Fine_tuning_Times.py` script to load the pre-trained backbone, attach the Domain Attention classifier, and fine-tune on a small number of labeled samples.
 
-## 📞 Support
+**Example Command:**
 
-- Create an issue on GitHub for bug reports
-- Check the paper for theoretical background
-- See test_mac_backbone.py for usage examples
+```bash
+python Fine_tuning_Times.py \
+    --ab_choose RML201610A \
+    --RML2016a_path ./data/RML2016.10a/ \
+    --model_path ./saved_models/MAC_backbone/ckpt_epoch_240.pth \
+    --snr_tat 18 \
+    --view_chose ALL \
+    --N_shot 50 \
+    --epochs 120 \
+    --learning_rate 0.0001
+```
 
----
+**Key Arguments:**
+*   `--model_path`: **Crucially**, this must be the full path to the checkpoint file saved during pre-training.
+*   `--N_shot`: The number of labeled samples per class to use for fine-tuning (e.g., 10, 20, 50, 100).
+*   `--epochs`: Number of fine-tuning epochs. The paper uses up to 120.
+*   Other arguments like `--ab_choose`, `--RML2016a_path`, `--snr_tat`, and `--view_chose` should match the ones used in pre-training.
 
-**Note**: This implementation requires PyTorch and is optimized for CUDA GPUs. CPU training is supported but significantly slower.
+This script will run the fine-tuning process and print the final classification accuracy, which should reproduce the results reported in the paper for the given dataset and `N_shot` value.
