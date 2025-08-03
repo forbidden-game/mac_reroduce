@@ -1,0 +1,1076 @@
+2025-08-03 22:52:37.830860: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-08-03 22:52:37.839299: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1754232757.847735  866020 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1754232757.850479  866020 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1754232757.858515  866020 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754232757.858524  866020 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754232757.858525  866020 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1754232757.858526  866020 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2025-08-03 22:52:37.860670: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI AVX_VNNI_INT8 AVX_NE_CONVERT FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+AttributeError: 'MessageFactory' object has no attribute 'GetPrototype'
+AttributeError: 'MessageFactory' object has no attribute 'GetPrototype'
+AttributeError: 'MessageFactory' object has no attribute 'GetPrototype'
+AttributeError: 'MessageFactory' object has no attribute 'GetPrototype'
+AttributeError: 'MessageFactory' object has no attribute 'GetPrototype'
+6
+choosed dataset: RML201610A
+filename_train_dataset: data/processed/RML2016.10a/6_train_MV_dataset
+number of samples: 8800
+number of params: 783168
+Started training monitoring for 200 epochs
+Dashboard output directory: training_dashboard
+./2018pretrain_logs_ exist
+==> training...
+
+--- Epoch 1/200 Started ---
+normalization constant Z_l is set to 18983.1
+normalization constant Z_ab is set to 19313.7
+Epoch 1 [   1/69] (  1.4%) | train_loss: 114.1147 | l_loss: 11.2715 | ab_loss: 11.7607 | td_loss: 11.3965 | sd_loss: 11.2715 | batch_time: 0.7293 | data_time: 0.0681 | ETA: 0.8m
+Epoch 1 [  10/69] ( 14.5%) | train_loss: 115.8064 | l_loss: 10.4745 | ab_loss: 11.7227 | td_loss: 12.5982 | sd_loss: 10.4745 | batch_time: 0.2220 | data_time: 0.0001 | ETA: 0.3m
+Train: [1][10/69]	BT 0.222 (0.273)	DT 0.000 (0.007)	loss 115.806 (122.819)	ANloss 12.598 (11.935)	WTloss 12.353 (11.565)	AFloss 11.847 (11.317)	FFTloss 11.159 (10.933)	l_SD 10.474 (10.553)	ab_SD 11.723 (14.733)
+Epoch 1 [  20/69] ( 29.0%) | train_loss: 117.3331 | l_loss: 11.9762 | ab_loss: 12.2632 | td_loss: 11.6476 | sd_loss: 11.9762 | batch_time: 0.2214 | data_time: 0.0001 | ETA: 0.2m
+Train: [1][20/69]	BT 0.221 (0.248)	DT 0.000 (0.004)	loss 117.333 (119.868)	ANloss 11.648 (11.950)	WTloss 12.187 (11.946)	AFloss 12.023 (11.681)	FFTloss 11.916 (11.339)	l_SD 11.976 (11.038)	ab_SD 12.263 (13.278)
+Epoch 1 [  30/69] ( 43.5%) | train_loss: 113.5012 | l_loss: 11.0257 | ab_loss: 11.7899 | td_loss: 11.6475 | sd_loss: 11.0257 | batch_time: 0.2228 | data_time: 0.0001 | ETA: 0.2m
+Train: [1][30/69]	BT 0.223 (0.240)	DT 0.000 (0.002)	loss 113.501 (118.179)	ANloss 11.647 (11.791)	WTloss 11.835 (11.911)	AFloss 11.405 (11.637)	FFTloss 11.063 (11.340)	l_SD 11.026 (11.155)	ab_SD 11.790 (12.884)
+Epoch 1 [  40/69] ( 58.0%) | train_loss: 111.5410 | l_loss: 10.6165 | ab_loss: 11.4594 | td_loss: 11.5944 | sd_loss: 10.6165 | batch_time: 0.2234 | data_time: 0.0001 | ETA: 0.1m
+Train: [1][40/69]	BT 0.223 (0.236)	DT 0.000 (0.002)	loss 111.541 (116.523)	ANloss 11.594 (11.735)	WTloss 11.542 (11.830)	AFloss 11.189 (11.516)	FFTloss 10.788 (11.191)	l_SD 10.617 (11.019)	ab_SD 11.459 (12.534)
+Epoch 1 [  50/69] ( 72.5%) | train_loss: 112.9433 | l_loss: 11.1015 | ab_loss: 12.0519 | td_loss: 11.1562 | sd_loss: 11.1015 | batch_time: 0.2267 | data_time: 0.0001 | ETA: 0.1m
+Train: [1][50/69]	BT 0.227 (0.233)	DT 0.000 (0.001)	loss 112.943 (115.787)	ANloss 11.156 (11.692)	WTloss 11.242 (11.769)	AFloss 11.182 (11.481)	FFTloss 11.110 (11.176)	l_SD 11.102 (11.018)	ab_SD 12.052 (12.377)
+Epoch 1 [  60/69] ( 87.0%) | train_loss: 112.7439 | l_loss: 11.1831 | ab_loss: 12.2730 | td_loss: 11.0716 | sd_loss: 11.1831 | batch_time: 0.2235 | data_time: 0.0001 | ETA: 0.0m
+Train: [1][60/69]	BT 0.223 (0.231)	DT 0.000 (0.001)	loss 112.744 (115.316)	ANloss 11.072 (11.603)	WTloss 11.145 (11.684)	AFloss 11.037 (11.434)	FFTloss 11.051 (11.180)	l_SD 11.183 (11.063)	ab_SD 12.273 (12.327)
+epoch 1, total time 15.92
+
+--- Epoch 1 Summary ---
+train_loss: 114.584281
+l_loss: 11.032841
+ab_loss: 12.250103
+td_loss: 11.512196
+sd_loss: 11.032841
+batch_time: 0.230372
+data_time: 0.001095
+learning_rate: 0.010000
+epoch_time: 15.918033
+Elapsed time: 0.00h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.88h
+----------------------------------------
+==> training...
+
+--- Epoch 2/200 Started ---
+Epoch 2 [   1/69] (  1.4%) | train_loss: 123.6235 | l_loss: 11.8702 | ab_loss: 12.0866 | td_loss: 12.2950 | sd_loss: 11.8702 | batch_time: 0.3032 | data_time: 0.0692 | ETA: 18.4m
+Epoch 2 [  10/69] ( 14.5%) | train_loss: 115.2230 | l_loss: 10.3962 | ab_loss: 11.3754 | td_loss: 12.1353 | sd_loss: 10.3962 | batch_time: 0.2230 | data_time: 0.0001 | ETA: 1.8m
+Train: [2][10/69]	BT 0.223 (0.231)	DT 0.000 (0.007)	loss 115.223 (119.614)	ANloss 12.135 (12.211)	WTloss 11.519 (11.869)	AFloss 10.961 (11.439)	FFTloss 10.556 (11.156)	l_SD 10.396 (11.111)	ab_SD 11.375 (11.735)
+Epoch 2 [  20/69] ( 29.0%) | train_loss: 122.7186 | l_loss: 11.8877 | ab_loss: 12.7349 | td_loss: 12.4896 | sd_loss: 11.8877 | batch_time: 0.2246 | data_time: 0.0001 | ETA: 0.8m
+Train: [2][20/69]	BT 0.225 (0.227)	DT 0.000 (0.004)	loss 122.719 (118.778)	ANloss 12.490 (12.279)	WTloss 12.529 (11.978)	AFloss 12.288 (11.549)	FFTloss 12.020 (11.218)	l_SD 11.888 (11.105)	ab_SD 12.735 (11.771)
+Epoch 2 [  30/69] ( 43.5%) | train_loss: 116.8806 | l_loss: 11.4420 | ab_loss: 12.4065 | td_loss: 11.9019 | sd_loss: 11.4420 | batch_time: 0.2244 | data_time: 0.0001 | ETA: 0.5m
+Train: [2][30/69]	BT 0.224 (0.226)	DT 0.000 (0.002)	loss 116.881 (118.699)	ANloss 11.902 (12.180)	WTloss 11.908 (12.005)	AFloss 11.682 (11.657)	FFTloss 11.470 (11.371)	l_SD 11.442 (11.280)	ab_SD 12.406 (12.013)
+Epoch 2 [  40/69] ( 58.0%) | train_loss: 114.8992 | l_loss: 11.0337 | ab_loss: 12.5130 | td_loss: 11.7584 | sd_loss: 11.0337 | batch_time: 0.2238 | data_time: 0.0001 | ETA: 0.3m
+Train: [2][40/69]	BT 0.224 (0.225)	DT 0.000 (0.002)	loss 114.899 (117.898)	ANloss 11.758 (12.087)	WTloss 11.628 (11.933)	AFloss 11.361 (11.605)	FFTloss 11.060 (11.322)	l_SD 11.034 (11.246)	ab_SD 12.513 (12.142)
+Epoch 2 [  50/69] ( 72.5%) | train_loss: 112.7335 | l_loss: 10.7955 | ab_loss: 12.4483 | td_loss: 11.3746 | sd_loss: 10.7955 | batch_time: 0.2241 | data_time: 0.0001 | ETA: 0.2m
+Train: [2][50/69]	BT 0.224 (0.225)	DT 0.000 (0.002)	loss 112.734 (117.039)	ANloss 11.375 (11.983)	WTloss 11.307 (11.838)	AFloss 11.110 (11.531)	FFTloss 10.835 (11.247)	l_SD 10.796 (11.180)	ab_SD 12.448 (12.206)
+Epoch 2 [  60/69] ( 87.0%) | train_loss: 113.1557 | l_loss: 11.1336 | ab_loss: 11.9295 | td_loss: 11.6557 | sd_loss: 11.1336 | batch_time: 0.2385 | data_time: 0.0002 | ETA: 0.1m
+Train: [2][60/69]	BT 0.239 (0.225)	DT 0.000 (0.001)	loss 113.156 (116.374)	ANloss 11.656 (11.921)	WTloss 11.699 (11.797)	AFloss 11.514 (11.508)	FFTloss 11.243 (11.225)	l_SD 11.134 (11.155)	ab_SD 11.929 (12.197)
+epoch 2, total time 15.54
+
+--- Epoch 2 Summary ---
+train_loss: 115.743766
+l_loss: 11.139303
+ab_loss: 12.128472
+td_loss: 11.852261
+sd_loss: 11.139303
+batch_time: 0.224725
+data_time: 0.001136
+learning_rate: 0.010000
+epoch_time: 15.541514
+Elapsed time: 0.01h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.87h
+----------------------------------------
+==> training...
+
+--- Epoch 3/200 Started ---
+Epoch 3 [   1/69] (  1.4%) | train_loss: 114.6971 | l_loss: 11.1690 | ab_loss: 11.2704 | td_loss: 11.4282 | sd_loss: 11.1690 | batch_time: 0.3058 | data_time: 0.0786 | ETA: 39.9m
+Epoch 3 [  10/69] ( 14.5%) | train_loss: 110.4529 | l_loss: 10.5805 | ab_loss: 10.6606 | td_loss: 11.1863 | sd_loss: 10.5805 | batch_time: 0.2245 | data_time: 0.0002 | ETA: 3.7m
+Train: [3][10/69]	BT 0.224 (0.234)	DT 0.000 (0.008)	loss 110.453 (112.356)	ANloss 11.186 (11.328)	WTloss 11.186 (11.418)	AFloss 11.011 (11.294)	FFTloss 10.774 (11.070)	l_SD 10.581 (10.902)	ab_SD 10.661 (10.887)
+Epoch 3 [  20/69] ( 29.0%) | train_loss: 112.6814 | l_loss: 11.0619 | ab_loss: 10.8893 | td_loss: 11.4849 | sd_loss: 11.0619 | batch_time: 0.2181 | data_time: 0.0002 | ETA: 1.6m
+Train: [3][20/69]	BT 0.218 (0.229)	DT 0.000 (0.004)	loss 112.681 (112.101)	ANloss 11.485 (11.374)	WTloss 11.542 (11.437)	AFloss 11.429 (11.294)	FFTloss 11.236 (11.067)	l_SD 11.062 (10.882)	ab_SD 10.889 (10.804)
+Epoch 3 [  30/69] ( 43.5%) | train_loss: 113.5331 | l_loss: 11.0517 | ab_loss: 11.0975 | td_loss: 11.5219 | sd_loss: 11.0517 | batch_time: 0.2194 | data_time: 0.0001 | ETA: 0.9m
+Train: [3][30/69]	BT 0.219 (0.228)	DT 0.000 (0.003)	loss 113.533 (112.183)	ANloss 11.522 (11.385)	WTloss 11.463 (11.423)	AFloss 11.337 (11.293)	FFTloss 11.188 (11.092)	l_SD 11.052 (10.921)	ab_SD 11.098 (10.852)
+Epoch 3 [  40/69] ( 58.0%) | train_loss: 110.7452 | l_loss: 10.8769 | ab_loss: 10.9845 | td_loss: 11.2230 | sd_loss: 10.8769 | batch_time: 0.2232 | data_time: 0.0001 | ETA: 0.5m
+Train: [3][40/69]	BT 0.223 (0.226)	DT 0.000 (0.002)	loss 110.745 (112.070)	ANloss 11.223 (11.383)	WTloss 11.176 (11.400)	AFloss 11.094 (11.275)	FFTloss 10.986 (11.091)	l_SD 10.877 (10.932)	ab_SD 10.984 (10.881)
+Epoch 3 [  50/69] ( 72.5%) | train_loss: 111.5858 | l_loss: 10.9532 | ab_loss: 11.1113 | td_loss: 11.2812 | sd_loss: 10.9532 | batch_time: 0.2226 | data_time: 0.0001 | ETA: 0.3m
+Train: [3][50/69]	BT 0.223 (0.226)	DT 0.000 (0.002)	loss 111.586 (112.056)	ANloss 11.281 (11.381)	WTloss 11.211 (11.380)	AFloss 11.129 (11.264)	FFTloss 11.042 (11.096)	l_SD 10.953 (10.948)	ab_SD 11.111 (10.925)
+Epoch 3 [  60/69] ( 87.0%) | train_loss: 111.8207 | l_loss: 11.0445 | ab_loss: 11.2237 | td_loss: 11.3599 | sd_loss: 11.0445 | batch_time: 0.2212 | data_time: 0.0001 | ETA: 0.1m
+Train: [3][60/69]	BT 0.221 (0.225)	DT 0.000 (0.001)	loss 111.821 (112.070)	ANloss 11.360 (11.391)	WTloss 11.294 (11.379)	AFloss 11.216 (11.266)	FFTloss 11.129 (11.111)	l_SD 11.044 (10.973)	ab_SD 11.224 (10.959)
+epoch 3, total time 15.50
+
+--- Epoch 3 Summary ---
+train_loss: 112.002484
+l_loss: 10.982254
+ab_loss: 10.983130
+td_loss: 11.387151
+sd_loss: 10.982254
+batch_time: 0.223918
+data_time: 0.001281
+learning_rate: 0.010000
+epoch_time: 15.503776
+Elapsed time: 0.01h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.92h
+----------------------------------------
+==> training...
+
+--- Epoch 4/200 Started ---
+Epoch 4 [   1/69] (  1.4%) | train_loss: 109.1336 | l_loss: 10.7727 | ab_loss: 10.8122 | td_loss: 10.9774 | sd_loss: 10.7727 | batch_time: 0.3146 | data_time: 0.0835 | ETA: 1.0h
+Epoch 4 [  10/69] ( 14.5%) | train_loss: 108.3941 | l_loss: 10.6074 | ab_loss: 10.7266 | td_loss: 10.9626 | sd_loss: 10.6074 | batch_time: 0.2250 | data_time: 0.0001 | ETA: 5.5m
+Train: [4][10/69]	BT 0.225 (0.234)	DT 0.000 (0.008)	loss 108.394 (108.865)	ANloss 10.963 (11.026)	WTloss 10.856 (10.939)	AFloss 10.762 (10.863)	FFTloss 10.682 (10.793)	l_SD 10.607 (10.722)	ab_SD 10.727 (10.717)
+Epoch 4 [  20/69] ( 29.0%) | train_loss: 109.8516 | l_loss: 10.7801 | ab_loss: 10.8720 | td_loss: 11.1357 | sd_loss: 10.7801 | batch_time: 0.2227 | data_time: 0.0001 | ETA: 2.4m
+Train: [4][20/69]	BT 0.223 (0.230)	DT 0.000 (0.004)	loss 109.852 (109.001)	ANloss 11.136 (11.047)	WTloss 11.002 (10.950)	AFloss 10.921 (10.870)	FFTloss 10.858 (10.798)	l_SD 10.780 (10.722)	ab_SD 10.872 (10.750)
+Epoch 4 [  30/69] ( 43.5%) | train_loss: 109.3069 | l_loss: 10.7479 | ab_loss: 10.8583 | td_loss: 11.1005 | sd_loss: 10.7479 | batch_time: 0.2241 | data_time: 0.0001 | ETA: 1.3m
+Train: [4][30/69]	BT 0.224 (0.228)	DT 0.000 (0.003)	loss 109.307 (109.053)	ANloss 11.101 (11.064)	WTloss 10.968 (10.954)	AFloss 10.880 (10.871)	FFTloss 10.821 (10.804)	l_SD 10.748 (10.728)	ab_SD 10.858 (10.764)
+Epoch 4 [  40/69] ( 58.0%) | train_loss: 110.2798 | l_loss: 10.8534 | ab_loss: 10.9219 | td_loss: 11.2199 | sd_loss: 10.8534 | batch_time: 0.2240 | data_time: 0.0001 | ETA: 0.8m
+Train: [4][40/69]	BT 0.224 (0.227)	DT 0.000 (0.002)	loss 110.280 (109.187)	ANloss 11.220 (11.093)	WTloss 11.070 (10.974)	AFloss 10.983 (10.889)	FFTloss 10.933 (10.825)	l_SD 10.853 (10.749)	ab_SD 10.922 (10.781)
+Epoch 4 [  50/69] ( 72.5%) | train_loss: 110.0947 | l_loss: 10.8875 | ab_loss: 10.8872 | td_loss: 11.2310 | sd_loss: 10.8875 | batch_time: 0.2224 | data_time: 0.0001 | ETA: 0.4m
+Train: [4][50/69]	BT 0.222 (0.226)	DT 0.000 (0.002)	loss 110.095 (109.326)	ANloss 11.231 (11.113)	WTloss 11.086 (10.989)	AFloss 11.005 (10.905)	FFTloss 10.961 (10.844)	l_SD 10.887 (10.769)	ab_SD 10.887 (10.800)
+Epoch 4 [  60/69] ( 87.0%) | train_loss: 109.7254 | l_loss: 10.8524 | ab_loss: 10.9031 | td_loss: 11.1446 | sd_loss: 10.8524 | batch_time: 0.2229 | data_time: 0.0001 | ETA: 0.2m
+Train: [4][60/69]	BT 0.223 (0.226)	DT 0.000 (0.002)	loss 109.725 (109.418)	ANloss 11.145 (11.128)	WTloss 11.019 (11.002)	AFloss 10.952 (10.920)	FFTloss 10.920 (10.863)	l_SD 10.852 (10.789)	ab_SD 10.903 (10.812)
+epoch 4, total time 15.56
+
+--- Epoch 4 Summary ---
+train_loss: 109.470013
+l_loss: 10.800726
+ab_loss: 10.823943
+td_loss: 11.133001
+sd_loss: 10.800726
+batch_time: 0.224746
+data_time: 0.001336
+learning_rate: 0.010000
+epoch_time: 15.556467
+Elapsed time: 0.02h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.94h
+----------------------------------------
+==> training...
+
+--- Epoch 5/200 Started ---
+Epoch 5 [   1/69] (  1.4%) | train_loss: 107.5976 | l_loss: 10.6672 | ab_loss: 10.7295 | td_loss: 10.8395 | sd_loss: 10.6672 | batch_time: 0.3027 | data_time: 0.0749 | ETA: 1.4h
+Epoch 5 [  10/69] ( 14.5%) | train_loss: 107.4402 | l_loss: 10.6121 | ab_loss: 10.7453 | td_loss: 10.8284 | sd_loss: 10.6121 | batch_time: 0.2206 | data_time: 0.0001 | ETA: 7.4m
+Train: [5][10/69]	BT 0.221 (0.229)	DT 0.000 (0.008)	loss 107.440 (107.504)	ANloss 10.828 (10.841)	WTloss 10.718 (10.738)	AFloss 10.674 (10.698)	FFTloss 10.660 (10.686)	l_SD 10.612 (10.641)	ab_SD 10.745 (10.733)
+Epoch 5 [  20/69] ( 29.0%) | train_loss: 107.7639 | l_loss: 10.6872 | ab_loss: 10.7453 | td_loss: 10.9203 | sd_loss: 10.6872 | batch_time: 0.2209 | data_time: 0.0001 | ETA: 3.2m
+Train: [5][20/69]	BT 0.221 (0.225)	DT 0.000 (0.004)	loss 107.764 (107.623)	ANloss 10.920 (10.864)	WTloss 10.789 (10.754)	AFloss 10.743 (10.713)	FFTloss 10.735 (10.701)	l_SD 10.687 (10.654)	ab_SD 10.745 (10.740)
+Epoch 5 [  30/69] ( 43.5%) | train_loss: 108.2613 | l_loss: 10.7315 | ab_loss: 10.7434 | td_loss: 10.9949 | sd_loss: 10.7315 | batch_time: 0.2232 | data_time: 0.0001 | ETA: 1.7m
+Train: [5][30/69]	BT 0.223 (0.224)	DT 0.000 (0.003)	loss 108.261 (107.712)	ANloss 10.995 (10.885)	WTloss 10.850 (10.766)	AFloss 10.796 (10.722)	FFTloss 10.784 (10.711)	l_SD 10.731 (10.664)	ab_SD 10.743 (10.738)
+Epoch 5 [  40/69] ( 58.0%) | train_loss: 107.8809 | l_loss: 10.6924 | ab_loss: 10.7069 | td_loss: 10.9320 | sd_loss: 10.6924 | batch_time: 0.2227 | data_time: 0.0001 | ETA: 1.0m
+Train: [5][40/69]	BT 0.223 (0.223)	DT 0.000 (0.002)	loss 107.881 (107.748)	ANloss 10.932 (10.895)	WTloss 10.787 (10.769)	AFloss 10.740 (10.724)	FFTloss 10.738 (10.715)	l_SD 10.692 (10.668)	ab_SD 10.707 (10.734)
+Epoch 5 [  50/69] ( 72.5%) | train_loss: 109.0081 | l_loss: 10.8208 | ab_loss: 10.8036 | td_loss: 11.0859 | sd_loss: 10.8208 | batch_time: 0.2218 | data_time: 0.0002 | ETA: 0.5m
+Train: [5][50/69]	BT 0.222 (0.222)	DT 0.000 (0.002)	loss 109.008 (107.835)	ANloss 11.086 (10.911)	WTloss 10.936 (10.782)	AFloss 10.885 (10.736)	FFTloss 10.874 (10.729)	l_SD 10.821 (10.681)	ab_SD 10.804 (10.733)
+Epoch 5 [  60/69] ( 87.0%) | train_loss: 108.8127 | l_loss: 10.8074 | ab_loss: 10.8061 | td_loss: 11.0304 | sd_loss: 10.8074 | batch_time: 0.2189 | data_time: 0.0001 | ETA: 0.2m
+Train: [5][60/69]	BT 0.219 (0.222)	DT 0.000 (0.001)	loss 108.813 (107.956)	ANloss 11.030 (10.929)	WTloss 10.899 (10.798)	AFloss 10.857 (10.753)	FFTloss 10.854 (10.745)	l_SD 10.807 (10.698)	ab_SD 10.806 (10.737)
+epoch 5, total time 15.29
+
+--- Epoch 5 Summary ---
+train_loss: 108.076986
+l_loss: 10.717376
+ab_loss: 10.742799
+td_loss: 10.945837
+sd_loss: 10.717376
+batch_time: 0.220950
+data_time: 0.001200
+learning_rate: 0.010000
+epoch_time: 15.289233
+Elapsed time: 0.02h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.95h
+----------------------------------------
+==> training...
+
+--- Epoch 6/200 Started ---
+Epoch 6 [   1/69] (  1.4%) | train_loss: 107.2919 | l_loss: 10.6696 | ab_loss: 10.7123 | td_loss: 10.7905 | sd_loss: 10.6696 | batch_time: 0.3069 | data_time: 0.0766 | ETA: 1.7h
+Epoch 6 [  10/69] ( 14.5%) | train_loss: 107.1175 | l_loss: 10.6622 | ab_loss: 10.6721 | td_loss: 10.7891 | sd_loss: 10.6622 | batch_time: 0.2225 | data_time: 0.0003 | ETA: 9.2m
+Train: [6][10/69]	BT 0.223 (0.227)	DT 0.000 (0.008)	loss 107.117 (107.111)	ANloss 10.789 (10.769)	WTloss 10.695 (10.677)	AFloss 10.678 (10.663)	FFTloss 10.688 (10.676)	l_SD 10.662 (10.651)	ab_SD 10.672 (10.691)
+Epoch 6 [  20/69] ( 29.0%) | train_loss: 107.6634 | l_loss: 10.7074 | ab_loss: 10.7202 | td_loss: 10.8521 | sd_loss: 10.7074 | batch_time: 0.2167 | data_time: 0.0001 | ETA: 3.9m
+Train: [6][20/69]	BT 0.217 (0.223)	DT 0.000 (0.004)	loss 107.663 (107.190)	ANloss 10.852 (10.780)	WTloss 10.742 (10.685)	AFloss 10.722 (10.671)	FFTloss 10.732 (10.683)	l_SD 10.707 (10.658)	ab_SD 10.720 (10.692)
+Epoch 6 [  30/69] ( 43.5%) | train_loss: 107.2069 | l_loss: 10.6749 | ab_loss: 10.6735 | td_loss: 10.8122 | sd_loss: 10.6749 | batch_time: 0.2191 | data_time: 0.0001 | ETA: 2.1m
+Train: [6][30/69]	BT 0.219 (0.222)	DT 0.000 (0.003)	loss 107.207 (107.229)	ANloss 10.812 (10.793)	WTloss 10.700 (10.693)	AFloss 10.681 (10.677)	FFTloss 10.695 (10.689)	l_SD 10.675 (10.666)	ab_SD 10.674 (10.687)
+Epoch 6 [  40/69] ( 58.0%) | train_loss: 107.4989 | l_loss: 10.6992 | ab_loss: 10.6856 | td_loss: 10.8400 | sd_loss: 10.6992 | batch_time: 0.2183 | data_time: 0.0001 | ETA: 1.2m
+Train: [6][40/69]	BT 0.218 (0.221)	DT 0.000 (0.002)	loss 107.499 (107.273)	ANloss 10.840 (10.801)	WTloss 10.725 (10.697)	AFloss 10.705 (10.681)	FFTloss 10.717 (10.693)	l_SD 10.699 (10.671)	ab_SD 10.686 (10.687)
+Epoch 6 [  50/69] ( 72.5%) | train_loss: 107.5640 | l_loss: 10.7276 | ab_loss: 10.6838 | td_loss: 10.8659 | sd_loss: 10.7276 | batch_time: 0.2176 | data_time: 0.0001 | ETA: 0.6m
+Train: [6][50/69]	BT 0.218 (0.221)	DT 0.000 (0.002)	loss 107.564 (107.342)	ANloss 10.866 (10.814)	WTloss 10.756 (10.708)	AFloss 10.736 (10.691)	FFTloss 10.745 (10.703)	l_SD 10.728 (10.681)	ab_SD 10.684 (10.688)
+Epoch 6 [  60/69] ( 87.0%) | train_loss: 107.8579 | l_loss: 10.7772 | ab_loss: 10.7168 | td_loss: 10.9104 | sd_loss: 10.7772 | batch_time: 0.2191 | data_time: 0.0001 | ETA: 0.3m
+Train: [6][60/69]	BT 0.219 (0.221)	DT 0.000 (0.001)	loss 107.858 (107.422)	ANloss 10.910 (10.828)	WTloss 10.813 (10.722)	AFloss 10.792 (10.704)	FFTloss 10.795 (10.715)	l_SD 10.777 (10.694)	ab_SD 10.717 (10.691)
+epoch 6, total time 15.20
+
+--- Epoch 6 Summary ---
+train_loss: 107.495443
+l_loss: 10.707738
+ab_loss: 10.696807
+td_loss: 10.840675
+sd_loss: 10.707738
+batch_time: 0.219569
+data_time: 0.001257
+learning_rate: 0.010000
+epoch_time: 15.196177
+Elapsed time: 0.03h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 7/200 Started ---
+Epoch 7 [   1/69] (  1.4%) | train_loss: 107.1454 | l_loss: 10.6903 | ab_loss: 10.6661 | td_loss: 10.7567 | sd_loss: 10.6903 | batch_time: 0.3304 | data_time: 0.1001 | ETA: 2.1h
+Epoch 7 [  10/69] ( 14.5%) | train_loss: 107.0063 | l_loss: 10.6738 | ab_loss: 10.6523 | td_loss: 10.7359 | sd_loss: 10.6738 | batch_time: 0.2213 | data_time: 0.0001 | ETA: 11.0m
+Train: [7][10/69]	BT 0.221 (0.234)	DT 0.000 (0.010)	loss 107.006 (107.071)	ANloss 10.736 (10.743)	WTloss 10.676 (10.682)	AFloss 10.671 (10.677)	FFTloss 10.676 (10.684)	l_SD 10.674 (10.680)	ab_SD 10.652 (10.659)
+Epoch 7 [  20/69] ( 29.0%) | train_loss: 107.1933 | l_loss: 10.6990 | ab_loss: 10.6615 | td_loss: 10.7763 | sd_loss: 10.6990 | batch_time: 0.2223 | data_time: 0.0001 | ETA: 4.7m
+Train: [7][20/69]	BT 0.222 (0.229)	DT 0.000 (0.005)	loss 107.193 (107.074)	ANloss 10.776 (10.746)	WTloss 10.711 (10.685)	AFloss 10.700 (10.679)	FFTloss 10.700 (10.684)	l_SD 10.699 (10.681)	ab_SD 10.662 (10.660)
+Epoch 7 [  30/69] ( 43.5%) | train_loss: 107.0227 | l_loss: 10.6675 | ab_loss: 10.6801 | td_loss: 10.7396 | sd_loss: 10.6675 | batch_time: 0.2219 | data_time: 0.0001 | ETA: 2.5m
+Train: [7][30/69]	BT 0.222 (0.227)	DT 0.000 (0.003)	loss 107.023 (107.090)	ANloss 10.740 (10.751)	WTloss 10.675 (10.689)	AFloss 10.665 (10.681)	FFTloss 10.664 (10.684)	l_SD 10.668 (10.683)	ab_SD 10.680 (10.663)
+Epoch 7 [  40/69] ( 58.0%) | train_loss: 107.4345 | l_loss: 10.7259 | ab_loss: 10.6852 | td_loss: 10.8210 | sd_loss: 10.7259 | batch_time: 0.2237 | data_time: 0.0002 | ETA: 1.4m
+Train: [7][40/69]	BT 0.224 (0.226)	DT 0.000 (0.003)	loss 107.435 (107.127)	ANloss 10.821 (10.760)	WTloss 10.752 (10.696)	AFloss 10.733 (10.687)	FFTloss 10.724 (10.688)	l_SD 10.726 (10.687)	ab_SD 10.685 (10.668)
+Epoch 7 [  50/69] ( 72.5%) | train_loss: 107.2231 | l_loss: 10.7002 | ab_loss: 10.7091 | td_loss: 10.7807 | sd_loss: 10.7002 | batch_time: 0.2286 | data_time: 0.0001 | ETA: 0.8m
+Train: [7][50/69]	BT 0.229 (0.226)	DT 0.000 (0.002)	loss 107.223 (107.168)	ANloss 10.781 (10.769)	WTloss 10.720 (10.705)	AFloss 10.705 (10.694)	FFTloss 10.695 (10.692)	l_SD 10.700 (10.693)	ab_SD 10.709 (10.674)
+Epoch 7 [  60/69] ( 87.0%) | train_loss: 107.5387 | l_loss: 10.7449 | ab_loss: 10.7409 | td_loss: 10.8320 | sd_loss: 10.7449 | batch_time: 0.2211 | data_time: 0.0001 | ETA: 0.3m
+Train: [7][60/69]	BT 0.221 (0.225)	DT 0.000 (0.002)	loss 107.539 (107.205)	ANloss 10.832 (10.777)	WTloss 10.777 (10.713)	AFloss 10.758 (10.701)	FFTloss 10.742 (10.698)	l_SD 10.745 (10.699)	ab_SD 10.741 (10.681)
+epoch 7, total time 15.51
+
+--- Epoch 7 Summary ---
+train_loss: 107.234563
+l_loss: 10.705147
+ab_loss: 10.689196
+td_loss: 10.783408
+sd_loss: 10.705147
+batch_time: 0.224129
+data_time: 0.001561
+learning_rate: 0.010000
+epoch_time: 15.509073
+Elapsed time: 0.03h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 8/200 Started ---
+Epoch 8 [   1/69] (  1.4%) | train_loss: 106.9221 | l_loss: 10.6618 | ab_loss: 10.6762 | td_loss: 10.7039 | sd_loss: 10.6618 | batch_time: 0.3023 | data_time: 0.0737 | ETA: 2.4h
+Epoch 8 [  10/69] ( 14.5%) | train_loss: 106.8665 | l_loss: 10.6491 | ab_loss: 10.6874 | td_loss: 10.6942 | sd_loss: 10.6491 | batch_time: 0.2179 | data_time: 0.0001 | ETA: 12.9m
+Train: [8][10/69]	BT 0.218 (0.229)	DT 0.000 (0.007)	loss 106.867 (106.979)	ANloss 10.694 (10.716)	WTloss 10.664 (10.684)	AFloss 10.651 (10.672)	FFTloss 10.637 (10.658)	l_SD 10.649 (10.669)	ab_SD 10.687 (10.685)
+Epoch 8 [  20/69] ( 29.0%) | train_loss: 107.0542 | l_loss: 10.6734 | ab_loss: 10.7094 | td_loss: 10.7418 | sd_loss: 10.6734 | batch_time: 0.2199 | data_time: 0.0001 | ETA: 5.4m
+Train: [8][20/69]	BT 0.220 (0.225)	DT 0.000 (0.004)	loss 107.054 (107.009)	ANloss 10.742 (10.724)	WTloss 10.703 (10.690)	AFloss 10.684 (10.675)	FFTloss 10.663 (10.659)	l_SD 10.673 (10.670)	ab_SD 10.709 (10.693)
+Epoch 8 [  30/69] ( 43.5%) | train_loss: 107.0498 | l_loss: 10.6639 | ab_loss: 10.7183 | td_loss: 10.7438 | sd_loss: 10.6639 | batch_time: 0.2198 | data_time: 0.0001 | ETA: 2.9m
+Train: [8][30/69]	BT 0.220 (0.224)	DT 0.000 (0.003)	loss 107.050 (107.033)	ANloss 10.744 (10.733)	WTloss 10.702 (10.696)	AFloss 10.678 (10.679)	FFTloss 10.653 (10.660)	l_SD 10.664 (10.671)	ab_SD 10.718 (10.699)
+Epoch 8 [  40/69] ( 58.0%) | train_loss: 107.1562 | l_loss: 10.6777 | ab_loss: 10.7297 | td_loss: 10.7698 | sd_loss: 10.6777 | batch_time: 0.2208 | data_time: 0.0003 | ETA: 1.7m
+Train: [8][40/69]	BT 0.221 (0.223)	DT 0.000 (0.002)	loss 107.156 (107.050)	ANloss 10.770 (10.740)	WTloss 10.727 (10.701)	AFloss 10.698 (10.681)	FFTloss 10.669 (10.661)	l_SD 10.678 (10.671)	ab_SD 10.730 (10.705)
+Epoch 8 [  50/69] ( 72.5%) | train_loss: 107.1179 | l_loss: 10.6844 | ab_loss: 10.7273 | td_loss: 10.7794 | sd_loss: 10.6844 | batch_time: 0.2263 | data_time: 0.0003 | ETA: 0.9m
+Train: [8][50/69]	BT 0.226 (0.223)	DT 0.000 (0.002)	loss 107.118 (107.076)	ANloss 10.779 (10.747)	WTloss 10.740 (10.708)	AFloss 10.709 (10.686)	FFTloss 10.678 (10.664)	l_SD 10.684 (10.673)	ab_SD 10.727 (10.710)
+Epoch 8 [  60/69] ( 87.0%) | train_loss: 107.2071 | l_loss: 10.6978 | ab_loss: 10.7456 | td_loss: 10.7904 | sd_loss: 10.6978 | batch_time: 0.2225 | data_time: 0.0001 | ETA: 0.4m
+Train: [8][60/69]	BT 0.223 (0.223)	DT 0.000 (0.001)	loss 107.207 (107.102)	ANloss 10.790 (10.755)	WTloss 10.758 (10.717)	AFloss 10.727 (10.693)	FFTloss 10.695 (10.669)	l_SD 10.698 (10.678)	ab_SD 10.746 (10.715)
+epoch 8, total time 15.39
+
+--- Epoch 8 Summary ---
+train_loss: 107.131762
+l_loss: 10.682648
+ab_loss: 10.719430
+td_loss: 10.762565
+sd_loss: 10.682648
+batch_time: 0.222628
+data_time: 0.001214
+learning_rate: 0.010000
+epoch_time: 15.392937
+Elapsed time: 0.04h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 9/200 Started ---
+Epoch 9 [   1/69] (  1.4%) | train_loss: 106.9165 | l_loss: 10.6444 | ab_loss: 10.7357 | td_loss: 10.7037 | sd_loss: 10.6444 | batch_time: 0.3055 | data_time: 0.0775 | ETA: 2.8h
+Epoch 9 [  10/69] ( 14.5%) | train_loss: 106.9190 | l_loss: 10.6463 | ab_loss: 10.7447 | td_loss: 10.7104 | sd_loss: 10.6463 | batch_time: 0.2209 | data_time: 0.0003 | ETA: 14.8m
+Train: [9][10/69]	BT 0.221 (0.235)	DT 0.000 (0.008)	loss 106.919 (106.964)	ANloss 10.710 (10.712)	WTloss 10.696 (10.697)	AFloss 10.671 (10.673)	FFTloss 10.644 (10.646)	l_SD 10.646 (10.650)	ab_SD 10.745 (10.744)
+Epoch 9 [  20/69] ( 29.0%) | train_loss: 106.9212 | l_loss: 10.6399 | ab_loss: 10.7489 | td_loss: 10.7141 | sd_loss: 10.6399 | batch_time: 0.2207 | data_time: 0.0002 | ETA: 6.2m
+Train: [9][20/69]	BT 0.221 (0.231)	DT 0.000 (0.004)	loss 106.921 (106.974)	ANloss 10.714 (10.718)	WTloss 10.698 (10.703)	AFloss 10.669 (10.676)	FFTloss 10.641 (10.648)	l_SD 10.640 (10.650)	ab_SD 10.749 (10.746)
+Epoch 9 [  30/69] ( 43.5%) | train_loss: 107.0513 | l_loss: 10.6574 | ab_loss: 10.7462 | td_loss: 10.7506 | sd_loss: 10.6574 | batch_time: 0.2316 | data_time: 0.0001 | ETA: 3.3m
+Train: [9][30/69]	BT 0.232 (0.230)	DT 0.000 (0.003)	loss 107.051 (106.986)	ANloss 10.751 (10.724)	WTloss 10.731 (10.707)	AFloss 10.697 (10.679)	FFTloss 10.664 (10.650)	l_SD 10.657 (10.650)	ab_SD 10.746 (10.747)
+Epoch 9 [  40/69] ( 58.0%) | train_loss: 107.1400 | l_loss: 10.6643 | ab_loss: 10.7552 | td_loss: 10.7615 | sd_loss: 10.6643 | batch_time: 0.2237 | data_time: 0.0001 | ETA: 1.9m
+Train: [9][40/69]	BT 0.224 (0.229)	DT 0.000 (0.002)	loss 107.140 (107.009)	ANloss 10.761 (10.731)	WTloss 10.743 (10.714)	AFloss 10.708 (10.684)	FFTloss 10.675 (10.654)	l_SD 10.664 (10.652)	ab_SD 10.755 (10.748)
+Epoch 9 [  50/69] ( 72.5%) | train_loss: 107.1445 | l_loss: 10.6681 | ab_loss: 10.7524 | td_loss: 10.7637 | sd_loss: 10.6681 | batch_time: 0.2349 | data_time: 0.0002 | ETA: 1.0m
+Train: [9][50/69]	BT 0.235 (0.228)	DT 0.000 (0.002)	loss 107.145 (107.033)	ANloss 10.764 (10.738)	WTloss 10.750 (10.721)	AFloss 10.715 (10.690)	FFTloss 10.683 (10.660)	l_SD 10.668 (10.655)	ab_SD 10.752 (10.749)
+Epoch 9 [  60/69] ( 87.0%) | train_loss: 107.2615 | l_loss: 10.6982 | ab_loss: 10.7469 | td_loss: 10.7935 | sd_loss: 10.6982 | batch_time: 0.2264 | data_time: 0.0002 | ETA: 0.4m
+Train: [9][60/69]	BT 0.226 (0.228)	DT 0.000 (0.001)	loss 107.262 (107.062)	ANloss 10.793 (10.745)	WTloss 10.783 (10.729)	AFloss 10.749 (10.697)	FFTloss 10.717 (10.666)	l_SD 10.698 (10.660)	ab_SD 10.747 (10.748)
+epoch 9, total time 15.70
+
+--- Epoch 9 Summary ---
+train_loss: 107.083334
+l_loss: 10.665318
+ab_loss: 10.747965
+td_loss: 10.750459
+sd_loss: 10.665318
+batch_time: 0.226815
+data_time: 0.001303
+learning_rate: 0.010000
+epoch_time: 15.696343
+Elapsed time: 0.05h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 10/200 Started ---
+Epoch 10 [   1/69] (  1.4%) | train_loss: 106.9771 | l_loss: 10.6472 | ab_loss: 10.7797 | td_loss: 10.7055 | sd_loss: 10.6472 | batch_time: 0.3146 | data_time: 0.0893 | ETA: 3.2h
+Epoch 10 [  10/69] ( 14.5%) | train_loss: 106.9573 | l_loss: 10.6438 | ab_loss: 10.7672 | td_loss: 10.7008 | sd_loss: 10.6438 | batch_time: 0.2244 | data_time: 0.0001 | ETA: 16.6m
+Train: [10][10/69]	BT 0.224 (0.237)	DT 0.000 (0.009)	loss 106.957 (106.987)	ANloss 10.701 (10.708)	WTloss 10.703 (10.711)	AFloss 10.680 (10.687)	FFTloss 10.660 (10.665)	l_SD 10.644 (10.650)	ab_SD 10.767 (10.776)
+Epoch 10 [  20/69] ( 29.0%) | train_loss: 107.0162 | l_loss: 10.6522 | ab_loss: 10.7697 | td_loss: 10.7222 | sd_loss: 10.6522 | batch_time: 0.2192 | data_time: 0.0001 | ETA: 7.0m
+Train: [10][20/69]	BT 0.219 (0.229)	DT 0.000 (0.005)	loss 107.016 (106.991)	ANloss 10.722 (10.712)	WTloss 10.719 (10.713)	AFloss 10.692 (10.688)	FFTloss 10.672 (10.667)	l_SD 10.652 (10.650)	ab_SD 10.770 (10.773)
+Epoch 10 [  30/69] ( 43.5%) | train_loss: 107.0520 | l_loss: 10.6567 | ab_loss: 10.7630 | td_loss: 10.7362 | sd_loss: 10.6567 | batch_time: 0.2215 | data_time: 0.0001 | ETA: 3.8m
+Train: [10][30/69]	BT 0.221 (0.227)	DT 0.000 (0.003)	loss 107.052 (107.002)	ANloss 10.736 (10.717)	WTloss 10.728 (10.716)	AFloss 10.699 (10.690)	FFTloss 10.680 (10.670)	l_SD 10.657 (10.651)	ab_SD 10.763 (10.771)
+Epoch 10 [  40/69] ( 58.0%) | train_loss: 107.0589 | l_loss: 10.6603 | ab_loss: 10.7586 | td_loss: 10.7435 | sd_loss: 10.6603 | batch_time: 0.2245 | data_time: 0.0001 | ETA: 2.1m
+Train: [10][40/69]	BT 0.225 (0.228)	DT 0.000 (0.002)	loss 107.059 (107.011)	ANloss 10.744 (10.722)	WTloss 10.733 (10.719)	AFloss 10.703 (10.692)	FFTloss 10.686 (10.673)	l_SD 10.660 (10.653)	ab_SD 10.759 (10.768)
+Epoch 10 [  50/69] ( 72.5%) | train_loss: 107.0973 | l_loss: 10.6689 | ab_loss: 10.7436 | td_loss: 10.7544 | sd_loss: 10.6689 | batch_time: 0.2221 | data_time: 0.0001 | ETA: 1.1m
+Train: [10][50/69]	BT 0.222 (0.227)	DT 0.000 (0.002)	loss 107.097 (107.024)	ANloss 10.754 (10.728)	WTloss 10.742 (10.723)	AFloss 10.712 (10.696)	FFTloss 10.696 (10.676)	l_SD 10.669 (10.655)	ab_SD 10.744 (10.764)
+Epoch 10 [  60/69] ( 87.0%) | train_loss: 107.1139 | l_loss: 10.6825 | ab_loss: 10.7306 | td_loss: 10.7664 | sd_loss: 10.6825 | batch_time: 0.2206 | data_time: 0.0002 | ETA: 0.5m
+Train: [10][60/69]	BT 0.221 (0.227)	DT 0.000 (0.002)	loss 107.114 (107.041)	ANloss 10.766 (10.734)	WTloss 10.754 (10.727)	AFloss 10.725 (10.700)	FFTloss 10.710 (10.681)	l_SD 10.683 (10.659)	ab_SD 10.731 (10.760)
+epoch 10, total time 15.58
+
+--- Epoch 10 Summary ---
+train_loss: 107.052178
+l_loss: 10.662817
+ab_loss: 10.755748
+td_loss: 10.738654
+sd_loss: 10.662817
+batch_time: 0.224957
+data_time: 0.001430
+learning_rate: 0.010000
+epoch_time: 15.580640
+Elapsed time: 0.05h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 11/200 Started ---
+Epoch 11 [   1/69] (  1.4%) | train_loss: 106.9970 | l_loss: 10.6478 | ab_loss: 10.7839 | td_loss: 10.7077 | sd_loss: 10.6478 | batch_time: 0.3356 | data_time: 0.1068 | ETA: 3.5h
+Epoch 11 [  10/69] ( 14.5%) | train_loss: 107.0040 | l_loss: 10.6513 | ab_loss: 10.7718 | td_loss: 10.7145 | sd_loss: 10.6513 | batch_time: 0.2405 | data_time: 0.0003 | ETA: 18.5m
+Train: [11][10/69]	BT 0.241 (0.247)	DT 0.000 (0.011)	loss 107.004 (106.991)	ANloss 10.715 (10.709)	WTloss 10.703 (10.700)	AFloss 10.682 (10.679)	FFTloss 10.674 (10.671)	l_SD 10.651 (10.649)	ab_SD 10.772 (10.778)
+Epoch 11 [  20/69] ( 29.0%) | train_loss: 107.0164 | l_loss: 10.6565 | ab_loss: 10.7568 | td_loss: 10.7272 | sd_loss: 10.6565 | batch_time: 0.2222 | data_time: 0.0001 | ETA: 7.8m
+Train: [11][20/69]	BT 0.222 (0.239)	DT 0.000 (0.006)	loss 107.016 (106.989)	ANloss 10.727 (10.712)	WTloss 10.709 (10.700)	AFloss 10.687 (10.679)	FFTloss 10.680 (10.672)	l_SD 10.657 (10.649)	ab_SD 10.757 (10.772)
+Epoch 11 [  30/69] ( 43.5%) | train_loss: 107.0336 | l_loss: 10.6574 | ab_loss: 10.7472 | td_loss: 10.7348 | sd_loss: 10.6574 | batch_time: 0.2289 | data_time: 0.0003 | ETA: 4.2m
+Train: [11][30/69]	BT 0.229 (0.236)	DT 0.000 (0.004)	loss 107.034 (106.999)	ANloss 10.735 (10.717)	WTloss 10.711 (10.702)	AFloss 10.687 (10.681)	FFTloss 10.682 (10.674)	l_SD 10.657 (10.651)	ab_SD 10.747 (10.766)
+Epoch 11 [  40/69] ( 58.0%) | train_loss: 107.0458 | l_loss: 10.6610 | ab_loss: 10.7386 | td_loss: 10.7395 | sd_loss: 10.6610 | batch_time: 0.2274 | data_time: 0.0003 | ETA: 2.4m
+Train: [11][40/69]	BT 0.227 (0.233)	DT 0.000 (0.003)	loss 107.046 (107.005)	ANloss 10.739 (10.722)	WTloss 10.712 (10.704)	AFloss 10.689 (10.682)	FFTloss 10.685 (10.676)	l_SD 10.661 (10.653)	ab_SD 10.739 (10.759)
+Epoch 11 [  50/69] ( 72.5%) | train_loss: 107.0987 | l_loss: 10.6757 | ab_loss: 10.7213 | td_loss: 10.7560 | sd_loss: 10.6757 | batch_time: 0.2241 | data_time: 0.0003 | ETA: 1.2m
+Train: [11][50/69]	BT 0.224 (0.231)	DT 0.000 (0.002)	loss 107.099 (107.022)	ANloss 10.756 (10.728)	WTloss 10.728 (10.708)	AFloss 10.705 (10.686)	FFTloss 10.701 (10.680)	l_SD 10.676 (10.656)	ab_SD 10.721 (10.753)
+Epoch 11 [  60/69] ( 87.0%) | train_loss: 107.1460 | l_loss: 10.6918 | ab_loss: 10.7087 | td_loss: 10.7691 | sd_loss: 10.6918 | batch_time: 0.2203 | data_time: 0.0001 | ETA: 0.5m
+Train: [11][60/69]	BT 0.220 (0.230)	DT 0.000 (0.002)	loss 107.146 (107.040)	ANloss 10.769 (10.734)	WTloss 10.743 (10.712)	AFloss 10.721 (10.690)	FFTloss 10.716 (10.685)	l_SD 10.692 (10.661)	ab_SD 10.709 (10.747)
+epoch 11, total time 15.81
+
+--- Epoch 11 Summary ---
+train_loss: 107.056971
+l_loss: 10.666485
+ab_loss: 10.741377
+td_loss: 10.739307
+sd_loss: 10.666485
+batch_time: 0.228672
+data_time: 0.001743
+learning_rate: 0.010000
+epoch_time: 15.814364
+Elapsed time: 0.06h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 12/200 Started ---
+Epoch 12 [   1/69] (  1.4%) | train_loss: 106.9869 | l_loss: 10.6551 | ab_loss: 10.7493 | td_loss: 10.7038 | sd_loss: 10.6551 | batch_time: 0.3227 | data_time: 0.0944 | ETA: 3.9h
+Epoch 12 [  10/69] ( 14.5%) | train_loss: 107.0103 | l_loss: 10.6630 | ab_loss: 10.7367 | td_loss: 10.7121 | sd_loss: 10.6630 | batch_time: 0.2248 | data_time: 0.0002 | ETA: 20.4m
+Train: [12][10/69]	BT 0.225 (0.235)	DT 0.000 (0.010)	loss 107.010 (107.001)	ANloss 10.712 (10.709)	WTloss 10.693 (10.690)	AFloss 10.681 (10.679)	FFTloss 10.681 (10.679)	l_SD 10.663 (10.661)	ab_SD 10.737 (10.743)
+Epoch 12 [  20/69] ( 29.0%) | train_loss: 107.0015 | l_loss: 10.6667 | ab_loss: 10.7232 | td_loss: 10.7186 | sd_loss: 10.6667 | batch_time: 0.2214 | data_time: 0.0001 | ETA: 8.5m
+Train: [12][20/69]	BT 0.221 (0.229)	DT 0.000 (0.005)	loss 107.002 (107.003)	ANloss 10.719 (10.712)	WTloss 10.694 (10.692)	AFloss 10.683 (10.681)	FFTloss 10.682 (10.680)	l_SD 10.667 (10.663)	ab_SD 10.723 (10.736)
+Epoch 12 [  30/69] ( 43.5%) | train_loss: 107.0289 | l_loss: 10.6734 | ab_loss: 10.7143 | td_loss: 10.7295 | sd_loss: 10.6734 | batch_time: 0.2214 | data_time: 0.0001 | ETA: 4.6m
+Train: [12][30/69]	BT 0.221 (0.226)	DT 0.000 (0.003)	loss 107.029 (107.009)	ANloss 10.729 (10.717)	WTloss 10.701 (10.694)	AFloss 10.690 (10.683)	FFTloss 10.688 (10.682)	l_SD 10.673 (10.665)	ab_SD 10.714 (10.730)
+Epoch 12 [  40/69] ( 58.0%) | train_loss: 107.0656 | l_loss: 10.6828 | ab_loss: 10.7067 | td_loss: 10.7420 | sd_loss: 10.6828 | batch_time: 0.2217 | data_time: 0.0001 | ETA: 2.6m
+Train: [12][40/69]	BT 0.222 (0.225)	DT 0.000 (0.003)	loss 107.066 (107.019)	ANloss 10.742 (10.721)	WTloss 10.710 (10.697)	AFloss 10.699 (10.685)	FFTloss 10.696 (10.685)	l_SD 10.683 (10.669)	ab_SD 10.707 (10.725)
+Epoch 12 [  50/69] ( 72.5%) | train_loss: 107.0992 | l_loss: 10.6920 | ab_loss: 10.7040 | td_loss: 10.7502 | sd_loss: 10.6920 | batch_time: 0.2180 | data_time: 0.0003 | ETA: 1.4m
+Train: [12][50/69]	BT 0.218 (0.224)	DT 0.000 (0.002)	loss 107.099 (107.032)	ANloss 10.750 (10.726)	WTloss 10.719 (10.701)	AFloss 10.708 (10.689)	FFTloss 10.705 (10.688)	l_SD 10.692 (10.672)	ab_SD 10.704 (10.721)
+Epoch 12 [  60/69] ( 87.0%) | train_loss: 107.1418 | l_loss: 10.7070 | ab_loss: 10.7029 | td_loss: 10.7634 | sd_loss: 10.7070 | batch_time: 0.2183 | data_time: 0.0001 | ETA: 0.5m
+Train: [12][60/69]	BT 0.218 (0.223)	DT 0.000 (0.002)	loss 107.142 (107.047)	ANloss 10.763 (10.732)	WTloss 10.733 (10.705)	AFloss 10.723 (10.694)	FFTloss 10.719 (10.692)	l_SD 10.707 (10.677)	ab_SD 10.703 (10.718)
+epoch 12, total time 15.36
+
+--- Epoch 12 Summary ---
+train_loss: 107.058721
+l_loss: 10.681653
+ab_loss: 10.716068
+td_loss: 10.736244
+sd_loss: 10.681653
+batch_time: 0.222033
+data_time: 0.001528
+learning_rate: 0.010000
+epoch_time: 15.358476
+Elapsed time: 0.06h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.96h
+----------------------------------------
+==> training...
+
+--- Epoch 13/200 Started ---
+Epoch 13 [   1/69] (  1.4%) | train_loss: 107.0053 | l_loss: 10.6706 | ab_loss: 10.7112 | td_loss: 10.7055 | sd_loss: 10.6706 | batch_time: 0.3127 | data_time: 0.0882 | ETA: 4.2h
+Epoch 13 [  10/69] ( 14.5%) | train_loss: 107.0114 | l_loss: 10.6738 | ab_loss: 10.7108 | td_loss: 10.7101 | sd_loss: 10.6738 | batch_time: 0.2186 | data_time: 0.0003 | ETA: 22.2m
+Train: [13][10/69]	BT 0.219 (0.232)	DT 0.000 (0.009)	loss 107.011 (107.011)	ANloss 10.710 (10.708)	WTloss 10.685 (10.685)	AFloss 10.681 (10.681)	FFTloss 10.679 (10.679)	l_SD 10.674 (10.673)	ab_SD 10.711 (10.711)
+Epoch 13 [  20/69] ( 29.0%) | train_loss: 107.0212 | l_loss: 10.6768 | ab_loss: 10.7062 | td_loss: 10.7190 | sd_loss: 10.6768 | batch_time: 0.2218 | data_time: 0.0002 | ETA: 9.3m
+Train: [13][20/69]	BT 0.222 (0.227)	DT 0.000 (0.005)	loss 107.021 (107.012)	ANloss 10.719 (10.711)	WTloss 10.689 (10.686)	AFloss 10.684 (10.682)	FFTloss 10.680 (10.679)	l_SD 10.677 (10.674)	ab_SD 10.706 (10.709)
+Epoch 13 [  30/69] ( 43.5%) | train_loss: 107.0152 | l_loss: 10.6780 | ab_loss: 10.7028 | td_loss: 10.7244 | sd_loss: 10.6780 | batch_time: 0.2200 | data_time: 0.0002 | ETA: 5.0m
+Train: [13][30/69]	BT 0.220 (0.225)	DT 0.000 (0.003)	loss 107.015 (107.016)	ANloss 10.724 (10.716)	WTloss 10.691 (10.688)	AFloss 10.685 (10.683)	FFTloss 10.679 (10.680)	l_SD 10.678 (10.676)	ab_SD 10.703 (10.708)
+Epoch 13 [  40/69] ( 58.0%) | train_loss: 107.0743 | l_loss: 10.6884 | ab_loss: 10.7039 | td_loss: 10.7408 | sd_loss: 10.6884 | batch_time: 0.2221 | data_time: 0.0002 | ETA: 2.8m
+Train: [13][40/69]	BT 0.222 (0.224)	DT 0.000 (0.002)	loss 107.074 (107.025)	ANloss 10.741 (10.721)	WTloss 10.705 (10.691)	AFloss 10.697 (10.685)	FFTloss 10.689 (10.681)	l_SD 10.688 (10.678)	ab_SD 10.704 (10.707)
+Epoch 13 [  50/69] ( 72.5%) | train_loss: 107.1028 | l_loss: 10.6965 | ab_loss: 10.7063 | td_loss: 10.7513 | sd_loss: 10.6965 | batch_time: 0.2202 | data_time: 0.0004 | ETA: 1.5m
+Train: [13][50/69]	BT 0.220 (0.223)	DT 0.000 (0.002)	loss 107.103 (107.038)	ANloss 10.751 (10.726)	WTloss 10.715 (10.694)	AFloss 10.707 (10.689)	FFTloss 10.696 (10.683)	l_SD 10.696 (10.681)	ab_SD 10.706 (10.706)
+Epoch 13 [  60/69] ( 87.0%) | train_loss: 107.1484 | l_loss: 10.7083 | ab_loss: 10.7079 | td_loss: 10.7643 | sd_loss: 10.7083 | batch_time: 0.2237 | data_time: 0.0002 | ETA: 0.6m
+Train: [13][60/69]	BT 0.224 (0.223)	DT 0.000 (0.002)	loss 107.148 (107.052)	ANloss 10.764 (10.731)	WTloss 10.730 (10.699)	AFloss 10.720 (10.693)	FFTloss 10.709 (10.687)	l_SD 10.708 (10.685)	ab_SD 10.708 (10.707)
+epoch 13, total time 15.36
+
+--- Epoch 13 Summary ---
+train_loss: 107.065152
+l_loss: 10.688125
+ab_loss: 10.707186
+td_loss: 10.735731
+sd_loss: 10.688125
+batch_time: 0.221959
+data_time: 0.001452
+learning_rate: 0.010000
+epoch_time: 15.358784
+Elapsed time: 0.07h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.95h
+----------------------------------------
+==> training...
+
+--- Epoch 14/200 Started ---
+Epoch 14 [   1/69] (  1.4%) | train_loss: 106.9852 | l_loss: 10.6693 | ab_loss: 10.7074 | td_loss: 10.7048 | sd_loss: 10.6693 | batch_time: 0.3116 | data_time: 0.0801 | ETA: 4.6h
+Epoch 14 [  10/69] ( 14.5%) | train_loss: 107.0073 | l_loss: 10.6739 | ab_loss: 10.7074 | td_loss: 10.7125 | sd_loss: 10.6739 | batch_time: 0.2270 | data_time: 0.0002 | ETA: 24.1m
+Train: [14][10/69]	BT 0.227 (0.235)	DT 0.000 (0.008)	loss 107.007 (106.999)	ANloss 10.712 (10.708)	WTloss 10.688 (10.683)	AFloss 10.682 (10.678)	FFTloss 10.672 (10.669)	l_SD 10.674 (10.672)	ab_SD 10.707 (10.708)
+Epoch 14 [  20/69] ( 29.0%) | train_loss: 107.0167 | l_loss: 10.6756 | ab_loss: 10.7096 | td_loss: 10.7192 | sd_loss: 10.6756 | batch_time: 0.2243 | data_time: 0.0002 | ETA: 10.1m
+Train: [14][20/69]	BT 0.224 (0.230)	DT 0.000 (0.004)	loss 107.017 (107.005)	ANloss 10.719 (10.712)	WTloss 10.693 (10.686)	AFloss 10.685 (10.681)	FFTloss 10.674 (10.671)	l_SD 10.676 (10.673)	ab_SD 10.710 (10.708)
+Epoch 14 [  30/69] ( 43.5%) | train_loss: 107.0419 | l_loss: 10.6801 | ab_loss: 10.7094 | td_loss: 10.7294 | sd_loss: 10.6801 | batch_time: 0.2266 | data_time: 0.0002 | ETA: 5.4m
+Train: [14][30/69]	BT 0.227 (0.229)	DT 0.000 (0.003)	loss 107.042 (107.013)	ANloss 10.729 (10.716)	WTloss 10.702 (10.690)	AFloss 10.693 (10.684)	FFTloss 10.679 (10.673)	l_SD 10.680 (10.675)	ab_SD 10.709 (10.708)
+Epoch 14 [  40/69] ( 58.0%) | train_loss: 107.0689 | l_loss: 10.6864 | ab_loss: 10.7099 | td_loss: 10.7395 | sd_loss: 10.6864 | batch_time: 0.2224 | data_time: 0.0003 | ETA: 3.0m
+Train: [14][40/69]	BT 0.222 (0.228)	DT 0.000 (0.002)	loss 107.069 (107.024)	ANloss 10.739 (10.721)	WTloss 10.713 (10.694)	AFloss 10.702 (10.687)	FFTloss 10.686 (10.675)	l_SD 10.686 (10.677)	ab_SD 10.710 (10.708)
+Epoch 14 [  50/69] ( 72.5%) | train_loss: 107.1214 | l_loss: 10.6968 | ab_loss: 10.7138 | td_loss: 10.7520 | sd_loss: 10.6968 | batch_time: 0.2249 | data_time: 0.0001 | ETA: 1.6m
+Train: [14][50/69]	BT 0.225 (0.228)	DT 0.000 (0.002)	loss 107.121 (107.039)	ANloss 10.752 (10.726)	WTloss 10.727 (10.700)	AFloss 10.716 (10.691)	FFTloss 10.698 (10.678)	l_SD 10.697 (10.680)	ab_SD 10.714 (10.709)
+Epoch 14 [  60/69] ( 87.0%) | train_loss: 107.1432 | l_loss: 10.7064 | ab_loss: 10.7179 | td_loss: 10.7595 | sd_loss: 10.7064 | batch_time: 0.2282 | data_time: 0.0001 | ETA: 0.6m
+Train: [14][60/69]	BT 0.228 (0.228)	DT 0.000 (0.002)	loss 107.143 (107.054)	ANloss 10.759 (10.731)	WTloss 10.739 (10.705)	AFloss 10.728 (10.696)	FFTloss 10.710 (10.683)	l_SD 10.706 (10.683)	ab_SD 10.718 (10.710)
+epoch 14, total time 15.67
+
+--- Epoch 14 Summary ---
+train_loss: 107.067396
+l_loss: 10.687153
+ab_loss: 10.711226
+td_loss: 10.735055
+sd_loss: 10.687153
+batch_time: 0.226402
+data_time: 0.001329
+learning_rate: 0.010000
+epoch_time: 15.670070
+Elapsed time: 0.07h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.95h
+----------------------------------------
+==> training...
+
+--- Epoch 15/200 Started ---
+Epoch 15 [   1/69] (  1.4%) | train_loss: 107.0169 | l_loss: 10.6731 | ab_loss: 10.7144 | td_loss: 10.7052 | sd_loss: 10.6731 | batch_time: 0.3146 | data_time: 0.0824 | ETA: 4.9h
+Epoch 15 [  10/69] ( 14.5%) | train_loss: 107.0261 | l_loss: 10.6761 | ab_loss: 10.7183 | td_loss: 10.7097 | sd_loss: 10.6761 | batch_time: 0.2245 | data_time: 0.0001 | ETA: 25.9m
+Train: [15][10/69]	BT 0.224 (0.235)	DT 0.000 (0.008)	loss 107.026 (107.027)	ANloss 10.710 (10.708)	WTloss 10.702 (10.699)	AFloss 10.693 (10.691)	FFTloss 10.679 (10.678)	l_SD 10.676 (10.675)	ab_SD 10.718 (10.718)
+Epoch 15 [  20/69] ( 29.0%) | train_loss: 107.0343 | l_loss: 10.6774 | ab_loss: 10.7208 | td_loss: 10.7164 | sd_loss: 10.6774 | batch_time: 0.2242 | data_time: 0.0001 | ETA: 10.9m
+Train: [15][20/69]	BT 0.224 (0.230)	DT 0.000 (0.004)	loss 107.034 (107.029)	ANloss 10.716 (10.711)	WTloss 10.707 (10.702)	AFloss 10.697 (10.693)	FFTloss 10.682 (10.679)	l_SD 10.677 (10.676)	ab_SD 10.721 (10.719)
+Epoch 15 [  30/69] ( 43.5%) | train_loss: 107.0457 | l_loss: 10.6806 | ab_loss: 10.7219 | td_loss: 10.7253 | sd_loss: 10.6806 | batch_time: 0.2238 | data_time: 0.0001 | ETA: 5.8m
+Train: [15][30/69]	BT 0.224 (0.228)	DT 0.000 (0.003)	loss 107.046 (107.032)	ANloss 10.725 (10.714)	WTloss 10.715 (10.705)	AFloss 10.703 (10.696)	FFTloss 10.687 (10.681)	l_SD 10.681 (10.677)	ab_SD 10.722 (10.720)
+Epoch 15 [  40/69] ( 58.0%) | train_loss: 107.0642 | l_loss: 10.6850 | ab_loss: 10.7229 | td_loss: 10.7336 | sd_loss: 10.6850 | batch_time: 0.2212 | data_time: 0.0003 | ETA: 3.3m
+Train: [15][40/69]	BT 0.221 (0.227)	DT 0.000 (0.002)	loss 107.064 (107.037)	ANloss 10.734 (10.718)	WTloss 10.723 (10.709)	AFloss 10.710 (10.698)	FFTloss 10.693 (10.683)	l_SD 10.685 (10.678)	ab_SD 10.723 (10.720)
+Epoch 15 [  50/69] ( 72.5%) | train_loss: 107.0790 | l_loss: 10.6909 | ab_loss: 10.7274 | td_loss: 10.7427 | sd_loss: 10.6909 | batch_time: 0.2242 | data_time: 0.0001 | ETA: 1.7m
+Train: [15][50/69]	BT 0.224 (0.226)	DT 0.000 (0.002)	loss 107.079 (107.043)	ANloss 10.743 (10.722)	WTloss 10.733 (10.713)	AFloss 10.718 (10.701)	FFTloss 10.701 (10.686)	l_SD 10.691 (10.680)	ab_SD 10.727 (10.721)
+Epoch 15 [  60/69] ( 87.0%) | train_loss: 107.0911 | l_loss: 10.6978 | ab_loss: 10.7277 | td_loss: 10.7519 | sd_loss: 10.6978 | batch_time: 0.2193 | data_time: 0.0002 | ETA: 0.7m
+Train: [15][60/69]	BT 0.219 (0.225)	DT 0.000 (0.002)	loss 107.091 (107.050)	ANloss 10.752 (10.726)	WTloss 10.742 (10.717)	AFloss 10.726 (10.704)	FFTloss 10.709 (10.689)	l_SD 10.698 (10.682)	ab_SD 10.728 (10.722)
+epoch 15, total time 15.51
+
+--- Epoch 15 Summary ---
+train_loss: 107.055106
+l_loss: 10.684731
+ab_loss: 10.722775
+td_loss: 10.729742
+sd_loss: 10.684731
+batch_time: 0.224101
+data_time: 0.001337
+learning_rate: 0.010000
+epoch_time: 15.510192
+Elapsed time: 0.08h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.95h
+----------------------------------------
+==> training...
+
+--- Epoch 16/200 Started ---
+Epoch 16 [   1/69] (  1.4%) | train_loss: 107.0214 | l_loss: 10.6662 | ab_loss: 10.7435 | td_loss: 10.7055 | sd_loss: 10.6662 | batch_time: 0.3078 | data_time: 0.0814 | ETA: 5.3h
+Epoch 16 [  10/69] ( 14.5%) | train_loss: 107.0279 | l_loss: 10.6672 | ab_loss: 10.7440 | td_loss: 10.7113 | sd_loss: 10.6672 | batch_time: 0.2250 | data_time: 0.0001 | ETA: 27.8m
+Train: [16][10/69]	BT 0.225 (0.232)	DT 0.000 (0.008)	loss 107.028 (107.024)	ANloss 10.711 (10.708)	WTloss 10.705 (10.703)	AFloss 10.690 (10.689)	FFTloss 10.678 (10.677)	l_SD 10.667 (10.667)	ab_SD 10.744 (10.743)
+Epoch 16 [  20/69] ( 29.0%) | train_loss: 107.0296 | l_loss: 10.6680 | ab_loss: 10.7424 | td_loss: 10.7189 | sd_loss: 10.6680 | batch_time: 0.2263 | data_time: 0.0001 | ETA: 11.6m
+Train: [16][20/69]	BT 0.226 (0.227)	DT 0.000 (0.004)	loss 107.030 (107.023)	ANloss 10.719 (10.711)	WTloss 10.710 (10.705)	AFloss 10.692 (10.690)	FFTloss 10.680 (10.678)	l_SD 10.668 (10.667)	ab_SD 10.742 (10.743)
+Epoch 16 [  30/69] ( 43.5%) | train_loss: 107.0256 | l_loss: 10.6678 | ab_loss: 10.7415 | td_loss: 10.7248 | sd_loss: 10.6678 | batch_time: 0.2289 | data_time: 0.0004 | ETA: 6.2m
+Train: [16][30/69]	BT 0.229 (0.230)	DT 0.000 (0.003)	loss 107.026 (107.024)	ANloss 10.725 (10.715)	WTloss 10.714 (10.707)	AFloss 10.694 (10.691)	FFTloss 10.682 (10.679)	l_SD 10.668 (10.667)	ab_SD 10.741 (10.743)
+Epoch 16 [  40/69] ( 58.0%) | train_loss: 107.0531 | l_loss: 10.6717 | ab_loss: 10.7383 | td_loss: 10.7348 | sd_loss: 10.6717 | batch_time: 0.2297 | data_time: 0.0001 | ETA: 3.5m
+Train: [16][40/69]	BT 0.230 (0.229)	DT 0.000 (0.002)	loss 107.053 (107.029)	ANloss 10.735 (10.719)	WTloss 10.722 (10.710)	AFloss 10.700 (10.692)	FFTloss 10.687 (10.680)	l_SD 10.672 (10.668)	ab_SD 10.738 (10.742)
+Epoch 16 [  50/69] ( 72.5%) | train_loss: 107.0818 | l_loss: 10.6792 | ab_loss: 10.7321 | td_loss: 10.7459 | sd_loss: 10.6792 | batch_time: 0.2313 | data_time: 0.0002 | ETA: 1.8m
+Train: [16][50/69]	BT 0.231 (0.229)	DT 0.000 (0.002)	loss 107.082 (107.037)	ANloss 10.746 (10.723)	WTloss 10.732 (10.713)	AFloss 10.709 (10.695)	FFTloss 10.696 (10.683)	l_SD 10.679 (10.670)	ab_SD 10.732 (10.741)
+Epoch 16 [  60/69] ( 87.0%) | train_loss: 107.1188 | l_loss: 10.6878 | ab_loss: 10.7256 | td_loss: 10.7552 | sd_loss: 10.6878 | batch_time: 0.2364 | data_time: 0.0001 | ETA: 0.7m
+Train: [16][60/69]	BT 0.236 (0.228)	DT 0.000 (0.002)	loss 107.119 (107.048)	ANloss 10.755 (10.728)	WTloss 10.742 (10.717)	AFloss 10.719 (10.698)	FFTloss 10.706 (10.686)	l_SD 10.688 (10.672)	ab_SD 10.726 (10.739)
+epoch 16, total time 15.77
+
+--- Epoch 16 Summary ---
+train_loss: 107.057473
+l_loss: 10.674546
+ab_loss: 10.736526
+td_loss: 10.732053
+sd_loss: 10.674546
+batch_time: 0.228003
+data_time: 0.001352
+learning_rate: 0.010000
+epoch_time: 15.767113
+Elapsed time: 0.08h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.95h
+----------------------------------------
+==> training...
+
+--- Epoch 17/200 Started ---
+Epoch 17 [   1/69] (  1.4%) | train_loss: 106.9945 | l_loss: 10.6553 | ab_loss: 10.7595 | td_loss: 10.7051 | sd_loss: 10.6553 | batch_time: 0.3064 | data_time: 0.0755 | ETA: 5.7h
+Epoch 17 [  10/69] ( 14.5%) | train_loss: 107.0070 | l_loss: 10.6593 | ab_loss: 10.7537 | td_loss: 10.7100 | sd_loss: 10.6593 | batch_time: 0.2221 | data_time: 0.0002 | ETA: 29.7m
+Train: [17][10/69]	BT 0.222 (0.233)	DT 0.000 (0.008)	loss 107.007 (107.006)	ANloss 10.710 (10.708)	WTloss 10.703 (10.701)	AFloss 10.685 (10.683)	FFTloss 10.676 (10.674)	l_SD 10.659 (10.658)	ab_SD 10.754 (10.757)
+Epoch 17 [  20/69] ( 29.0%) | train_loss: 107.0266 | l_loss: 10.6632 | ab_loss: 10.7497 | td_loss: 10.7187 | sd_loss: 10.6632 | batch_time: 0.2360 | data_time: 0.0003 | ETA: 12.4m
+Train: [17][20/69]	BT 0.236 (0.229)	DT 0.000 (0.004)	loss 107.027 (107.012)	ANloss 10.719 (10.712)	WTloss 10.710 (10.704)	AFloss 10.691 (10.686)	FFTloss 10.681 (10.677)	l_SD 10.663 (10.660)	ab_SD 10.750 (10.754)
+Epoch 17 [  30/69] ( 43.5%) | train_loss: 107.0366 | l_loss: 10.6667 | ab_loss: 10.7399 | td_loss: 10.7254 | sd_loss: 10.6667 | batch_time: 0.2244 | data_time: 0.0001 | ETA: 6.6m
+Train: [17][30/69]	BT 0.224 (0.232)	DT 0.000 (0.003)	loss 107.037 (107.018)	ANloss 10.725 (10.715)	WTloss 10.716 (10.707)	AFloss 10.696 (10.688)	FFTloss 10.686 (10.679)	l_SD 10.667 (10.662)	ab_SD 10.740 (10.750)
+Epoch 17 [  40/69] ( 58.0%) | train_loss: 107.0692 | l_loss: 10.6755 | ab_loss: 10.7299 | td_loss: 10.7374 | sd_loss: 10.6755 | batch_time: 0.2226 | data_time: 0.0001 | ETA: 3.7m
+Train: [17][40/69]	BT 0.223 (0.230)	DT 0.000 (0.002)	loss 107.069 (107.027)	ANloss 10.737 (10.719)	WTloss 10.728 (10.711)	AFloss 10.707 (10.692)	FFTloss 10.696 (10.682)	l_SD 10.675 (10.664)	ab_SD 10.730 (10.746)
+Epoch 17 [  50/69] ( 72.5%) | train_loss: 107.0942 | l_loss: 10.6825 | ab_loss: 10.7247 | td_loss: 10.7436 | sd_loss: 10.6825 | batch_time: 0.2314 | data_time: 0.0001 | ETA: 2.0m
+Train: [17][50/69]	BT 0.231 (0.230)	DT 0.000 (0.002)	loss 107.094 (107.038)	ANloss 10.744 (10.724)	WTloss 10.736 (10.715)	AFloss 10.715 (10.696)	FFTloss 10.704 (10.686)	l_SD 10.682 (10.667)	ab_SD 10.725 (10.742)
+Epoch 17 [  60/69] ( 87.0%) | train_loss: 107.1251 | l_loss: 10.6945 | ab_loss: 10.7155 | td_loss: 10.7540 | sd_loss: 10.6945 | batch_time: 0.2237 | data_time: 0.0002 | ETA: 0.8m
+Train: [17][60/69]	BT 0.224 (0.230)	DT 0.000 (0.001)	loss 107.125 (107.050)	ANloss 10.754 (10.728)	WTloss 10.747 (10.720)	AFloss 10.728 (10.700)	FFTloss 10.717 (10.690)	l_SD 10.694 (10.671)	ab_SD 10.716 (10.738)
+epoch 17, total time 15.78
+
+--- Epoch 17 Summary ---
+train_loss: 107.059567
+l_loss: 10.674474
+ab_loss: 10.734784
+td_loss: 10.731748
+sd_loss: 10.674474
+batch_time: 0.228127
+data_time: 0.001274
+learning_rate: 0.010000
+epoch_time: 15.779625
+Elapsed time: 0.09h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.94h
+----------------------------------------
+==> training...
+
+--- Epoch 18/200 Started ---
+Epoch 18 [   1/69] (  1.4%) | train_loss: 107.0285 | l_loss: 10.6649 | ab_loss: 10.7487 | td_loss: 10.7045 | sd_loss: 10.6649 | batch_time: 0.3305 | data_time: 0.0952 | ETA: 6.0h
+Epoch 18 [  10/69] ( 14.5%) | train_loss: 107.0366 | l_loss: 10.6703 | ab_loss: 10.7418 | td_loss: 10.7095 | sd_loss: 10.6703 | batch_time: 0.2191 | data_time: 0.0001 | ETA: 31.6m
+Train: [18][10/69]	BT 0.219 (0.233)	DT 0.000 (0.010)	loss 107.037 (107.036)	ANloss 10.709 (10.708)	WTloss 10.708 (10.707)	AFloss 10.696 (10.694)	FFTloss 10.688 (10.686)	l_SD 10.670 (10.668)	ab_SD 10.742 (10.745)
+Epoch 18 [  20/69] ( 29.0%) | train_loss: 107.0402 | l_loss: 10.6740 | ab_loss: 10.7354 | td_loss: 10.7148 | sd_loss: 10.6740 | batch_time: 0.2218 | data_time: 0.0001 | ETA: 13.2m
+Train: [18][20/69]	BT 0.222 (0.227)	DT 0.000 (0.005)	loss 107.040 (107.038)	ANloss 10.715 (10.710)	WTloss 10.712 (10.709)	AFloss 10.700 (10.696)	FFTloss 10.691 (10.688)	l_SD 10.674 (10.671)	ab_SD 10.735 (10.741)
+Epoch 18 [  30/69] ( 43.5%) | train_loss: 107.0465 | l_loss: 10.6787 | ab_loss: 10.7272 | td_loss: 10.7235 | sd_loss: 10.6787 | batch_time: 0.2209 | data_time: 0.0001 | ETA: 7.1m
+Train: [18][30/69]	BT 0.221 (0.225)	DT 0.000 (0.003)	loss 107.046 (107.040)	ANloss 10.723 (10.714)	WTloss 10.719 (10.711)	AFloss 10.705 (10.699)	FFTloss 10.696 (10.690)	l_SD 10.679 (10.673)	ab_SD 10.727 (10.738)
+Epoch 18 [  40/69] ( 58.0%) | train_loss: 107.0538 | l_loss: 10.6829 | ab_loss: 10.7231 | td_loss: 10.7287 | sd_loss: 10.6829 | batch_time: 0.2213 | data_time: 0.0001 | ETA: 4.0m
+Train: [18][40/69]	BT 0.221 (0.224)	DT 0.000 (0.003)	loss 107.054 (107.043)	ANloss 10.729 (10.717)	WTloss 10.722 (10.714)	AFloss 10.709 (10.701)	FFTloss 10.700 (10.692)	l_SD 10.683 (10.675)	ab_SD 10.723 (10.735)
+Epoch 18 [  50/69] ( 72.5%) | train_loss: 107.0637 | l_loss: 10.6887 | ab_loss: 10.7171 | td_loss: 10.7366 | sd_loss: 10.6887 | batch_time: 0.2204 | data_time: 0.0001 | ETA: 2.1m
+Train: [18][50/69]	BT 0.220 (0.224)	DT 0.000 (0.002)	loss 107.064 (107.046)	ANloss 10.737 (10.720)	WTloss 10.728 (10.716)	AFloss 10.715 (10.703)	FFTloss 10.705 (10.694)	l_SD 10.689 (10.677)	ab_SD 10.717 (10.732)
+Epoch 18 [  60/69] ( 87.0%) | train_loss: 107.0692 | l_loss: 10.6950 | ab_loss: 10.7115 | td_loss: 10.7440 | sd_loss: 10.6950 | batch_time: 0.2198 | data_time: 0.0002 | ETA: 0.8m
+Train: [18][60/69]	BT 0.220 (0.223)	DT 0.000 (0.002)	loss 107.069 (107.050)	ANloss 10.744 (10.724)	WTloss 10.734 (10.719)	AFloss 10.721 (10.706)	FFTloss 10.711 (10.697)	l_SD 10.695 (10.680)	ab_SD 10.711 (10.729)
+epoch 18, total time 15.36
+
+--- Epoch 18 Summary ---
+train_loss: 107.052104
+l_loss: 10.682198
+ab_loss: 10.725929
+td_loss: 10.726879
+sd_loss: 10.682198
+batch_time: 0.222079
+data_time: 0.001523
+learning_rate: 0.010000
+epoch_time: 15.358979
+Elapsed time: 0.09h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.94h
+----------------------------------------
+==> training...
+
+--- Epoch 19/200 Started ---
+Epoch 19 [   1/69] (  1.4%) | train_loss: 107.0267 | l_loss: 10.6689 | ab_loss: 10.7376 | td_loss: 10.7056 | sd_loss: 10.6689 | batch_time: 0.3045 | data_time: 0.0765 | ETA: 6.4h
+Epoch 19 [  10/69] ( 14.5%) | train_loss: 107.0239 | l_loss: 10.6700 | ab_loss: 10.7331 | td_loss: 10.7102 | sd_loss: 10.6700 | batch_time: 0.2255 | data_time: 0.0001 | ETA: 33.4m
+Train: [19][10/69]	BT 0.225 (0.229)	DT 0.000 (0.008)	loss 107.024 (107.027)	ANloss 10.710 (10.708)	WTloss 10.700 (10.698)	AFloss 10.690 (10.690)	FFTloss 10.681 (10.681)	l_SD 10.670 (10.670)	ab_SD 10.733 (10.736)
+Epoch 19 [  20/69] ( 29.0%) | train_loss: 107.0310 | l_loss: 10.6734 | ab_loss: 10.7282 | td_loss: 10.7165 | sd_loss: 10.6734 | batch_time: 0.2232 | data_time: 0.0003 | ETA: 14.0m
+Train: [19][20/69]	BT 0.223 (0.224)	DT 0.000 (0.004)	loss 107.031 (107.029)	ANloss 10.716 (10.711)	WTloss 10.703 (10.700)	AFloss 10.693 (10.691)	FFTloss 10.683 (10.682)	l_SD 10.673 (10.671)	ab_SD 10.728 (10.733)
+Epoch 19 [  30/69] ( 43.5%) | train_loss: 107.0415 | l_loss: 10.6778 | ab_loss: 10.7239 | td_loss: 10.7245 | sd_loss: 10.6778 | batch_time: 0.2205 | data_time: 0.0001 | ETA: 7.5m
+Train: [19][30/69]	BT 0.220 (0.223)	DT 0.000 (0.003)	loss 107.041 (107.032)	ANloss 10.724 (10.714)	WTloss 10.707 (10.702)	AFloss 10.697 (10.692)	FFTloss 10.687 (10.683)	l_SD 10.678 (10.673)	ab_SD 10.724 (10.731)
+Epoch 19 [  40/69] ( 58.0%) | train_loss: 107.0600 | l_loss: 10.6824 | ab_loss: 10.7179 | td_loss: 10.7333 | sd_loss: 10.6824 | batch_time: 0.2186 | data_time: 0.0001 | ETA: 4.2m
+Train: [19][40/69]	BT 0.219 (0.222)	DT 0.000 (0.002)	loss 107.060 (107.036)	ANloss 10.733 (10.718)	WTloss 10.714 (10.704)	AFloss 10.703 (10.694)	FFTloss 10.691 (10.684)	l_SD 10.682 (10.675)	ab_SD 10.718 (10.728)
+Epoch 19 [  50/69] ( 72.5%) | train_loss: 107.0877 | l_loss: 10.6898 | ab_loss: 10.7135 | td_loss: 10.7425 | sd_loss: 10.6898 | batch_time: 0.2190 | data_time: 0.0002 | ETA: 2.2m
+Train: [19][50/69]	BT 0.219 (0.221)	DT 0.000 (0.002)	loss 107.088 (107.044)	ANloss 10.743 (10.722)	WTloss 10.722 (10.707)	AFloss 10.711 (10.697)	FFTloss 10.698 (10.686)	l_SD 10.690 (10.677)	ab_SD 10.714 (10.726)
+Epoch 19 [  60/69] ( 87.0%) | train_loss: 107.1078 | l_loss: 10.6976 | ab_loss: 10.7086 | td_loss: 10.7512 | sd_loss: 10.6976 | batch_time: 0.2186 | data_time: 0.0002 | ETA: 0.9m
+Train: [19][60/69]	BT 0.219 (0.221)	DT 0.000 (0.001)	loss 107.108 (107.053)	ANloss 10.751 (10.726)	WTloss 10.731 (10.710)	AFloss 10.720 (10.700)	FFTloss 10.706 (10.689)	l_SD 10.698 (10.680)	ab_SD 10.709 (10.723)
+epoch 19, total time 15.23
+
+--- Epoch 19 Summary ---
+train_loss: 107.061471
+l_loss: 10.682608
+ab_loss: 10.720898
+td_loss: 10.730087
+sd_loss: 10.682608
+batch_time: 0.220174
+data_time: 0.001267
+learning_rate: 0.010000
+epoch_time: 15.227013
+Elapsed time: 0.10h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.93h
+----------------------------------------
+==> training...
+
+--- Epoch 20/200 Started ---
+Epoch 20 [   1/69] (  1.4%) | train_loss: 107.0093 | l_loss: 10.6683 | ab_loss: 10.7273 | td_loss: 10.7057 | sd_loss: 10.6683 | batch_time: 0.3165 | data_time: 0.0900 | ETA: 6.7h
+Epoch 20 [  10/69] ( 14.5%) | train_loss: 107.0235 | l_loss: 10.6727 | ab_loss: 10.7234 | td_loss: 10.7113 | sd_loss: 10.6727 | batch_time: 0.2195 | data_time: 0.0001 | ETA: 35.2m
+Train: [20][10/69]	BT 0.220 (0.231)	DT 0.000 (0.009)	loss 107.024 (107.017)	ANloss 10.711 (10.708)	WTloss 10.697 (10.694)	AFloss 10.690 (10.687)	FFTloss 10.679 (10.676)	l_SD 10.673 (10.670)	ab_SD 10.723 (10.726)
+Epoch 20 [  20/69] ( 29.0%) | train_loss: 107.0279 | l_loss: 10.6756 | ab_loss: 10.7175 | td_loss: 10.7164 | sd_loss: 10.6756 | batch_time: 0.2205 | data_time: 0.0002 | ETA: 14.7m
+Train: [20][20/69]	BT 0.221 (0.226)	DT 0.000 (0.005)	loss 107.028 (107.023)	ANloss 10.716 (10.711)	WTloss 10.702 (10.697)	AFloss 10.694 (10.690)	FFTloss 10.681 (10.678)	l_SD 10.676 (10.673)	ab_SD 10.718 (10.723)
+Epoch 20 [  30/69] ( 43.5%) | train_loss: 107.0514 | l_loss: 10.6820 | ab_loss: 10.7142 | td_loss: 10.7246 | sd_loss: 10.6820 | batch_time: 0.2201 | data_time: 0.0001 | ETA: 7.9m
+Train: [20][30/69]	BT 0.220 (0.224)	DT 0.000 (0.003)	loss 107.051 (107.030)	ANloss 10.725 (10.715)	WTloss 10.709 (10.700)	AFloss 10.701 (10.692)	FFTloss 10.688 (10.681)	l_SD 10.682 (10.675)	ab_SD 10.714 (10.721)
+Epoch 20 [  40/69] ( 58.0%) | train_loss: 107.0752 | l_loss: 10.6889 | ab_loss: 10.7108 | td_loss: 10.7338 | sd_loss: 10.6889 | batch_time: 0.2203 | data_time: 0.0001 | ETA: 4.4m
+Train: [20][40/69]	BT 0.220 (0.223)	DT 0.000 (0.002)	loss 107.075 (107.038)	ANloss 10.734 (10.718)	WTloss 10.718 (10.703)	AFloss 10.710 (10.696)	FFTloss 10.696 (10.684)	l_SD 10.689 (10.677)	ab_SD 10.711 (10.719)
+Epoch 20 [  50/69] ( 72.5%) | train_loss: 107.0906 | l_loss: 10.6956 | ab_loss: 10.7081 | td_loss: 10.7403 | sd_loss: 10.6956 | batch_time: 0.2227 | data_time: 0.0001 | ETA: 2.3m
+Train: [20][50/69]	BT 0.223 (0.223)	DT 0.000 (0.002)	loss 107.091 (107.047)	ANloss 10.740 (10.722)	WTloss 10.726 (10.707)	AFloss 10.718 (10.699)	FFTloss 10.703 (10.687)	l_SD 10.696 (10.681)	ab_SD 10.708 (10.717)
+Epoch 20 [  60/69] ( 87.0%) | train_loss: 107.1097 | l_loss: 10.7043 | ab_loss: 10.7077 | td_loss: 10.7482 | sd_loss: 10.7043 | batch_time: 0.2244 | data_time: 0.0001 | ETA: 0.9m
+Train: [20][60/69]	BT 0.224 (0.223)	DT 0.000 (0.002)	loss 107.110 (107.057)	ANloss 10.748 (10.726)	WTloss 10.736 (10.711)	AFloss 10.727 (10.703)	FFTloss 10.712 (10.690)	l_SD 10.704 (10.684)	ab_SD 10.708 (10.715)
+epoch 20, total time 15.33
+
+--- Epoch 20 Summary ---
+train_loss: 107.064749
+l_loss: 10.687213
+ab_loss: 10.714279
+td_loss: 10.729448
+sd_loss: 10.687213
+batch_time: 0.221453
+data_time: 0.001466
+learning_rate: 0.010000
+epoch_time: 15.325985
+Elapsed time: 0.10h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.93h
+----------------------------------------
+==> training...
+
+--- Epoch 21/200 Started ---
+Epoch 21 [   1/69] (  1.4%) | train_loss: 107.0407 | l_loss: 10.6772 | ab_loss: 10.7171 | td_loss: 10.7053 | sd_loss: 10.6772 | batch_time: 0.3082 | data_time: 0.0784 | ETA: 7.1h
+Epoch 21 [  10/69] ( 14.5%) | train_loss: 107.0512 | l_loss: 10.6813 | ab_loss: 10.7172 | td_loss: 10.7094 | sd_loss: 10.6813 | batch_time: 0.2243 | data_time: 0.0001 | ETA: 37.1m
+Train: [21][10/69]	BT 0.224 (0.233)	DT 0.000 (0.008)	loss 107.051 (107.047)	ANloss 10.709 (10.708)	WTloss 10.704 (10.702)	AFloss 10.699 (10.697)	FFTloss 10.688 (10.686)	l_SD 10.681 (10.680)	ab_SD 10.717 (10.717)
+Epoch 21 [  20/69] ( 29.0%) | train_loss: 107.0533 | l_loss: 10.6844 | ab_loss: 10.7165 | td_loss: 10.7152 | sd_loss: 10.6844 | batch_time: 0.2372 | data_time: 0.0002 | ETA: 15.5m
+Train: [21][20/69]	BT 0.237 (0.229)	DT 0.000 (0.004)	loss 107.053 (107.048)	ANloss 10.715 (10.710)	WTloss 10.708 (10.704)	AFloss 10.703 (10.699)	FFTloss 10.692 (10.688)	l_SD 10.684 (10.681)	ab_SD 10.717 (10.717)
+Epoch 21 [  30/69] ( 43.5%) | train_loss: 107.0507 | l_loss: 10.6872 | ab_loss: 10.7145 | td_loss: 10.7211 | sd_loss: 10.6872 | batch_time: 0.2188 | data_time: 0.0001 | ETA: 8.3m
+Train: [21][30/69]	BT 0.219 (0.230)	DT 0.000 (0.003)	loss 107.051 (107.050)	ANloss 10.721 (10.713)	WTloss 10.713 (10.706)	AFloss 10.706 (10.701)	FFTloss 10.695 (10.690)	l_SD 10.687 (10.683)	ab_SD 10.715 (10.716)
+Epoch 21 [  40/69] ( 58.0%) | train_loss: 107.0594 | l_loss: 10.6918 | ab_loss: 10.7144 | td_loss: 10.7272 | sd_loss: 10.6918 | batch_time: 0.2205 | data_time: 0.0001 | ETA: 4.6m
+Train: [21][40/69]	BT 0.221 (0.227)	DT 0.000 (0.002)	loss 107.059 (107.052)	ANloss 10.727 (10.716)	WTloss 10.719 (10.709)	AFloss 10.711 (10.703)	FFTloss 10.700 (10.692)	l_SD 10.692 (10.685)	ab_SD 10.714 (10.716)
+Epoch 21 [  50/69] ( 72.5%) | train_loss: 107.0654 | l_loss: 10.6963 | ab_loss: 10.7150 | td_loss: 10.7357 | sd_loss: 10.6963 | batch_time: 0.2210 | data_time: 0.0001 | ETA: 2.4m
+Train: [21][50/69]	BT 0.221 (0.226)	DT 0.000 (0.002)	loss 107.065 (107.054)	ANloss 10.736 (10.719)	WTloss 10.726 (10.712)	AFloss 10.717 (10.705)	FFTloss 10.705 (10.694)	l_SD 10.696 (10.687)	ab_SD 10.715 (10.715)
+Epoch 21 [  60/69] ( 87.0%) | train_loss: 107.0640 | l_loss: 10.7002 | ab_loss: 10.7138 | td_loss: 10.7414 | sd_loss: 10.7002 | batch_time: 0.2247 | data_time: 0.0001 | ETA: 1.0m
+Train: [21][60/69]	BT 0.225 (0.226)	DT 0.000 (0.001)	loss 107.064 (107.056)	ANloss 10.741 (10.722)	WTloss 10.732 (10.714)	AFloss 10.721 (10.708)	FFTloss 10.710 (10.696)	l_SD 10.700 (10.689)	ab_SD 10.714 (10.715)
+epoch 21, total time 15.51
+
+--- Epoch 21 Summary ---
+train_loss: 107.056967
+l_loss: 10.690378
+ab_loss: 10.715112
+td_loss: 10.725277
+sd_loss: 10.690378
+batch_time: 0.224274
+data_time: 0.001299
+learning_rate: 0.010000
+epoch_time: 15.514014
+Elapsed time: 0.11h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.92h
+----------------------------------------
+==> training...
+
+--- Epoch 22/200 Started ---
+Epoch 22 [   1/69] (  1.4%) | train_loss: 107.0339 | l_loss: 10.6736 | ab_loss: 10.7281 | td_loss: 10.7051 | sd_loss: 10.6736 | batch_time: 0.3408 | data_time: 0.0967 | ETA: 7.4h
+Epoch 22 [  10/69] ( 14.5%) | train_loss: 107.0396 | l_loss: 10.6755 | ab_loss: 10.7273 | td_loss: 10.7110 | sd_loss: 10.6755 | batch_time: 0.2228 | data_time: 0.0001 | ETA: 39.0m
+Train: [22][10/69]	BT 0.223 (0.236)	DT 0.000 (0.010)	loss 107.040 (107.037)	ANloss 10.711 (10.708)	WTloss 10.702 (10.700)	AFloss 10.693 (10.691)	FFTloss 10.684 (10.683)	l_SD 10.675 (10.674)	ab_SD 10.727 (10.728)
+Epoch 22 [  20/69] ( 29.0%) | train_loss: 107.0453 | l_loss: 10.6771 | ab_loss: 10.7279 | td_loss: 10.7170 | sd_loss: 10.6771 | batch_time: 0.2248 | data_time: 0.0002 | ETA: 16.3m
+Train: [22][20/69]	BT 0.225 (0.231)	DT 0.000 (0.005)	loss 107.045 (107.039)	ANloss 10.717 (10.711)	WTloss 10.706 (10.702)	AFloss 10.695 (10.693)	FFTloss 10.687 (10.684)	l_SD 10.677 (10.675)	ab_SD 10.728 (10.727)
+Epoch 22 [  30/69] ( 43.5%) | train_loss: 107.0478 | l_loss: 10.6796 | ab_loss: 10.7262 | td_loss: 10.7234 | sd_loss: 10.6796 | batch_time: 0.2252 | data_time: 0.0003 | ETA: 8.7m
+Train: [22][30/69]	BT 0.225 (0.229)	DT 0.000 (0.003)	loss 107.048 (107.040)	ANloss 10.723 (10.714)	WTloss 10.711 (10.704)	AFloss 10.699 (10.694)	FFTloss 10.690 (10.685)	l_SD 10.680 (10.676)	ab_SD 10.726 (10.727)
+Epoch 22 [  40/69] ( 58.0%) | train_loss: 107.0648 | l_loss: 10.6842 | ab_loss: 10.7245 | td_loss: 10.7315 | sd_loss: 10.6842 | batch_time: 0.2259 | data_time: 0.0001 | ETA: 4.9m
+Train: [22][40/69]	BT 0.226 (0.228)	DT 0.000 (0.003)	loss 107.065 (107.044)	ANloss 10.731 (10.717)	WTloss 10.718 (10.707)	AFloss 10.705 (10.696)	FFTloss 10.696 (10.687)	l_SD 10.684 (10.678)	ab_SD 10.725 (10.726)
+Epoch 22 [  50/69] ( 72.5%) | train_loss: 107.0736 | l_loss: 10.6879 | ab_loss: 10.7209 | td_loss: 10.7381 | sd_loss: 10.6879 | batch_time: 0.2274 | data_time: 0.0001 | ETA: 2.6m
+Train: [22][50/69]	BT 0.227 (0.227)	DT 0.000 (0.002)	loss 107.074 (107.049)	ANloss 10.738 (10.721)	WTloss 10.725 (10.710)	AFloss 10.710 (10.698)	FFTloss 10.700 (10.689)	l_SD 10.688 (10.679)	ab_SD 10.721 (10.726)
+Epoch 22 [  60/69] ( 87.0%) | train_loss: 107.0975 | l_loss: 10.6947 | ab_loss: 10.7161 | td_loss: 10.7479 | sd_loss: 10.6947 | batch_time: 0.2267 | data_time: 0.0001 | ETA: 1.0m
+Train: [22][60/69]	BT 0.227 (0.227)	DT 0.000 (0.002)	loss 107.098 (107.056)	ANloss 10.748 (10.725)	WTloss 10.735 (10.713)	AFloss 10.719 (10.701)	FFTloss 10.708 (10.692)	l_SD 10.695 (10.682)	ab_SD 10.716 (10.724)
+epoch 22, total time 15.61
+
+--- Epoch 22 Summary ---
+train_loss: 107.063077
+l_loss: 10.683815
+ab_loss: 10.723148
+td_loss: 10.728306
+sd_loss: 10.683815
+batch_time: 0.225689
+data_time: 0.001554
+learning_rate: 0.010000
+epoch_time: 15.614264
+Elapsed time: 0.11h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.92h
+----------------------------------------
+==> training...
+
+--- Epoch 23/200 Started ---
+Epoch 23 [   1/69] (  1.4%) | train_loss: 107.0142 | l_loss: 10.6660 | ab_loss: 10.7395 | td_loss: 10.7041 | sd_loss: 10.6660 | batch_time: 0.3126 | data_time: 0.0858 | ETA: 7.8h
+Epoch 23 [  10/69] ( 14.5%) | train_loss: 107.0309 | l_loss: 10.6708 | ab_loss: 10.7357 | td_loss: 10.7104 | sd_loss: 10.6708 | batch_time: 0.2204 | data_time: 0.0001 | ETA: 40.8m
+Train: [23][10/69]	BT 0.220 (0.229)	DT 0.000 (0.009)	loss 107.031 (107.025)	ANloss 10.710 (10.708)	WTloss 10.703 (10.700)	AFloss 10.691 (10.688)	FFTloss 10.683 (10.681)	l_SD 10.671 (10.669)	ab_SD 10.736 (10.737)
+Epoch 23 [  20/69] ( 29.0%) | train_loss: 107.0422 | l_loss: 10.6746 | ab_loss: 10.7308 | td_loss: 10.7179 | sd_loss: 10.6746 | batch_time: 0.2183 | data_time: 0.0003 | ETA: 17.0m
+Train: [23][20/69]	BT 0.218 (0.224)	DT 0.000 (0.004)	loss 107.042 (107.030)	ANloss 10.718 (10.711)	WTloss 10.710 (10.704)	AFloss 10.697 (10.691)	FFTloss 10.689 (10.683)	l_SD 10.675 (10.670)	ab_SD 10.731 (10.735)
+Epoch 23 [  30/69] ( 43.5%) | train_loss: 107.0595 | l_loss: 10.6789 | ab_loss: 10.7269 | td_loss: 10.7254 | sd_loss: 10.6789 | batch_time: 0.2195 | data_time: 0.0002 | ETA: 9.1m
+Train: [23][30/69]	BT 0.219 (0.223)	DT 0.000 (0.003)	loss 107.060 (107.037)	ANloss 10.725 (10.714)	WTloss 10.719 (10.707)	AFloss 10.704 (10.694)	FFTloss 10.695 (10.686)	l_SD 10.679 (10.672)	ab_SD 10.727 (10.734)
+Epoch 23 [  40/69] ( 58.0%) | train_loss: 107.0775 | l_loss: 10.6851 | ab_loss: 10.7227 | td_loss: 10.7332 | sd_loss: 10.6851 | batch_time: 0.2209 | data_time: 0.0003 | ETA: 5.1m
+Train: [23][40/69]	BT 0.221 (0.222)	DT 0.000 (0.002)	loss 107.077 (107.043)	ANloss 10.733 (10.718)	WTloss 10.726 (10.710)	AFloss 10.712 (10.697)	FFTloss 10.702 (10.689)	l_SD 10.685 (10.674)	ab_SD 10.723 (10.732)
+Epoch 23 [  50/69] ( 72.5%) | train_loss: 107.0815 | l_loss: 10.6894 | ab_loss: 10.7192 | td_loss: 10.7379 | sd_loss: 10.6894 | batch_time: 0.2277 | data_time: 0.0001 | ETA: 2.7m
+Train: [23][50/69]	BT 0.228 (0.222)	DT 0.000 (0.002)	loss 107.082 (107.050)	ANloss 10.738 (10.721)	WTloss 10.732 (10.714)	AFloss 10.718 (10.701)	FFTloss 10.707 (10.692)	l_SD 10.689 (10.677)	ab_SD 10.719 (10.730)
+Epoch 23 [  60/69] ( 87.0%) | train_loss: 107.1058 | l_loss: 10.6986 | ab_loss: 10.7152 | td_loss: 10.7470 | sd_loss: 10.6986 | batch_time: 0.2178 | data_time: 0.0001 | ETA: 1.1m
+Train: [23][60/69]	BT 0.218 (0.222)	DT 0.000 (0.002)	loss 107.106 (107.057)	ANloss 10.747 (10.725)	WTloss 10.742 (10.718)	AFloss 10.728 (10.704)	FFTloss 10.717 (10.695)	l_SD 10.699 (10.680)	ab_SD 10.715 (10.727)
+epoch 23, total time 15.29
+
+--- Epoch 23 Summary ---
+train_loss: 107.063151
+l_loss: 10.682519
+ab_loss: 10.725539
+td_loss: 10.727785
+sd_loss: 10.682519
+batch_time: 0.220788
+data_time: 0.001396
+learning_rate: 0.010000
+epoch_time: 15.285636
+Elapsed time: 0.12h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.92h
+----------------------------------------
+==> training...
+
+--- Epoch 24/200 Started ---
+Epoch 24 [   1/69] (  1.4%) | train_loss: 107.0456 | l_loss: 10.6720 | ab_loss: 10.7384 | td_loss: 10.7056 | sd_loss: 10.6720 | batch_time: 0.3158 | data_time: 0.0880 | ETA: 8.2h
+Epoch 24 [  10/69] ( 14.5%) | train_loss: 107.0471 | l_loss: 10.6748 | ab_loss: 10.7358 | td_loss: 10.7091 | sd_loss: 10.6748 | batch_time: 0.2218 | data_time: 0.0001 | ETA: 42.7m
+Train: [24][10/69]	BT 0.222 (0.232)	DT 0.000 (0.009)	loss 107.047 (107.049)	ANloss 10.709 (10.708)	WTloss 10.709 (10.708)	AFloss 10.699 (10.698)	FFTloss 10.690 (10.689)	l_SD 10.675 (10.674)	ab_SD 10.736 (10.738)
+Epoch 24 [  20/69] ( 29.0%) | train_loss: 107.0569 | l_loss: 10.6798 | ab_loss: 10.7314 | td_loss: 10.7172 | sd_loss: 10.6798 | batch_time: 0.2231 | data_time: 0.0001 | ETA: 17.8m
+Train: [24][20/69]	BT 0.223 (0.227)	DT 0.000 (0.005)	loss 107.057 (107.050)	ANloss 10.717 (10.710)	WTloss 10.716 (10.710)	AFloss 10.706 (10.700)	FFTloss 10.696 (10.691)	l_SD 10.680 (10.675)	ab_SD 10.731 (10.736)
+Epoch 24 [  30/69] ( 43.5%) | train_loss: 107.0578 | l_loss: 10.6828 | ab_loss: 10.7285 | td_loss: 10.7215 | sd_loss: 10.6828 | batch_time: 0.2210 | data_time: 0.0001 | ETA: 9.5m
+Train: [24][30/69]	BT 0.221 (0.225)	DT 0.000 (0.003)	loss 107.058 (107.052)	ANloss 10.721 (10.713)	WTloss 10.719 (10.712)	AFloss 10.709 (10.702)	FFTloss 10.699 (10.693)	l_SD 10.683 (10.677)	ab_SD 10.728 (10.734)
+Epoch 24 [  40/69] ( 58.0%) | train_loss: 107.0575 | l_loss: 10.6850 | ab_loss: 10.7248 | td_loss: 10.7271 | sd_loss: 10.6850 | batch_time: 0.2221 | data_time: 0.0001 | ETA: 5.3m
+Train: [24][40/69]	BT 0.222 (0.225)	DT 0.000 (0.002)	loss 107.057 (107.053)	ANloss 10.727 (10.716)	WTloss 10.725 (10.715)	AFloss 10.712 (10.704)	FFTloss 10.702 (10.695)	l_SD 10.685 (10.679)	ab_SD 10.725 (10.732)
+Epoch 24 [  50/69] ( 72.5%) | train_loss: 107.0643 | l_loss: 10.6913 | ab_loss: 10.7194 | td_loss: 10.7342 | sd_loss: 10.6913 | batch_time: 0.2267 | data_time: 0.0001 | ETA: 2.8m
+Train: [24][50/69]	BT 0.227 (0.224)	DT 0.000 (0.002)	loss 107.064 (107.055)	ANloss 10.734 (10.719)	WTloss 10.730 (10.717)	AFloss 10.719 (10.707)	FFTloss 10.708 (10.697)	l_SD 10.691 (10.681)	ab_SD 10.719 (10.730)
+Epoch 24 [  60/69] ( 87.0%) | train_loss: 107.0658 | l_loss: 10.6939 | ab_loss: 10.7159 | td_loss: 10.7399 | sd_loss: 10.6939 | batch_time: 0.2241 | data_time: 0.0001 | ETA: 1.1m
+Train: [24][60/69]	BT 0.224 (0.224)	DT 0.000 (0.002)	loss 107.066 (107.056)	ANloss 10.740 (10.722)	WTloss 10.734 (10.720)	AFloss 10.722 (10.709)	FFTloss 10.711 (10.699)	l_SD 10.694 (10.682)	ab_SD 10.716 (10.728)
+epoch 24, total time 15.46
+
+--- Epoch 24 Summary ---
+train_loss: 107.056786
+l_loss: 10.684312
+ab_loss: 10.725913
+td_loss: 10.724578
+sd_loss: 10.684312
+batch_time: 0.223294
+data_time: 0.001425
+learning_rate: 0.010000
+epoch_time: 15.457911
+Elapsed time: 0.12h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.91h
+----------------------------------------
+==> training...
+
+--- Epoch 25/200 Started ---
+Epoch 25 [   1/69] (  1.4%) | train_loss: 107.0348 | l_loss: 10.6691 | ab_loss: 10.7418 | td_loss: 10.7055 | sd_loss: 10.6691 | batch_time: 0.3264 | data_time: 0.0994 | ETA: 8.5h
+Epoch 25 [  10/69] ( 14.5%) | train_loss: 107.0435 | l_loss: 10.6727 | ab_loss: 10.7388 | td_loss: 10.7106 | sd_loss: 10.6727 | batch_time: 0.2248 | data_time: 0.0001 | ETA: 44.5m
+Train: [25][10/69]	BT 0.225 (0.235)	DT 0.000 (0.010)	loss 107.044 (107.037)	ANloss 10.711 (10.708)	WTloss 10.705 (10.703)	AFloss 10.696 (10.694)	FFTloss 10.686 (10.684)	l_SD 10.673 (10.670)	ab_SD 10.739 (10.740)
+Epoch 25 [  20/69] ( 29.0%) | train_loss: 107.0511 | l_loss: 10.6759 | ab_loss: 10.7349 | td_loss: 10.7170 | sd_loss: 10.6759 | batch_time: 0.2238 | data_time: 0.0002 | ETA: 18.6m
+Train: [25][20/69]	BT 0.224 (0.229)	DT 0.000 (0.005)	loss 107.051 (107.040)	ANloss 10.717 (10.711)	WTloss 10.709 (10.705)	AFloss 10.700 (10.696)	FFTloss 10.689 (10.685)	l_SD 10.676 (10.672)	ab_SD 10.735 (10.738)
+Epoch 25 [  30/69] ( 43.5%) | train_loss: 107.0462 | l_loss: 10.6781 | ab_loss: 10.7285 | td_loss: 10.7222 | sd_loss: 10.6781 | batch_time: 0.2224 | data_time: 0.0003 | ETA: 9.9m
+Train: [25][30/69]	BT 0.222 (0.227)	DT 0.000 (0.003)	loss 107.046 (107.042)	ANloss 10.722 (10.714)	WTloss 10.714 (10.707)	AFloss 10.703 (10.698)	FFTloss 10.691 (10.687)	l_SD 10.678 (10.674)	ab_SD 10.728 (10.736)
+Epoch 25 [  40/69] ( 58.0%) | train_loss: 107.0671 | l_loss: 10.6828 | ab_loss: 10.7250 | td_loss: 10.7295 | sd_loss: 10.6828 | batch_time: 0.2284 | data_time: 0.0001 | ETA: 5.6m
+Train: [25][40/69]	BT 0.228 (0.226)	DT 0.000 (0.003)	loss 107.067 (107.046)	ANloss 10.730 (10.717)	WTloss 10.720 (10.710)	AFloss 10.708 (10.700)	FFTloss 10.696 (10.689)	l_SD 10.683 (10.675)	ab_SD 10.725 (10.733)
+Epoch 25 [  50/69] ( 72.5%) | train_loss: 107.0759 | l_loss: 10.6888 | ab_loss: 10.7171 | td_loss: 10.7375 | sd_loss: 10.6888 | batch_time: 0.2197 | data_time: 0.0001 | ETA: 2.9m
+Train: [25][50/69]	BT 0.220 (0.225)	DT 0.000 (0.002)	loss 107.076 (107.051)	ANloss 10.737 (10.720)	WTloss 10.727 (10.713)	AFloss 10.715 (10.702)	FFTloss 10.702 (10.691)	l_SD 10.689 (10.678)	ab_SD 10.717 (10.731)
+Epoch 25 [  60/69] ( 87.0%) | train_loss: 107.0884 | l_loss: 10.6940 | ab_loss: 10.7108 | td_loss: 10.7443 | sd_loss: 10.6940 | batch_time: 0.2198 | data_time: 0.0002 | ETA: 1.2m
+Train: [25][60/69]	BT 0.220 (0.224)	DT 0.000 (0.002)	loss 107.088 (107.057)	ANloss 10.744 (10.724)	WTloss 10.733 (10.716)	AFloss 10.722 (10.705)	FFTloss 10.707 (10.693)	l_SD 10.694 (10.680)	ab_SD 10.711 (10.728)
+epoch 25, total time 15.40
+
+--- Epoch 25 Summary ---
+train_loss: 107.062845
+l_loss: 10.682439
+ab_loss: 10.725199
+td_loss: 10.727247
+sd_loss: 10.682439
+batch_time: 0.222563
+data_time: 0.001593
+learning_rate: 0.010000
+epoch_time: 15.402290
+Elapsed time: 0.13h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.91h
+----------------------------------------
+==> training...
+
+--- Epoch 26/200 Started ---
+Epoch 26 [   1/69] (  1.4%) | train_loss: 107.0275 | l_loss: 10.6691 | ab_loss: 10.7364 | td_loss: 10.7058 | sd_loss: 10.6691 | batch_time: 0.3204 | data_time: 0.0901 | ETA: 8.9h
+Epoch 26 [  10/69] ( 14.5%) | train_loss: 107.0362 | l_loss: 10.6729 | ab_loss: 10.7314 | td_loss: 10.7106 | sd_loss: 10.6729 | batch_time: 0.2201 | data_time: 0.0003 | ETA: 46.4m
+Train: [26][10/69]	BT 0.220 (0.239)	DT 0.000 (0.009)	loss 107.036 (107.031)	ANloss 10.711 (10.708)	WTloss 10.704 (10.701)	AFloss 10.696 (10.693)	FFTloss 10.684 (10.682)	l_SD 10.673 (10.671)	ab_SD 10.731 (10.734)
+Epoch 26 [  20/69] ( 29.0%) | train_loss: 107.0450 | l_loss: 10.6774 | ab_loss: 10.7257 | td_loss: 10.7161 | sd_loss: 10.6774 | batch_time: 0.2202 | data_time: 0.0001 | ETA: 19.3m
+Train: [26][20/69]	BT 0.220 (0.235)	DT 0.000 (0.005)	loss 107.045 (107.037)	ANloss 10.716 (10.711)	WTloss 10.709 (10.704)	AFloss 10.701 (10.696)	FFTloss 10.688 (10.684)	l_SD 10.677 (10.673)	ab_SD 10.726 (10.732)
+Epoch 26 [  30/69] ( 43.5%) | train_loss: 107.0615 | l_loss: 10.6832 | ab_loss: 10.7205 | td_loss: 10.7237 | sd_loss: 10.6832 | batch_time: 0.2316 | data_time: 0.0001 | ETA: 10.3m
+Train: [26][30/69]	BT 0.232 (0.233)	DT 0.000 (0.003)	loss 107.062 (107.042)	ANloss 10.724 (10.714)	WTloss 10.716 (10.707)	AFloss 10.708 (10.699)	FFTloss 10.694 (10.686)	l_SD 10.683 (10.676)	ab_SD 10.721 (10.729)
+Epoch 26 [  40/69] ( 58.0%) | train_loss: 107.0800 | l_loss: 10.6895 | ab_loss: 10.7163 | td_loss: 10.7312 | sd_loss: 10.6895 | batch_time: 0.2217 | data_time: 0.0001 | ETA: 5.8m
+Train: [26][40/69]	BT 0.222 (0.231)	DT 0.000 (0.002)	loss 107.080 (107.048)	ANloss 10.731 (10.717)	WTloss 10.722 (10.710)	AFloss 10.715 (10.702)	FFTloss 10.701 (10.689)	l_SD 10.689 (10.678)	ab_SD 10.716 (10.726)
+Epoch 26 [  50/69] ( 72.5%) | train_loss: 107.0823 | l_loss: 10.6945 | ab_loss: 10.7114 | td_loss: 10.7364 | sd_loss: 10.6945 | batch_time: 0.2201 | data_time: 0.0001 | ETA: 3.0m
+Train: [26][50/69]	BT 0.220 (0.229)	DT 0.000 (0.002)	loss 107.082 (107.054)	ANloss 10.736 (10.720)	WTloss 10.728 (10.713)	AFloss 10.720 (10.705)	FFTloss 10.706 (10.692)	l_SD 10.694 (10.681)	ab_SD 10.711 (10.724)
+Epoch 26 [  60/69] ( 87.0%) | train_loss: 107.0927 | l_loss: 10.7014 | ab_loss: 10.7071 | td_loss: 10.7436 | sd_loss: 10.7014 | batch_time: 0.2270 | data_time: 0.0001 | ETA: 1.2m
+Train: [26][60/69]	BT 0.227 (0.228)	DT 0.000 (0.002)	loss 107.093 (107.059)	ANloss 10.744 (10.723)	WTloss 10.736 (10.716)	AFloss 10.728 (10.708)	FFTloss 10.713 (10.695)	l_SD 10.701 (10.684)	ab_SD 10.707 (10.721)
+epoch 26, total time 15.71
+
+--- Epoch 26 Summary ---
+train_loss: 107.063560
+l_loss: 10.686240
+ab_loss: 10.719137
+td_loss: 10.726472
+sd_loss: 10.686240
+batch_time: 0.226938
+data_time: 0.001487
+learning_rate: 0.010000
+epoch_time: 15.705689
+Elapsed time: 0.13h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.90h
+----------------------------------------
+==> training...
+
+--- Epoch 27/200 Started ---
+Epoch 27 [   1/69] (  1.4%) | train_loss: 107.0465 | l_loss: 10.6759 | ab_loss: 10.7262 | td_loss: 10.7054 | sd_loss: 10.6759 | batch_time: 0.3182 | data_time: 0.0805 | ETA: 9.2h
+Epoch 27 [  10/69] ( 14.5%) | train_loss: 107.0547 | l_loss: 10.6802 | ab_loss: 10.7231 | td_loss: 10.7102 | sd_loss: 10.6802 | batch_time: 0.2247 | data_time: 0.0001 | ETA: 48.3m
+Train: [27][10/69]	BT 0.225 (0.236)	DT 0.000 (0.008)	loss 107.055 (107.051)	ANloss 10.710 (10.708)	WTloss 10.707 (10.704)	AFloss 10.701 (10.699)	FFTloss 10.690 (10.688)	l_SD 10.680 (10.678)	ab_SD 10.723 (10.725)
+Epoch 27 [  20/69] ( 29.0%) | train_loss: 107.0609 | l_loss: 10.6845 | ab_loss: 10.7213 | td_loss: 10.7154 | sd_loss: 10.6845 | batch_time: 0.2295 | data_time: 0.0001 | ETA: 20.1m
+Train: [27][20/69]	BT 0.230 (0.232)	DT 0.000 (0.004)	loss 107.061 (107.053)	ANloss 10.715 (10.710)	WTloss 10.711 (10.706)	AFloss 10.705 (10.701)	FFTloss 10.694 (10.690)	l_SD 10.684 (10.680)	ab_SD 10.721 (10.723)
+Epoch 27 [  30/69] ( 43.5%) | train_loss: 107.0549 | l_loss: 10.6863 | ab_loss: 10.7177 | td_loss: 10.7197 | sd_loss: 10.6863 | batch_time: 0.2268 | data_time: 0.0001 | ETA: 10.7m
+Train: [27][30/69]	BT 0.227 (0.231)	DT 0.000 (0.003)	loss 107.055 (107.054)	ANloss 10.720 (10.713)	WTloss 10.714 (10.709)	AFloss 10.707 (10.703)	FFTloss 10.696 (10.691)	l_SD 10.686 (10.682)	ab_SD 10.718 (10.722)
+Epoch 27 [  40/69] ( 58.0%) | train_loss: 107.0611 | l_loss: 10.6913 | ab_loss: 10.7143 | td_loss: 10.7268 | sd_loss: 10.6913 | batch_time: 0.2260 | data_time: 0.0002 | ETA: 6.0m
+Train: [27][40/69]	BT 0.226 (0.230)	DT 0.000 (0.002)	loss 107.061 (107.056)	ANloss 10.727 (10.716)	WTloss 10.720 (10.711)	AFloss 10.713 (10.705)	FFTloss 10.701 (10.693)	l_SD 10.691 (10.684)	ab_SD 10.714 (10.720)
+Epoch 27 [  50/69] ( 72.5%) | train_loss: 107.0634 | l_loss: 10.6958 | ab_loss: 10.7121 | td_loss: 10.7330 | sd_loss: 10.6958 | batch_time: 0.2303 | data_time: 0.0003 | ETA: 3.2m
+Train: [27][50/69]	BT 0.230 (0.230)	DT 0.000 (0.002)	loss 107.063 (107.057)	ANloss 10.733 (10.719)	WTloss 10.725 (10.713)	AFloss 10.718 (10.707)	FFTloss 10.706 (10.696)	l_SD 10.696 (10.686)	ab_SD 10.712 (10.719)
+Epoch 27 [  60/69] ( 87.0%) | train_loss: 107.0686 | l_loss: 10.6992 | ab_loss: 10.7104 | td_loss: 10.7392 | sd_loss: 10.6992 | batch_time: 0.2247 | data_time: 0.0003 | ETA: 1.3m
+Train: [27][60/69]	BT 0.225 (0.229)	DT 0.000 (0.002)	loss 107.069 (107.059)	ANloss 10.739 (10.722)	WTloss 10.730 (10.716)	AFloss 10.721 (10.709)	FFTloss 10.710 (10.698)	l_SD 10.699 (10.688)	ab_SD 10.710 (10.718)
+epoch 27, total time 15.76
+
+--- Epoch 27 Summary ---
+train_loss: 107.060672
+l_loss: 10.689692
+ab_loss: 10.716459
+td_loss: 10.724424
+sd_loss: 10.689692
+batch_time: 0.227927
+data_time: 0.001334
+learning_rate: 0.010000
+epoch_time: 15.759905
+Elapsed time: 0.14h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.90h
+----------------------------------------
+==> training...
+
+--- Epoch 28/200 Started ---
+Epoch 28 [   1/69] (  1.4%) | train_loss: 107.0445 | l_loss: 10.6754 | ab_loss: 10.7265 | td_loss: 10.7060 | sd_loss: 10.6754 | batch_time: 0.3134 | data_time: 0.0896 | ETA: 9.6h
+Epoch 28 [  10/69] ( 14.5%) | train_loss: 107.0433 | l_loss: 10.6769 | ab_loss: 10.7247 | td_loss: 10.7097 | sd_loss: 10.6769 | batch_time: 0.2245 | data_time: 0.0001 | ETA: 50.1m
+Train: [28][10/69]	BT 0.225 (0.230)	DT 0.000 (0.009)	loss 107.043 (107.043)	ANloss 10.710 (10.708)	WTloss 10.703 (10.701)	AFloss 10.695 (10.694)	FFTloss 10.686 (10.685)	l_SD 10.677 (10.676)	ab_SD 10.725 (10.726)
+Epoch 28 [  20/69] ( 29.0%) | train_loss: 107.0491 | l_loss: 10.6801 | ab_loss: 10.7233 | td_loss: 10.7156 | sd_loss: 10.6801 | batch_time: 0.2216 | data_time: 0.0001 | ETA: 20.9m
+Train: [28][20/69]	BT 0.222 (0.226)	DT 0.000 (0.005)	loss 107.049 (107.045)	ANloss 10.716 (10.710)	WTloss 10.707 (10.703)	AFloss 10.699 (10.695)	FFTloss 10.690 (10.687)	l_SD 10.680 (10.677)	ab_SD 10.723 (10.725)
+Epoch 28 [  30/69] ( 43.5%) | train_loss: 107.0561 | l_loss: 10.6840 | ab_loss: 10.7205 | td_loss: 10.7221 | sd_loss: 10.6840 | batch_time: 0.2209 | data_time: 0.0003 | ETA: 11.1m
+Train: [28][30/69]	BT 0.221 (0.224)	DT 0.000 (0.003)	loss 107.056 (107.048)	ANloss 10.722 (10.713)	WTloss 10.712 (10.705)	AFloss 10.703 (10.697)	FFTloss 10.694 (10.689)	l_SD 10.684 (10.679)	ab_SD 10.720 (10.724)
+Epoch 28 [  40/69] ( 58.0%) | train_loss: 107.0681 | l_loss: 10.6884 | ab_loss: 10.7185 | td_loss: 10.7288 | sd_loss: 10.6884 | batch_time: 0.2239 | data_time: 0.0001 | ETA: 6.2m
+Train: [28][40/69]	BT 0.224 (0.224)	DT 0.000 (0.002)	loss 107.068 (107.051)	ANloss 10.729 (10.716)	WTloss 10.718 (10.708)	AFloss 10.708 (10.700)	FFTloss 10.699 (10.690)	l_SD 10.688 (10.681)	ab_SD 10.718 (10.723)
+Epoch 28 [  50/69] ( 72.5%) | train_loss: 107.0760 | l_loss: 10.6924 | ab_loss: 10.7154 | td_loss: 10.7358 | sd_loss: 10.6924 | batch_time: 0.2200 | data_time: 0.0002 | ETA: 3.3m
+Train: [28][50/69]	BT 0.220 (0.223)	DT 0.000 (0.002)	loss 107.076 (107.055)	ANloss 10.736 (10.720)	WTloss 10.725 (10.711)	AFloss 10.714 (10.702)	FFTloss 10.704 (10.693)	l_SD 10.692 (10.683)	ab_SD 10.715 (10.722)
+Epoch 28 [  60/69] ( 87.0%) | train_loss: 107.0919 | l_loss: 10.6996 | ab_loss: 10.7104 | td_loss: 10.7451 | sd_loss: 10.6996 | batch_time: 0.2182 | data_time: 0.0002 | ETA: 1.3m
+Train: [28][60/69]	BT 0.218 (0.223)	DT 0.000 (0.002)	loss 107.092 (107.061)	ANloss 10.745 (10.723)	WTloss 10.735 (10.714)	AFloss 10.723 (10.705)	FFTloss 10.712 (10.695)	l_SD 10.700 (10.685)	ab_SD 10.710 (10.720)
+epoch 28, total time 15.36
+
+--- Epoch 28 Summary ---
+train_loss: 107.065546
+l_loss: 10.687196
+ab_loss: 10.718817
+td_loss: 10.726369
+sd_loss: 10.687196
+batch_time: 0.221855
+data_time: 0.001452
+learning_rate: 0.010000
+epoch_time: 15.359051
+Elapsed time: 0.15h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.89h
+----------------------------------------
+==> training...
+
+--- Epoch 29/200 Started ---
+Epoch 29 [   1/69] (  1.4%) | train_loss: 107.0342 | l_loss: 10.6721 | ab_loss: 10.7300 | td_loss: 10.7047 | sd_loss: 10.6721 | batch_time: 0.3091 | data_time: 0.0812 | ETA: 9.9h
+Epoch 29 [  10/69] ( 14.5%) | train_loss: 107.0430 | l_loss: 10.6759 | ab_loss: 10.7277 | td_loss: 10.7099 | sd_loss: 10.6759 | batch_time: 0.2208 | data_time: 0.0001 | ETA: 52.0m
+Train: [29][10/69]	BT 0.221 (0.230)	DT 0.000 (0.008)	loss 107.043 (107.040)	ANloss 10.710 (10.707)	WTloss 10.704 (10.701)	AFloss 10.695 (10.693)	FFTloss 10.688 (10.685)	l_SD 10.676 (10.674)	ab_SD 10.728 (10.729)
+Epoch 29 [  20/69] ( 29.0%) | train_loss: 107.0551 | l_loss: 10.6803 | ab_loss: 10.7252 | td_loss: 10.7160 | sd_loss: 10.6803 | batch_time: 0.2262 | data_time: 0.0002 | ETA: 21.7m
+Train: [29][20/69]	BT 0.226 (0.226)	DT 0.000 (0.004)	loss 107.055 (107.044)	ANloss 10.716 (10.710)	WTloss 10.710 (10.704)	AFloss 10.701 (10.696)	FFTloss 10.693 (10.688)	l_SD 10.680 (10.676)	ab_SD 10.725 (10.728)
+Epoch 29 [  30/69] ( 43.5%) | train_loss: 107.0621 | l_loss: 10.6841 | ab_loss: 10.7227 | td_loss: 10.7220 | sd_loss: 10.6841 | batch_time: 0.2201 | data_time: 0.0001 | ETA: 11.5m
+Train: [29][30/69]	BT 0.220 (0.224)	DT 0.000 (0.003)	loss 107.062 (107.048)	ANloss 10.722 (10.713)	WTloss 10.716 (10.707)	AFloss 10.706 (10.698)	FFTloss 10.698 (10.690)	l_SD 10.684 (10.678)	ab_SD 10.723 (10.726)
+Epoch 29 [  40/69] ( 58.0%) | train_loss: 107.0715 | l_loss: 10.6879 | ab_loss: 10.7197 | td_loss: 10.7283 | sd_loss: 10.6879 | batch_time: 0.2274 | data_time: 0.0001 | ETA: 6.5m
+Train: [29][40/69]	BT 0.227 (0.224)	DT 0.000 (0.002)	loss 107.072 (107.052)	ANloss 10.728 (10.716)	WTloss 10.722 (10.710)	AFloss 10.712 (10.701)	FFTloss 10.703 (10.693)	l_SD 10.688 (10.680)	ab_SD 10.720 (10.725)
+Epoch 29 [  50/69] ( 72.5%) | train_loss: 107.0812 | l_loss: 10.6939 | ab_loss: 10.7159 | td_loss: 10.7357 | sd_loss: 10.6939 | batch_time: 0.2224 | data_time: 0.0002 | ETA: 3.4m
+Train: [29][50/69]	BT 0.222 (0.223)	DT 0.000 (0.002)	loss 107.081 (107.057)	ANloss 10.736 (10.719)	WTloss 10.730 (10.713)	AFloss 10.719 (10.704)	FFTloss 10.709 (10.695)	l_SD 10.694 (10.682)	ab_SD 10.716 (10.723)
+Epoch 29 [  60/69] ( 87.0%) | train_loss: 107.0877 | l_loss: 10.6993 | ab_loss: 10.7131 | td_loss: 10.7422 | sd_loss: 10.6993 | batch_time: 0.2248 | data_time: 0.0003 | ETA: 1.3m
+Train: [29][60/69]	BT 0.225 (0.223)	DT 0.000 (0.002)	loss 107.088 (107.062)	ANloss 10.742 (10.723)	WTloss 10.737 (10.717)	AFloss 10.725 (10.707)	FFTloss 10.715 (10.698)	l_SD 10.699 (10.685)	ab_SD 10.713 (10.722)
+epoch 29, total time 15.35
+
+--- Epoch 29 Summary ---
+train_loss: 107.065160
+l_loss: 10.686959
+ab_loss: 10.720457
+td_loss: 10.725594
+sd_loss: 10.686959
+batch_time: 0.222003
+data_time: 0.001326
+learning_rate: 0.010000
+epoch_time: 15.353221
+Elapsed time: 0.15h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.89h
+----------------------------------------
+==> training...
+
+--- Epoch 30/200 Started ---
+Epoch 30 [   1/69] (  1.4%) | train_loss: 107.0501 | l_loss: 10.6739 | ab_loss: 10.7334 | td_loss: 10.7051 | sd_loss: 10.6739 | batch_time: 0.3121 | data_time: 0.0789 | ETA: 10.3h
+Epoch 30 [  10/69] ( 14.5%) | train_loss: 107.0544 | l_loss: 10.6770 | ab_loss: 10.7316 | td_loss: 10.7095 | sd_loss: 10.6770 | batch_time: 0.2250 | data_time: 0.0003 | ETA: 53.8m
+Train: [30][10/69]	BT 0.225 (0.233)	DT 0.000 (0.008)	loss 107.054 (107.051)	ANloss 10.710 (10.707)	WTloss 10.707 (10.706)	AFloss 10.700 (10.698)	FFTloss 10.692 (10.690)	l_SD 10.677 (10.676)	ab_SD 10.732 (10.732)
+Epoch 30 [  20/69] ( 29.0%) | train_loss: 107.0560 | l_loss: 10.6806 | ab_loss: 10.7284 | td_loss: 10.7151 | sd_loss: 10.6806 | batch_time: 0.2226 | data_time: 0.0001 | ETA: 22.4m
+Train: [30][20/69]	BT 0.223 (0.229)	DT 0.000 (0.004)	loss 107.056 (107.053)	ANloss 10.715 (10.710)	WTloss 10.713 (10.708)	AFloss 10.704 (10.700)	FFTloss 10.695 (10.692)	l_SD 10.681 (10.677)	ab_SD 10.728 (10.731)
+Epoch 30 [  30/69] ( 43.5%) | train_loss: 107.0607 | l_loss: 10.6834 | ab_loss: 10.7268 | td_loss: 10.7197 | sd_loss: 10.6834 | batch_time: 0.2234 | data_time: 0.0001 | ETA: 12.0m
+Train: [30][30/69]	BT 0.223 (0.226)	DT 0.000 (0.003)	loss 107.061 (107.055)	ANloss 10.720 (10.713)	WTloss 10.717 (10.710)	AFloss 10.708 (10.702)	FFTloss 10.698 (10.694)	l_SD 10.683 (10.679)	ab_SD 10.727 (10.730)
+Epoch 30 [  40/69] ( 58.0%) | train_loss: 107.0588 | l_loss: 10.6866 | ab_loss: 10.7226 | td_loss: 10.7254 | sd_loss: 10.6866 | batch_time: 0.2247 | data_time: 0.0001 | ETA: 6.7m
+Train: [30][40/69]	BT 0.225 (0.226)	DT 0.000 (0.002)	loss 107.059 (107.057)	ANloss 10.725 (10.715)	WTloss 10.722 (10.713)	AFloss 10.712 (10.705)	FFTloss 10.702 (10.696)	l_SD 10.687 (10.681)	ab_SD 10.723 (10.728)
+Epoch 30 [  50/69] ( 72.5%) | train_loss: 107.0690 | l_loss: 10.6912 | ab_loss: 10.7193 | td_loss: 10.7322 | sd_loss: 10.6912 | batch_time: 0.2250 | data_time: 0.0002 | ETA: 3.5m
+Train: [30][50/69]	BT 0.225 (0.225)	DT 0.000 (0.002)	loss 107.069 (107.059)	ANloss 10.732 (10.718)	WTloss 10.728 (10.715)	AFloss 10.718 (10.707)	FFTloss 10.707 (10.698)	l_SD 10.691 (10.683)	ab_SD 10.719 (10.727)
+Epoch 30 [  60/69] ( 87.0%) | train_loss: 107.0751 | l_loss: 10.6959 | ab_loss: 10.7151 | td_loss: 10.7394 | sd_loss: 10.6959 | batch_time: 0.2230 | data_time: 0.0001 | ETA: 1.4m
+Train: [30][60/69]	BT 0.223 (0.225)	DT 0.000 (0.001)	loss 107.075 (107.061)	ANloss 10.739 (10.721)	WTloss 10.733 (10.718)	AFloss 10.724 (10.709)	FFTloss 10.712 (10.700)	l_SD 10.696 (10.685)	ab_SD 10.715 (10.725)
+epoch 30, total time 15.47
+
+--- Epoch 30 Summary ---
+train_loss: 107.062110
+l_loss: 10.686309
+ab_loss: 10.723221
+td_loss: 10.724269
+sd_loss: 10.686309
+batch_time: 0.223655
+data_time: 0.001300
+learning_rate: 0.010000
+epoch_time: 15.470480
+Elapsed time: 0.16h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.88h
+----------------------------------------
+==> training...
+
+--- Epoch 31/200 Started ---
+Epoch 31 [   1/69] (  1.4%) | train_loss: 107.0411 | l_loss: 10.6708 | ab_loss: 10.7396 | td_loss: 10.7047 | sd_loss: 10.6708 | batch_time: 0.3331 | data_time: 0.0988 | ETA: 10.7h
+Epoch 31 [  10/69] ( 14.5%) | train_loss: 107.0474 | l_loss: 10.6746 | ab_loss: 10.7354 | td_loss: 10.7103 | sd_loss: 10.6746 | batch_time: 0.2232 | data_time: 0.0001 | ETA: 55.7m
+Train: [31][10/69]	BT 0.223 (0.231)	DT 0.000 (0.010)	loss 107.047 (107.045)	ANloss 10.710 (10.707)	WTloss 10.706 (10.704)	AFloss 10.698 (10.696)	FFTloss 10.689 (10.687)	l_SD 10.675 (10.673)	ab_SD 10.735 (10.738)
+Epoch 31 [  20/69] ( 29.0%) | train_loss: 107.0471 | l_loss: 10.6771 | ab_loss: 10.7319 | td_loss: 10.7154 | sd_loss: 10.6771 | batch_time: 0.2192 | data_time: 0.0001 | ETA: 23.2m
+Train: [31][20/69]	BT 0.219 (0.226)	DT 0.000 (0.005)	loss 107.047 (107.047)	ANloss 10.715 (10.710)	WTloss 10.711 (10.706)	AFloss 10.702 (10.698)	FFTloss 10.691 (10.688)	l_SD 10.677 (10.674)	ab_SD 10.732 (10.736)
+Epoch 31 [  30/69] ( 43.5%) | train_loss: 107.0568 | l_loss: 10.6807 | ab_loss: 10.7274 | td_loss: 10.7220 | sd_loss: 10.6807 | batch_time: 0.2242 | data_time: 0.0001 | ETA: 12.4m
+Train: [31][30/69]	BT 0.224 (0.224)	DT 0.000 (0.003)	loss 107.057 (107.050)	ANloss 10.722 (10.713)	WTloss 10.716 (10.709)	AFloss 10.707 (10.700)	FFTloss 10.695 (10.690)	l_SD 10.681 (10.676)	ab_SD 10.727 (10.734)
+Epoch 31 [  40/69] ( 58.0%) | train_loss: 107.0673 | l_loss: 10.6855 | ab_loss: 10.7229 | td_loss: 10.7286 | sd_loss: 10.6855 | batch_time: 0.2184 | data_time: 0.0001 | ETA: 6.9m
+Train: [31][40/69]	BT 0.218 (0.223)	DT 0.000 (0.003)	loss 107.067 (107.053)	ANloss 10.729 (10.716)	WTloss 10.722 (10.711)	AFloss 10.713 (10.703)	FFTloss 10.700 (10.692)	l_SD 10.685 (10.678)	ab_SD 10.723 (10.732)
+Epoch 31 [  50/69] ( 72.5%) | train_loss: 107.0792 | l_loss: 10.6905 | ab_loss: 10.7179 | td_loss: 10.7355 | sd_loss: 10.6905 | batch_time: 0.2177 | data_time: 0.0001 | ETA: 3.6m
+Train: [31][50/69]	BT 0.218 (0.222)	DT 0.000 (0.002)	loss 107.079 (107.057)	ANloss 10.736 (10.719)	WTloss 10.728 (10.714)	AFloss 10.719 (10.705)	FFTloss 10.706 (10.694)	l_SD 10.691 (10.680)	ab_SD 10.718 (10.729)
+Epoch 31 [  60/69] ( 87.0%) | train_loss: 107.0834 | l_loss: 10.6952 | ab_loss: 10.7113 | td_loss: 10.7416 | sd_loss: 10.6952 | batch_time: 0.2192 | data_time: 0.0001 | ETA: 1.4m
+Train: [31][60/69]	BT 0.219 (0.222)	DT 0.000 (0.002)	loss 107.083 (107.061)	ANloss 10.742 (10.723)	WTloss 10.735 (10.717)	AFloss 10.724 (10.708)	FFTloss 10.710 (10.696)	l_SD 10.695 (10.682)	ab_SD 10.711 (10.727)
+epoch 31, total time 15.25
+
+--- Epoch 31 Summary ---
+train_loss: 107.065380
+l_loss: 10.684316
+ab_loss: 10.724381
+td_loss: 10.725808
+sd_loss: 10.684316
+batch_time: 0.220464
+data_time: 0.001587
+learning_rate: 0.010000
+epoch_time: 15.251063
+Elapsed time: 0.16h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.88h
+----------------------------------------
+==> training...
+
+--- Epoch 32/200 Started ---
+Epoch 32 [   1/69] (  1.4%) | train_loss: 107.0397 | l_loss: 10.6707 | ab_loss: 10.7378 | td_loss: 10.7048 | sd_loss: 10.6707 | batch_time: 0.3082 | data_time: 0.0841 | ETA: 11.0h
+Epoch 32 [  10/69] ( 14.5%) | train_loss: 107.0462 | l_loss: 10.6746 | ab_loss: 10.7341 | td_loss: 10.7089 | sd_loss: 10.6746 | batch_time: 0.2206 | data_time: 0.0002 | ETA: 57.5m
+Train: [32][10/69]	BT 0.221 (0.230)	DT 0.000 (0.009)	loss 107.046 (107.045)	ANloss 10.709 (10.708)	WTloss 10.705 (10.704)	AFloss 10.699 (10.698)	FFTloss 10.687 (10.686)	l_SD 10.675 (10.673)	ab_SD 10.734 (10.735)
+Epoch 32 [  20/69] ( 29.0%) | train_loss: 107.0500 | l_loss: 10.6786 | ab_loss: 10.7276 | td_loss: 10.7152 | sd_loss: 10.6786 | batch_time: 0.2225 | data_time: 0.0002 | ETA: 24.0m
+Train: [32][20/69]	BT 0.223 (0.225)	DT 0.000 (0.004)	loss 107.050 (107.048)	ANloss 10.715 (10.710)	WTloss 10.712 (10.707)	AFloss 10.704 (10.700)	FFTloss 10.692 (10.688)	l_SD 10.679 (10.675)	ab_SD 10.728 (10.733)
+Epoch 32 [  30/69] ( 43.5%) | train_loss: 107.0644 | l_loss: 10.6837 | ab_loss: 10.7242 | td_loss: 10.7212 | sd_loss: 10.6837 | batch_time: 0.2257 | data_time: 0.0005 | ETA: 12.8m
+Train: [32][30/69]	BT 0.226 (0.224)	DT 0.000 (0.003)	loss 107.064 (107.051)	ANloss 10.721 (10.713)	WTloss 10.717 (10.709)	AFloss 10.709 (10.702)	FFTloss 10.697 (10.690)	l_SD 10.684 (10.677)	ab_SD 10.724 (10.730)
+Epoch 32 [  40/69] ( 58.0%) | train_loss: 107.0732 | l_loss: 10.6887 | ab_loss: 10.7189 | td_loss: 10.7282 | sd_loss: 10.6887 | batch_time: 0.2399 | data_time: 0.0002 | ETA: 7.1m
+Train: [32][40/69]	BT 0.240 (0.227)	DT 0.000 (0.002)	loss 107.073 (107.055)	ANloss 10.728 (10.716)	WTloss 10.723 (10.712)	AFloss 10.716 (10.705)	FFTloss 10.702 (10.693)	l_SD 10.689 (10.680)	ab_SD 10.719 (10.728)
+Epoch 32 [  50/69] ( 72.5%) | train_loss: 107.0765 | l_loss: 10.6931 | ab_loss: 10.7143 | td_loss: 10.7337 | sd_loss: 10.6931 | batch_time: 0.2308 | data_time: 0.0002 | ETA: 3.8m
+Train: [32][50/69]	BT 0.231 (0.227)	DT 0.000 (0.002)	loss 107.077 (107.058)	ANloss 10.734 (10.719)	WTloss 10.729 (10.715)	AFloss 10.720 (10.708)	FFTloss 10.707 (10.695)	l_SD 10.693 (10.682)	ab_SD 10.714 (10.726)
+Epoch 32 [  60/69] ( 87.0%) | train_loss: 107.0837 | l_loss: 10.6990 | ab_loss: 10.7095 | td_loss: 10.7403 | sd_loss: 10.6990 | batch_time: 0.2241 | data_time: 0.0003 | ETA: 1.5m
+Train: [32][60/69]	BT 0.224 (0.227)	DT 0.000 (0.002)	loss 107.084 (107.062)	ANloss 10.740 (10.722)	WTloss 10.735 (10.718)	AFloss 10.727 (10.710)	FFTloss 10.713 (10.698)	l_SD 10.699 (10.684)	ab_SD 10.710 (10.723)
+epoch 32, total time 15.73
+
+--- Epoch 32 Summary ---
+train_loss: 107.064740
+l_loss: 10.686566
+ab_loss: 10.721046
+td_loss: 10.724977
+sd_loss: 10.686566
+batch_time: 0.227512
+data_time: 0.001402
+learning_rate: 0.010000
+epoch_time: 15.734052
+Elapsed time: 0.17h
+Avg time per epoch: 0.3m
+Estimated time remaining: 0.87h
+----------------------------------------
+==> training...
+
+--- Epoch 33/200 Started ---
+Epoch 33 [   1/69] (  1.4%) | train_loss: 107.0496 | l_loss: 10.6743 | ab_loss: 10.7317 | td_loss: 10.7049 | sd_loss: 10.6743 | batch_time: 0.3306 | data_time: 0.0894 | ETA: 11.4h
+Epoch 33 [  10/69] ( 14.5%) | train_loss: 107.0555 | l_loss: 10.6791 | ab_loss: 10.7285 | td_loss: 10.7103 | sd_loss: 10.6791 | batch_time: 0.2209 | data_time: 0.0001 | ETA: 59.4m
+Train: [33][10/69]	BT 0.221 (0.240)	DT 0.000 (0.009)	loss 107.055 (107.053)	ANloss 10.710 (10.708)	WTloss 10.707 (10.705)	AFloss 10.702 (10.700)	FFTloss 10.691 (10.689)	l_SD 10.679 (10.677)	ab_SD 10.728 (10.730)
+Traceback (most recent call last):
+  File "/home/lucianpan/expriments/mac_reroduce/Pretraing_MAC.PY", line 664, in <module>
+    main()
+  File "/home/lucianpan/expriments/mac_reroduce/Pretraing_MAC.PY", line 417, in main
+    l_loss, l_prob, ab_loss, ab_prob = train(epoch, train_loader, model, contrast, criterion_l, criterion_ab,
+  File "/home/lucianpan/expriments/mac_reroduce/Pretraing_MAC.PY", line 233, in train
+    feat_l, feat_TD, feat_TD1, feat_TD2, feat_TD3, feat_SD1 = model(inputs, opt.mod_l, opt.view_chose, 'pretrain')
+  File "/home/lucianpan/expriments/mac_reroduce/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/lucianpan/expriments/mac_reroduce/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/lucianpan/expriments/mac_reroduce/models/backbone.py", line 416, in forward
+    x_wt = self.transform_to_wavelet(x)
+  File "/home/lucianpan/expriments/mac_reroduce/models/backbone.py", line 322, in transform_to_wavelet
+    coefficients, _ = pywt.cwt(signal, scales, 'cmor')
+  File "/home/lucianpan/expriments/mac_reroduce/.venv/lib/python3.10/site-packages/pywt/_cwt.py", line 161, in cwt
+    conv = np.convolve(data, int_psi_scale)
+  File "/home/lucianpan/expriments/mac_reroduce/.venv/lib/python3.10/site-packages/numpy/_core/numeric.py", line 869, in convolve
+    return multiarray.correlate(a, v[::-1], mode)
+KeyboardInterrupt

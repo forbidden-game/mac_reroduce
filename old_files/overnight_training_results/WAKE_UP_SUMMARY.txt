@@ -1,0 +1,15 @@
+🌅 GOOD MORNING! YOUR OVERNIGHT TRAINING RESULTS
+==================================================
+
+⏰ Training Duration: 0.2 hours
+✅ Successful: 0/3 datasets
+❌ Failed: 0/3 datasets
+
+📊 DATASET RESULTS:
+--------------------
+❌ RML201610A: running
+   └── Error: None
+
+📁 Check detailed results in: overnight_training_results/
+
+😴 Something went wrong. Check the logs! ☕

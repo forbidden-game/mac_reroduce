@@ -22,6 +22,23 @@ import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 import seaborn as sns
 import numpy as np
+import glob
+import re
+
+# Import training dashboard for comprehensive monitoring (optional)
+try:
+    from old_files.training_dashboard import EnhancedTrainingMonitor
+    DASHBOARD_AVAILABLE = True
+except ImportError:
+    print("Warning: training_dashboard not available, monitoring features disabled")
+    DASHBOARD_AVAILABLE = False
+    EnhancedTrainingMonitor = None
+
+# Import visualization tools
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+import umap
+from sklearn.metrics import confusion_matrix, classification_report
 
 try:
     from apex import amp, optimizers
@@ -42,7 +59,7 @@ def parse_option():
     parser.add_argument('--print_freq', type=int, default=10, help='print frequency')
     parser.add_argument('--tb_freq', type=int, default=500, help='tb frequency')
     parser.add_argument('--save_freq', type=int, default=120, help='save frequency')
-    parser.add_argument('--batch_size', type=int, default=64, help='batch_size')
+    parser.add_argument('--batch_size', type=int, default=128, help='batch_size')
     parser.add_argument('--num_workers', type=int, default=8, help='num of workers to use')
     parser.add_argument('--epochs', type=int, default=240, help='number of training epochs')
     parser.add_argument('--n_1', type=float, default=1, help='weighting coefffcients SD')
@@ -163,7 +180,190 @@ def IQ_SC(feat_ab, feat_l, contrast, criterion_l, criterion_ab, index):
     ab_loss = criterion_ab(out_ab)
     return l_loss, ab_loss
 
-def train(epoch, train_loader, model, contrast, criterion_l, criterion_ab, optimizer, opt):
+def manage_best_models(save_dir, epoch, val_loss, state, max_keep=3):
+    """
+    Save new best model with timestamp and clean up old ones, keeping only the most recent ones.
+    
+    Args:
+        save_dir: Directory to save models
+        epoch: Current epoch number
+        val_loss: Validation loss value
+        state: Model state dictionary to save
+        max_keep: Maximum number of best models to keep (default: 3)
+    
+    Returns:
+        saved_file_path: Path of the saved model file
+    """
+    try:
+        # Create timestamped filename
+        timestamp_filename = f'best_model_epoch_{epoch}_val_loss_{val_loss:.4f}.pth'
+        save_file_path = os.path.join(save_dir, timestamp_filename)
+        
+        # Save the new best model
+        torch.save(state, save_file_path)
+        print(f'==> Saved new best model: {timestamp_filename}')
+        
+        # Find all existing best model files
+        pattern = os.path.join(save_dir, 'best_model_epoch_*.pth')
+        existing_files = glob.glob(pattern)
+        
+        if len(existing_files) > max_keep:
+            # Extract epoch numbers and sort by epoch (chronological order)
+            file_info = []
+            for file_path in existing_files:
+                filename = os.path.basename(file_path)
+                # Extract epoch number using regex
+                match = re.search(r'best_model_epoch_(\d+)_val_loss_[\d\.]+\.pth', filename)
+                if match:
+                    epoch_num = int(match.group(1))
+                    file_info.append((epoch_num, file_path))
+            
+            # Sort by epoch number (keep most recent)
+            file_info.sort(key=lambda x: x[0])
+            
+            # Remove older files, keep only max_keep most recent
+            files_to_delete = file_info[:-max_keep]  # Remove all but the last max_keep files
+            
+            for epoch_num, file_path in files_to_delete:
+                try:
+                    os.remove(file_path)
+                    print(f'==> Cleaned up old best model: {os.path.basename(file_path)}')
+                except OSError as e:
+                    print(f'==> Warning: Could not delete {os.path.basename(file_path)}: {e}')
+        
+        # Create/update a symlink to the latest best model for backward compatibility
+        latest_link_path = os.path.join(save_dir, 'latest_best_model.pth')
+        try:
+            # Remove existing symlink/file
+            if os.path.exists(latest_link_path) or os.path.islink(latest_link_path):
+                os.remove(latest_link_path)
+            
+            # Create new symlink (or copy if symlinks not supported)
+            try:
+                os.symlink(timestamp_filename, latest_link_path)
+            except OSError:
+                # Fallback: copy file if symlinks not supported
+                import shutil
+                shutil.copy2(save_file_path, latest_link_path)
+                
+        except Exception as e:
+            print(f'==> Warning: Could not create latest_best_model.pth link: {e}')
+        
+        return save_file_path
+        
+    except Exception as e:
+        print(f'==> Error in manage_best_models: {e}')
+        # Fallback: save with simple name
+        fallback_path = os.path.join(save_dir, 'best_model_fallback.pth')
+        torch.save(state, fallback_path)
+        return fallback_path
+
+def validate(epoch, val_loader, model, contrast, criterion_l, criterion_ab, opt, monitor=None):
+    """
+    MAC validation evaluation
+    """
+    model.eval()
+    contrast.eval()
+
+    batch_time = AverageMeter()
+    data_time = AverageMeter()
+    losses = AverageMeter()
+    l_loss_meter = AverageMeter()
+    ab_loss_meter = AverageMeter()
+
+    T_loss_meter = AverageMeter()
+    T1_loss_meter = AverageMeter()
+    T2_loss_meter = AverageMeter()
+    T3_loss_meter = AverageMeter()
+
+    abT_loss_meter = AverageMeter()
+    abT1_loss_meter = AverageMeter()
+    abT2_loss_meter = AverageMeter()
+    abT3_loss_meter = AverageMeter()
+
+    end = time.time()
+    
+    with torch.no_grad():  # No gradient computation for validation
+        for idx, (inputs, _, index) in enumerate(val_loader):
+            data_time.update(time.time() - end)
+
+            bsz = inputs.size(0)
+            inputs = inputs.float()
+            if torch.cuda.is_available():
+                index = index.cuda(non_blocking=True)
+                inputs = inputs.cuda()
+
+            # ===================forward=====================
+            if opt.view_chose == 'DB':
+                feat_l, feat_ab, feat_SD = model(inputs, opt.mod_l, opt.view_chose, 'pretrain')
+                l_loss, ab_loss = IQ_SC(feat_ab, feat_l, contrast, criterion_l, criterion_ab, index)
+                l_lossSD, ab_lossSD = IQ_SC(feat_SD, feat_l, contrast, criterion_l, criterion_ab, index)
+
+                l_lossT1 = l_loss
+                l_lossT2 = l_loss
+                l_lossT3 = l_loss
+                ab_lossT1 = ab_loss
+                ab_lossT2 = ab_loss
+                ab_lossT3 = ab_loss
+
+                loss = opt.n_1 * (l_lossSD + ab_lossSD) + opt.n_t * (l_loss + ab_loss)
+
+            elif opt.view_chose == 'ALL':
+                feat_l, feat_TD, feat_TD1, feat_TD2, feat_TD3, feat_SD1 = model(inputs, opt.mod_l, opt.view_chose, 'pretrain')
+                # Inter-domain contrastive learning
+                l_loss, ab_loss = IQ_SC(feat_TD, feat_l, contrast, criterion_l, criterion_ab, index)
+                l_lossT1, ab_lossT1 = IQ_SC(feat_TD1, feat_l, contrast, criterion_l, criterion_ab, index)
+                l_lossT2, ab_lossT2 = IQ_SC(feat_TD2, feat_l, contrast, criterion_l, criterion_ab, index)
+                l_lossT3, ab_lossT3 = IQ_SC(feat_TD3, feat_l, contrast, criterion_l, criterion_ab, index)
+
+                # Intra-domain contrastive learning
+                l_lossSD, ab_lossSD = IQ_SC(feat_SD1, feat_l, contrast, criterion_l, criterion_ab, index)
+
+                loss = opt.n_1 * (l_lossSD + ab_lossSD) + opt.n_t * (l_loss + l_lossT1 + l_lossT2 + l_lossT3) + opt.n_t*(ab_loss + ab_lossT1 + ab_lossT2 + ab_lossT3)
+
+            # ===================meters=====================
+            losses.update(loss.item(), bsz)
+            l_loss_meter.update(l_lossSD.item(), bsz)
+            ab_loss_meter.update(ab_lossSD.item(), bsz)
+
+            T_loss_meter.update(l_loss.item(), bsz)
+            T1_loss_meter.update(l_lossT1.item(), bsz)
+            T2_loss_meter.update(l_lossT2.item(), bsz)
+            T3_loss_meter.update(l_lossT3.item(), bsz)
+
+            abT_loss_meter.update(ab_loss.item(), bsz)
+            abT1_loss_meter.update(ab_lossT1.item(), bsz)
+            abT2_loss_meter.update(ab_lossT2.item(), bsz)
+            abT3_loss_meter.update(ab_lossT3.item(), bsz)
+
+            batch_time.update(time.time() - end)
+            end = time.time()
+
+            # Log validation batch metrics for monitoring
+            if monitor and idx % 20 == 0:  # Log less frequently for validation
+                batch_metrics = {
+                    'val_loss': loss.item(),
+                    'val_l_loss': l_lossSD.item(),
+                    'val_ab_loss': ab_lossSD.item(),
+                    'val_td_loss': T_loss_meter.val,
+                    'val_sd_loss': l_loss_meter.val
+                }
+                monitor.log_batch_metrics(idx, len(val_loader), batch_metrics)
+
+    print('Val: [{0}]\t'
+          'Time {batch_time.avg:.3f}\t'
+          'Loss {loss.avg:.3f}\t'
+          'SD_l_loss {l_loss_SD.avg:.3f}\t'
+          'SD_ab_loss {ab_loss_SD.avg:.3f}\t'
+          'TD_losses {td1:.3f}/{td2:.3f}/{td3:.3f}/{td4:.3f}'.format(
+        epoch, batch_time=batch_time, loss=losses, l_loss_SD=l_loss_meter,
+        ab_loss_SD=ab_loss_meter, td1=T_loss_meter.avg, td2=T1_loss_meter.avg,
+        td3=T2_loss_meter.avg, td4=T3_loss_meter.avg))
+
+    return l_loss_meter.avg, T_loss_meter.avg, ab_loss_meter.avg, abT_loss_meter.avg, losses.avg
+
+
+def train(epoch, train_loader, model, contrast, criterion_l, criterion_ab, optimizer, opt, monitor=None):
     """
     MAC one epoch pretraining
     """
@@ -189,6 +389,11 @@ def train(epoch, train_loader, model, contrast, criterion_l, criterion_ab, optim
     feat_bnsum = []
     label_bnsum = []
     end = time.time()
+    
+    # Log epoch start for monitoring
+    if monitor:
+        monitor.log_epoch_start(epoch)
+    
     for idx, (inputs, _, index) in enumerate(train_loader):
         # The index number of the sample in the dataset
         data_time.update(time.time() - end)
@@ -252,6 +457,19 @@ def train(epoch, train_loader, model, contrast, criterion_l, criterion_ab, optim
         torch.cuda.synchronize()
         batch_time.update(time.time() - end)
         end = time.time()
+
+        # Log batch metrics for monitoring
+        if monitor:
+            batch_metrics = {
+                'train_loss': loss.item(),
+                'l_loss': l_lossSD.item(),
+                'ab_loss': ab_lossSD.item(),
+                'td_loss': T_loss_meter.val,
+                'sd_loss': l_loss_meter.val,
+                'batch_time': batch_time.val,
+                'data_time': data_time.val
+            }
+            monitor.log_batch_metrics(idx, len(train_loader), batch_metrics)
 
         # print info
         if (idx + 1) % opt.print_freq == 0:
@@ -342,13 +560,27 @@ def main():
     # for km in [512, 1024, 2048, 4096, 8192, 16384, 32768]:
     print(str(args.snr_tat))
     # args.snr_tat = "ALL"
-    train_loader, test_loader, n_data, index = load_RML2016(args)
+    train_loader, val_loader, test_loader, n_data, n_val_data, index = load_RML2016(args)
     train_sampler = None
+    print(f"Training samples: {n_data}, Validation samples: {n_val_data}")
     # set the model
     model, contrast, criterion_ab, criterion_l = set_model(args, n_data)
 
     # set the optimizer
     optimizer = set_optimizer(args, model)
+    
+    # Initialize training monitor (if available)
+    monitor = None
+    if DASHBOARD_AVAILABLE:
+        try:
+            monitor = EnhancedTrainingMonitor(dashboard_dir="training_dashboard")
+            monitor.start_monitoring(args.epochs)
+            print("Training dashboard enabled")
+        except Exception as e:
+            print(f"Warning: Could not initialize training dashboard: {e}")
+            monitor = None
+    else:
+        print("Training dashboard disabled (not available)")
 
     # optionally resume from a checkpoint
     args.start_epoch = 1
@@ -376,6 +608,9 @@ def main():
         print(f'{log_dir} exist')
     tb_writer = SummaryWriter(
         log_dir=f'{log_dir}/5.11_2018_k_{args.nce_k}_mon_{args.nce_m}_batch_{args.batch_size}_lr_{args.learning_rate}_view_chose_{args.view_chose}_mod_l_{args.mod_l}_snr_{args.snr_tat}')  # 保存日志到 logs/lr_1e-4_batch_16/ 下
+    # Best validation loss for model saving
+    best_val_loss = float('inf')
+    
     # routine
     for epoch in range(args.start_epoch, args.epochs + 1):
 
@@ -384,21 +619,82 @@ def main():
 
         time1 = time.time()
         l_loss, l_prob, ab_loss, ab_prob = train(epoch, train_loader, model, contrast, criterion_l, criterion_ab,
-                                                 optimizer, args)
+                                                 optimizer, args, monitor)
         time2 = time.time()
         print('epoch {}, total time {:.2f}'.format(epoch, time2 - time1))
 
-        # tensorboard logger
-        logger.log_value('l_loss', l_loss, epoch)
-        logger.log_value('l_prob', l_prob, epoch)
-        logger.log_value('ab_loss', ab_loss, epoch)
-        logger.log_value('ab_prob', ab_prob, epoch)
+        # Validation evaluation
+        print("==> validating...")
+        time3 = time.time()
+        val_l_loss, val_l_prob, val_ab_loss, val_ab_prob, val_total_loss = validate(
+            epoch, val_loader, model, contrast, criterion_l, criterion_ab, args, monitor)
+        time4 = time.time()
+        print('epoch {}, validation time {:.2f}'.format(epoch, time4 - time3))
 
-        tb_writer.add_scalar('l_loss', l_loss, epoch)
-        tb_writer.add_scalar('l_prob', l_prob, epoch)
-        tb_writer.add_scalar('ab_loss', ab_loss, epoch)
-        tb_writer.add_scalar('ab_prob', ab_prob, epoch)
+        # Log epoch end for monitoring
+        if monitor:
+            epoch_metrics = {
+                'learning_rate': optimizer.param_groups[0]['lr'],
+                'epoch_time': time2 - time1,
+                'val_time': time4 - time3,
+                'train_loss': l_loss,
+                'val_loss': val_total_loss,
+                'train_l_loss': l_loss,
+                'val_l_loss': val_l_loss,
+                'train_ab_loss': ab_loss,
+                'val_ab_loss': val_ab_loss
+            }
+            monitor.log_epoch_end(epoch, epoch_metrics)
+
+        # tensorboard logger - Training metrics
+        logger.log_value('train_l_loss', l_loss, epoch)
+        logger.log_value('train_l_prob', l_prob, epoch)
+        logger.log_value('train_ab_loss', ab_loss, epoch)
+        logger.log_value('train_ab_prob', ab_prob, epoch)
+        
+        # tensorboard logger - Validation metrics
+        logger.log_value('val_l_loss', val_l_loss, epoch)
+        logger.log_value('val_l_prob', val_l_prob, epoch)
+        logger.log_value('val_ab_loss', val_ab_loss, epoch)
+        logger.log_value('val_ab_prob', val_ab_prob, epoch)
+        logger.log_value('val_total_loss', val_total_loss, epoch)
+
+        # Tensorboard writer - Training metrics
+        tb_writer.add_scalar('train/l_loss', l_loss, epoch)
+        tb_writer.add_scalar('train/l_prob', l_prob, epoch)
+        tb_writer.add_scalar('train/ab_loss', ab_loss, epoch)
+        tb_writer.add_scalar('train/ab_prob', ab_prob, epoch)
+        
+        # Tensorboard writer - Validation metrics
+        tb_writer.add_scalar('val/l_loss', val_l_loss, epoch)
+        tb_writer.add_scalar('val/l_prob', val_l_prob, epoch)
+        tb_writer.add_scalar('val/ab_loss', val_ab_loss, epoch)
+        tb_writer.add_scalar('val/ab_prob', val_ab_prob, epoch)
+        tb_writer.add_scalar('val/total_loss', val_total_loss, epoch)
+        
         tb_writer.add_scalar('learning_rate', optimizer.param_groups[0]["lr"], epoch)
+
+        # Save best model based on validation loss with timestamping and cleanup
+        if val_total_loss < best_val_loss:
+            best_val_loss = val_total_loss
+            print(f'==> New best validation loss: {best_val_loss:.4f}, managing best models...')
+            state = {
+                'opt': args,
+                'model': model.state_dict(),
+                'contrast': contrast.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'epoch': epoch,
+                'best_val_loss': best_val_loss,
+            }
+            # Use new timestamped best model management (keep 3 most recent)
+            saved_model_path = manage_best_models(
+                save_dir=tb_writer.log_dir, 
+                epoch=epoch, 
+                val_loss=best_val_loss, 
+                state=state, 
+                max_keep=3
+            )
+            del state
 
         # save model
         if epoch % args.save_freq == 0:
@@ -415,6 +711,212 @@ def main():
             # help release GPU memory
             del state
         torch.cuda.empty_cache()
+    
+    # Stop monitoring and generate final analysis
+    if monitor:
+        monitor.stop_monitoring()
+    
+    # Perform comprehensive test evaluation and visualization
+    print("\n" + "="*60)
+    print("PERFORMING FINAL TEST EVALUATION AND VISUALIZATION")
+    print("="*60)
+    evaluate_and_visualize_model(model, test_loader, args, tb_writer.log_dir)
+
+
+def evaluate_and_visualize_model(model, test_loader, args, save_dir):
+    """
+    Comprehensive test evaluation with feature visualization
+    """
+    model.eval()
+    
+    print("Extracting features from test set...")
+    
+    # Storage for features and labels
+    all_features = {
+        'l_domain': [],
+        'td_domain': [],
+        'td1_domain': [],
+        'td2_domain': [],
+        'td3_domain': [],
+        'sd_domain': []
+    }
+    all_labels = []
+    all_indices = []
+    
+    # Extract features
+    with torch.no_grad():
+        for batch_idx, (inputs, labels, indices) in enumerate(test_loader):
+            if batch_idx > 100:  # Limit samples for memory efficiency
+                break
+                
+            inputs = inputs.float()
+            if torch.cuda.is_available():
+                inputs = inputs.cuda()
+            
+            # Extract features from all domains
+            if args.view_chose == 'ALL':
+                feat_l, feat_TD, feat_TD1, feat_TD2, feat_TD3, feat_SD1 = model(inputs, args.mod_l, args.view_chose, 'pretrain')
+                
+                # Store features
+                all_features['l_domain'].append(feat_l.cpu().numpy())
+                all_features['td_domain'].append(feat_TD.cpu().numpy())
+                all_features['td1_domain'].append(feat_TD1.cpu().numpy())
+                all_features['td2_domain'].append(feat_TD2.cpu().numpy())
+                all_features['td3_domain'].append(feat_TD3.cpu().numpy())
+                all_features['sd_domain'].append(feat_SD1.cpu().numpy())
+                
+            elif args.view_chose == 'DB':
+                feat_l, feat_ab, feat_SD = model(inputs, args.mod_l, args.view_chose, 'pretrain')
+                
+                all_features['l_domain'].append(feat_l.cpu().numpy())
+                all_features['td_domain'].append(feat_ab.cpu().numpy())
+                all_features['sd_domain'].append(feat_SD.cpu().numpy())
+            
+            all_labels.append(labels.numpy())
+            all_indices.append(indices.numpy())
+    
+    # Concatenate all features
+    for domain in all_features:
+        if all_features[domain]:
+            all_features[domain] = np.concatenate(all_features[domain], axis=0)
+    
+    all_labels = np.concatenate(all_labels, axis=0)
+    all_indices = np.concatenate(all_indices, axis=0)
+    
+    print(f"Extracted features for {len(all_labels)} test samples")
+    
+    # Create visualizations for each domain
+    domains_to_visualize = ['l_domain', 'td_domain', 'sd_domain']
+    if args.view_chose == 'ALL':
+        domains_to_visualize.extend(['td1_domain', 'td2_domain', 'td3_domain'])
+    
+    # Generate t-SNE embeddings for each domain
+    print("Generating feature visualizations...")
+    
+    for domain in domains_to_visualize:
+        if domain in all_features and len(all_features[domain]) > 0:
+            features = all_features[domain]
+            
+            # Apply t-SNE
+            print(f"Computing t-SNE for {domain}...")
+            tsne = TSNE(n_components=2, perplexity=30, random_state=42)
+            features_2d = tsne.fit_transform(features)
+            
+            # Create visualization
+            plt.figure(figsize=(12, 8))
+            
+            # Get modulation class names
+            if args.ab_choose == 'RML201610A':
+                num_classes = 11
+                class_names = ['8PSK', 'AM-DSB', 'AM-SSB', 'BPSK', 'CPFSK', 'GFSK', 'PAM4', 'QAM16', 'QAM64', 'QPSK', 'WBFM']
+            elif args.ab_choose == 'RML201610B':
+                num_classes = 10
+                class_names = ['8PSK', 'AM-DSB', 'BPSK', 'CPFSK', 'GFSK', 'PAM4', 'QAM16', 'QAM64', 'QPSK', 'WBFM']
+            elif args.ab_choose == 'RML2018':
+                num_classes = 24
+                class_names = [f'Class_{i}' for i in range(24)]  # Simplified for space
+            
+            # Create color palette
+            colors = sns.color_palette("husl", num_classes)
+            
+            # Plot each class
+            for i in range(num_classes):
+                mask = all_labels == i
+                if np.any(mask):
+                    plt.scatter(features_2d[mask, 0], features_2d[mask, 1], 
+                              c=[colors[i]], label=class_names[i] if i < len(class_names) else f'Class {i}',
+                              alpha=0.7, s=20)
+            
+            plt.title(f'{domain.replace("_", " ").title()} - t-SNE Visualization\n'
+                     f'Dataset: {args.ab_choose}, SNR: {args.snr_tat}dB', fontsize=14)
+            plt.xlabel('t-SNE 1')
+            plt.ylabel('t-SNE 2')
+            plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=8)
+            plt.tight_layout()
+            
+            # Save plot
+            plt.savefig(f'{save_dir}/test_features_{domain}_tsne.png', dpi=300, bbox_inches='tight')
+            plt.close()
+    
+    # Create comprehensive comparison plot
+    if len(domains_to_visualize) >= 3:
+        fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+        axes = axes.flatten()
+        
+        for idx, domain in enumerate(domains_to_visualize[:6]):
+            if domain in all_features and len(all_features[domain]) > 0:
+                features = all_features[domain]
+                
+                # Apply t-SNE with fewer samples for speed
+                if len(features) > 1000:
+                    sample_indices = np.random.choice(len(features), 1000, replace=False)
+                    features_sample = features[sample_indices]
+                    labels_sample = all_labels[sample_indices]
+                else:
+                    features_sample = features
+                    labels_sample = all_labels
+                
+                tsne = TSNE(n_components=2, perplexity=20, random_state=42)
+                features_2d = tsne.fit_transform(features_sample)
+                
+                # Plot
+                ax = axes[idx]
+                colors = sns.color_palette("husl", num_classes)
+                
+                for i in range(num_classes):
+                    mask = labels_sample == i
+                    if np.any(mask):
+                        ax.scatter(features_2d[mask, 0], features_2d[mask, 1], 
+                                 c=[colors[i]], alpha=0.6, s=8)
+                
+                ax.set_title(f'{domain.replace("_", " ").title()}', fontsize=12)
+                ax.set_xticks([])
+                ax.set_yticks([])
+        
+        # Remove unused subplots
+        for idx in range(len(domains_to_visualize), 6):
+            fig.delaxes(axes[idx])
+        
+        plt.suptitle(f'MAC Feature Domains Comparison - {args.ab_choose} @ {args.snr_tat}dB', fontsize=16)
+        plt.tight_layout()
+        plt.savefig(f'{save_dir}/test_features_comparison.png', dpi=300, bbox_inches='tight')
+        plt.close()
+    
+    # Generate analysis report
+    report_path = f'{save_dir}/test_evaluation_report.txt'
+    with open(report_path, 'w') as f:
+        f.write("MAC Model Test Evaluation Report\n")
+        f.write("=" * 50 + "\n\n")
+        f.write(f"Dataset: {args.ab_choose}\n")
+        f.write(f"SNR Level: {args.snr_tat} dB\n")
+        f.write(f"View Mode: {args.view_chose}\n")
+        f.write(f"Modulation Domain: {args.mod_l}\n")
+        f.write(f"Number of test samples analyzed: {len(all_labels)}\n")
+        f.write(f"Number of classes: {num_classes}\n\n")
+        
+        f.write("Feature Domains Analyzed:\n")
+        for domain in domains_to_visualize:
+            if domain in all_features and len(all_features[domain]) > 0:
+                f.write(f"  - {domain}: {all_features[domain].shape}\n")
+        
+        f.write(f"\nGenerated Visualizations:\n")
+        for domain in domains_to_visualize:
+            if domain in all_features and len(all_features[domain]) > 0:
+                f.write(f"  - test_features_{domain}_tsne.png\n")
+        f.write(f"  - test_features_comparison.png\n")
+        
+        f.write(f"\nModel Configuration:\n")
+        f.write(f"  - Feature Dimension: {args.feat_dim}\n")
+        f.write(f"  - NCE K: {args.nce_k}\n")
+        f.write(f"  - NCE Temperature: {args.nce_t}\n")
+        f.write(f"  - NCE Momentum: {args.nce_m}\n")
+    
+    print(f"Test evaluation complete!")
+    print(f"Results saved to: {save_dir}")
+    print(f"Generated files:")
+    print(f"  - Test feature visualizations")
+    print(f"  - Comparison plots")
+    print(f"  - Analysis report: {report_path}")
 
 
 if __name__ == '__main__':

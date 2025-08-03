@@ -1,0 +1,36 @@
+MAC Training Report
+==================================================
+
+TRAINING OVERVIEW
+--------------------
+Total Epochs: 5
+Completed Epochs: 5
+Total Training Time: 0.03 hours
+Average Time per Epoch: 0.4 minutes
+
+LOSS ANALYSIS
+---------------
+Initial Loss: 10.971493
+Final Loss: 10.701047
+Best Loss: 10.701047
+Loss Reduction: 0.270446
+Loss Reduction %: 2.46%
+
+SYSTEM PERFORMANCE
+--------------------
+Average GPU Memory: 0.0%
+Peak GPU Memory: 0.0%
+Average GPU Utilization: 0.0%
+Average CPU Usage: 6.0%
+Average RAM Usage: 27.0%
+
+TRAINING EFFICIENCY
+--------------------
+Average Batch Time: 0.118 seconds
+Average Data Loading Time: 0.001 seconds
+Estimated Throughput: 542.4 samples/second
+
+RECOMMENDATIONS
+---------------
+
+Report generated at: 2025-08-04 01:01:57

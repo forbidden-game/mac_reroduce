@@ -17,8 +17,8 @@ def load_pickle(file_name):
 
 
 def load_RML2016(args):
-    """Load RML2016 dataset with CORRECTED 6:3:1 splits.
-    Returns train, validation, and test data loaders.
+    """Load RML2016 dataset.
+    The data is split and normalized between train and test sets.
     """
     args.cudaTF = torch.cuda.is_available()
     kwargs = {'num_workers': args.threads,
@@ -27,26 +27,18 @@ def load_RML2016(args):
     if args.ab_choose == 'RML201610A':
         if args.snr_tat == "ALL":
             filename_train_sne = "data/processed/RML2016.10a/" + "train_ALL_SNR_MV_dataset"
-            filename_val_sne = "data/processed/RML2016.10a/" + "val_ALL_SNR_MV_dataset"
             filename_test_sne = "data/processed/RML2016.10a/" + "test_ALL_SNR_MV_dataset"
 
             IQ_train = load_pickle(filename_train_sne)
-            IQ_val = load_pickle(filename_val_sne)
             IQ_test = load_pickle(filename_test_sne)
             new_dataset = IQ_train  # For consistency with return statement
-            new_val_dataset = IQ_val
-            
             train_loader_IQ = data.DataLoader(dataset=IQ_train, batch_size=args.batch_size, shuffle=True, **kwargs)
-            val_loader_IQ = data.DataLoader(dataset=IQ_val, batch_size=args.batch_size, shuffle=False, **kwargs)
-            test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=False, **kwargs)
+            test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs)
             indics = 0
         else:
             filename_train_sne = "data/processed/RML2016.10a/" + str(args.snr_tat) + "_train_MV_dataset"
-            filename_val_sne = "data/processed/RML2016.10a/" + str(args.snr_tat) + "_val_MV_dataset"
             filename_test_sne = "data/processed/RML2016.10a/" + str(args.snr_tat) + "_test_MV_dataset"
-            
             IQ_train = load_pickle(filename_train_sne)
-            IQ_val = load_pickle(filename_val_sne)
             IQ_test = load_pickle(filename_test_sne)
             
             # For pretraining, use full dataset, not few-shot
@@ -54,11 +46,6 @@ def load_RML2016(args):
             a0 = IQ_train.tensors[0]
             a1 = IQ_train.tensors[1]
             a3 = IQ_train.tensors[2]
-            
-            # Validation data
-            val_a0 = IQ_val.tensors[0]
-            val_a1 = IQ_val.tensors[1]
-            val_a3 = IQ_val.tensors[2]
             
             # Check if this is few-shot learning (N_shot > 0) and caller wants subset
             if hasattr(args, 'use_few_shot') and args.use_few_shot and args.N_shot > 0:
@@ -94,91 +81,42 @@ def load_RML2016(args):
                 # Full dataset for pretraining
                 new_dataset = TensorDataset(a0, a1, a3)
 
-            new_val_dataset = TensorDataset(val_a0, val_a1, val_a3)
-
             train_sampler = None
             train_loader_IQ = data.DataLoader(new_dataset, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
-            val_loader_IQ = data.DataLoader(new_val_dataset, batch_size=args.batch_size, shuffle=False, **kwargs)
-            test_loader_IQ = data.DataLoader(IQ_test, batch_size=args.batch_size, shuffle=False, **kwargs)
+            test_loader_IQ = data.DataLoader(IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
             indics = 0
-            
     elif args.ab_choose == 'RML201610B':
-        # 选择2016b的数据集 (with corrected 6:3:1 splits)
+
+        #选择2016b的数据集
         filename_train_sne = "data/processed/RML2016.10b/" + str(args.snr_tat) + "_MT4_train_dataset"
-        filename_val_sne = "data/processed/RML2016.10b/" + str(args.snr_tat) + "_MT4_val_dataset"
         filename_test_sne = "data/processed/RML2016.10b/" + str(args.snr_tat) + "_MT4_test_dataset"
-        
         IQ_train = load_pickle(filename_train_sne)
-        IQ_val = load_pickle(filename_val_sne)
         IQ_test = load_pickle(filename_test_sne)
-        
         # 给予数据集读入时三个参数，数据、标签、以及每个样本在当前数据集中的标号
         a0 = IQ_train.tensors[0]
         a1 = IQ_train.tensors[1]
         a3 = torch.arange(0, len(IQ_train))
         new_dataset = TensorDataset(a0, a1, a3)  # 控制选择的输入数据集大小
-        
-        # Validation data
-        val_a0 = IQ_val.tensors[0]
-        val_a1 = IQ_val.tensors[1]
-        val_a3 = torch.arange(0, len(IQ_val))
-        new_val_dataset = TensorDataset(val_a0, val_a1, val_a3)
-        
         train_sampler = None
         train_loader_IQ = data.DataLoader(dataset=new_dataset, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
-        val_loader_IQ = data.DataLoader(dataset=new_val_dataset, batch_size=args.batch_size, shuffle=False, **kwargs)
-        test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=False, **kwargs)
+        test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
         indics = 0
 
     else:
         assert args.ab_choose == 'RML2018'
-        # 选择2018的数据集
-        # Note: RML2018 currently doesn't have validation sets from corrected preprocessing
-        # Using existing train/test split and creating validation from training data temporarily
-        
+        #选择2018的数据集
+
         filename_train_sne = "data/processed/RML2018/" + "RML2018_MV4_snr_"+ str(args.snr_tat) + "_train_dataset"
         filename_test_sne = "data/processed/RML2018/" + "RML2018_MV4_snr_"+ str(args.snr_tat) + "_test_dataset"
-        
-        # Check if validation dataset exists (from new preprocessing)
-        filename_val_sne = "data/processed/RML2018/" + "RML2018_MV4_snr_"+ str(args.snr_tat) + "_val_dataset"
-        import os
-        has_val_dataset = os.path.exists(filename_val_sne)
-        
         IQ_train = load_pickle(filename_train_sne)
         IQ_test = load_pickle(filename_test_sne)
-        
-        if has_val_dataset:
-            # Use proper validation set if available
-            IQ_val = load_pickle(filename_val_sne)
-            print("Using proper validation dataset for RML2018")
-        else:
-            # Create validation set from training data (75:25 split of training data)
-            print("Warning: No validation dataset found for RML2018, creating from training data")
-            train_size = len(IQ_train)
-            val_size = train_size // 4  # 25% for validation
-            indices = torch.randperm(train_size)
-            
-            train_indices = indices[val_size:]
-            val_indices = indices[:val_size]
-            
-            # Split training data
-            train_data = IQ_train.tensors[0][train_indices]
-            train_labels = IQ_train.tensors[1][train_indices]
-            train_idx = IQ_train.tensors[2][train_indices]
-            
-            val_data = IQ_train.tensors[0][val_indices]
-            val_labels = IQ_train.tensors[1][val_indices]
-            val_idx = IQ_train.tensors[2][val_indices]
-            
-            IQ_train = TensorDataset(train_data, train_labels, train_idx)
-            IQ_val = TensorDataset(val_data, val_labels, val_idx)
-        
         # 采用随机的index
         indics = torch.randperm(len(IQ_train.tensors[0]))
+        # 加载保存的index
+        # indics = torch.load("73.7_6dBbest_indice.pt")
         a0 = IQ_train.tensors[0]
         a1 = IQ_train.tensors[1]
         a3 = torch.arange(0, len(IQ_train.tensors[0]))
-        
         if args.N_shot == 0:
             new_dataset = TensorDataset(a0, a1, a3)
         else:
@@ -190,7 +128,8 @@ def load_RML2016(args):
             a0_selected = []
             a3_selected = []
 
-            count_num = args.N_shot  # N shot per class
+            count_num = args.N_shot  # 50 shot
+            # 从0到10遍历，每个数字选取10个
 
             for i in range(24):  # 24 classes for RML2018
                 count = 0
@@ -209,26 +148,20 @@ def load_RML2016(args):
             a3_selected = torch.cat(a3_selected)
             new_dataset = TensorDataset(a0_selected, a1_selected, a3_selected)
 
-        # For validation, use full validation set
-        new_val_dataset = IQ_val
-
         train_sampler = None
         train_loader_IQ = data.DataLoader(dataset=new_dataset, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
-        val_loader_IQ = data.DataLoader(dataset=new_val_dataset, batch_size=args.batch_size, shuffle=False, **kwargs)
-        test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=False, **kwargs)
+        test_loader_IQ = data.DataLoader(dataset=IQ_test, batch_size=args.batch_size, shuffle=True, **kwargs, sampler=train_sampler)
         indics = 0
 
+
     # num of samples
+
     print('choosed dataset: ' + str(args.ab_choose))
     print('filename_train_dataset: ' + str(filename_train_sne))
-    if 'filename_val_sne' in locals():
-        print('filename_val_dataset: ' + str(filename_val_sne))
     n_data = len(new_dataset)
-    n_val_data = len(new_val_dataset)
-    print('number of training samples: {}'.format(n_data))
-    print('number of validation samples: {}'.format(n_val_data))
+    print('number of samples: {}'.format(n_data))
 
-    return train_loader_IQ, val_loader_IQ, test_loader_IQ, n_data, n_val_data, indics
+    return train_loader_IQ, test_loader_IQ, n_data, indics
 
 
 def adjust_learning_rate(epoch, opt, optimizer):

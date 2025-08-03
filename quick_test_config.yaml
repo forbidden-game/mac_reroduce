@@ -1,0 +1,62 @@
+experiment_settings:
+  name: "MAC_Quick_Test"
+  description: "Quick test of MAC training"
+  output_dir: "quick_test_results"
+  log_level: "INFO"
+
+datasets:
+  RML201610A:
+    enabled: true
+    epochs: 10
+    batch_size: 64
+    snr_levels: [0, 10]
+    num_classes: 11
+    class_names: ['8PSK', 'AM-DSB', 'AM-SSB', 'BPSK', 'CPFSK', 'GFSK', 'PAM4', 'QAM16', 'QAM64', 'QPSK', 'WBFM']
+    
+  RML201610B:
+    enabled: false
+    
+  RML2018:
+    enabled: false
+
+training:
+  learning_rate: 0.01
+  lr_decay_epochs: [8]
+  lr_decay_rate: 0.5
+  momentum: 0.9
+  weight_decay: 0.0001
+  nce_k: 4096
+  nce_t: 0.07
+  nce_m: 0.9
+  view_chose: "ALL"
+  mod_l: "AN"
+  n_1: 1.0
+  n_t: 1.0
+  feat_dim: 128
+  num_workers: 4
+  print_freq: 5
+  save_freq: 10
+
+automation:
+  sequential_execution: true
+  cleanup_between_runs: true
+  gpu_memory_threshold: 0.9
+  max_retries: 2
+  resume_on_failure: true
+  save_intermediate_results: true
+  generate_progress_plots: true
+
+analysis:
+  generate_tsne: false
+  generate_comparison_plots: true
+  statistical_analysis: true
+  cross_dataset_evaluation: false
+  convergence_analysis: true
+  snr_sensitivity_analysis: true
+
+reporting:
+  generate_html_report: true
+  generate_pdf_summary: false
+  include_training_curves: true
+  include_feature_visualizations: false
+  include_statistical_tests: false

@@ -1,215 +1,317 @@
 #!/usr/bin/env python3
 """
-Preprocessing script for RML2018 dataset
-Handles .hdf5 format and generates MV4 datasets as expected by the training code
+CORRECTED Preprocessing script for RML2018 dataset
+Implements proper 6:3:1 split as specified in the MAC paper
+Handles HDF5 format and preserves exact data structure
 """
-
-import numpy as np
 import pickle
+import numpy as np
 import torch
 from torch.utils.data import TensorDataset
 import os
 import h5py
-from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 
-def load_rml2018_hdf5(file_path):
+def save_pickle(data, file_name):
+    """Save data to pickle file"""
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+    with open(file_name, "wb") as f:
+        pickle.dump(data, f)
+
+def load_pickle(file_name):
+    """Load pickle file"""
+    with open(file_name, "rb") as f:
+        data = pickle.load(f, encoding='iso-8859-1')
+    return data
+
+def create_631_split_rml2018():
     """
-    Load RML2018 dataset from HDF5 file
+    Create proper 6:3:1 splits for RML2018 dataset
+    Based on the format information provided by user
     """
-    print(f"Loading RML2018 dataset from {file_path}")
+    print("=" * 60)
+    print("CREATING CORRECTED 6:3:1 SPLITS FOR RML2018")
+    print("=" * 60)
     
-    with h5py.File(file_path, 'r') as f:
-        # Print available keys to understand the structure
+    # Load raw data
+    filename = 'data/raw/GOLD_XYZ_OSC.0001_1024.hdf5'
+    if not os.path.exists(filename):
+        print(f"Error: {filename} not found!")
+        return False
+    
+    print(f"Loading data from {filename}")
+    
+    with h5py.File(filename, 'r') as f:
         print(f"Available keys in HDF5 file: {list(f.keys())}")
         
-        # RML2018 typically has these keys: 'X' for data, 'Y' for labels, 'Z' for SNR
-        # The exact structure may vary, so let's be flexible
-        
+        # Load data, labels, and SNR values
         if 'X' in f.keys():
             data = f['X'][:]  # Signal data
             print(f"Data shape: {data.shape}")
         else:
-            # Try alternative key names
-            data_keys = [k for k in f.keys() if 'data' in k.lower() or 'x' in k.lower()]
-            if data_keys:
-                data = f[data_keys[0]][:]
-                print(f"Using key '{data_keys[0]}' for data, shape: {data.shape}")
-            else:
-                print("Available datasets:")
-                for key in f.keys():
-                    print(f"  {key}: {f[key].shape if hasattr(f[key], 'shape') else 'group'}")
-                raise ValueError("Could not find data array in HDF5 file")
-        
+            print("Error: 'X' key not found in HDF5 file")
+            return False
+            
         if 'Y' in f.keys():
-            labels = f['Y'][:]  # Modulation labels (one-hot or integer)
+            labels = f['Y'][:]  # Modulation labels
             print(f"Labels shape: {labels.shape}")
         else:
-            # Try alternative key names
-            label_keys = [k for k in f.keys() if 'label' in k.lower() or 'y' in k.lower()]
-            if label_keys:
-                labels = f[label_keys[0]][:]
-                print(f"Using key '{label_keys[0]}' for labels, shape: {labels.shape}")
-            else:
-                # Create synthetic labels if not found
-                print("Warning: No labels found, creating synthetic labels")
-                labels = np.random.randint(0, 24, data.shape[0])
-        
+            print("Error: 'Y' key not found in HDF5 file")
+            return False
+            
         if 'Z' in f.keys():
             snr_values = f['Z'][:]  # SNR values
             print(f"SNR values shape: {snr_values.shape}")
-            # Flatten if 2D
             if len(snr_values.shape) > 1:
                 snr_values = snr_values.flatten()
-                print(f"Flattened SNR values shape: {snr_values.shape}")
         else:
-            # Try alternative key names
-            snr_keys = [k for k in f.keys() if 'snr' in k.lower() or 'z' in k.lower()]
-            if snr_keys:
-                snr_values = f[snr_keys[0]][:]
-                print(f"Using key '{snr_keys[0]}' for SNR, shape: {snr_values.shape}")
-                # Flatten if 2D
-                if len(snr_values.shape) > 1:
-                    snr_values = snr_values.flatten()
-                    print(f"Flattened SNR values shape: {snr_values.shape}")
-            else:
-                # Create synthetic SNR values if not found
-                print("Warning: No SNR values found, creating synthetic SNR values")
-                snr_levels = list(range(-20, 20, 2))
-                snr_values = np.random.choice(snr_levels, data.shape[0])
+            print("Error: 'Z' key not found in HDF5 file")
+            return False
     
-    return data, labels, snr_values
-
-def save_tensor_dataset(data, labels, indices, filename):
-    """Save data as TensorDataset in pickle format"""
-    dataset = TensorDataset(
-        torch.FloatTensor(data),
-        torch.LongTensor(labels), 
-        torch.LongTensor(indices)
-    )
-    
-    with open(filename, 'wb') as f:
-        pickle.dump(dataset, f, protocol=pickle.HIGHEST_PROTOCOL)
-    
-    print(f"Saved {len(data)} samples to {filename}")
-
-def process_labels(labels):
-    """Convert labels to integer format if they are one-hot encoded"""
+    # Process labels (convert from one-hot if needed)
     if len(labels.shape) > 1 and labels.shape[1] > 1:
         # One-hot encoded, convert to integer labels
         labels = np.argmax(labels, axis=1)
+    labels = labels.astype(np.int64)
     
-    return labels.astype(np.int64)
-
-def main():
-    # Paths
-    input_file = "data/raw/GOLD_XYZ_OSC.0001_1024.hdf5"
-    output_dir = "data/processed/RML2018/"
+    # Ensure data is in correct format (samples, 2, 1024)
+    print(f"Original data shape: {data.shape}")
+    if len(data.shape) == 3 and data.shape[2] == 2:
+        # Transpose from (samples, 1024, 2) to (samples, 2, 1024)
+        print("Transposing data from (samples, 1024, 2) to (samples, 2, 1024)")
+        data = np.transpose(data, (0, 2, 1))
+    elif len(data.shape) == 3 and data.shape[1] == 2:
+        print("Data already in correct format (samples, 2, 1024)")
+    else:
+        print(f"Warning: Unexpected data shape {data.shape}")
+        # Try to reshape assuming we have the right number of elements
+        if data.shape[0] > 1000:  # Likely samples dimension
+            samples = data.shape[0]
+            remaining = np.prod(data.shape[1:])
+            if remaining == 2048:  # 2 * 1024
+                data = data.reshape(samples, 2, 1024)
+                print(f"Reshaped to: {data.shape}")
+            else:
+                print(f"Cannot reshape data properly")
+                return False
     
-    # Check if input file exists
-    if not os.path.exists(input_file):
-        print(f"Error: Input file {input_file} not found!")
-        return
+    print(f"Final data shape: {data.shape}")
     
-    # Create output directory
-    os.makedirs(output_dir, exist_ok=True)
+    # RML2018 class names (24 classes total)
+    class_names = [
+        'OOK', '4ASK', '8ASK', 'BPSK', 'QPSK', '8PSK', '16PSK', '32PSK',
+        '16APSK', '32APSK', '64APSK', '128APSK', '16QAM', '32QAM', '64QAM', 
+        '128QAM', '256QAM', 'AM-SSB-WC', 'AM-SSB-SC', 'AM-DSB-WC', 
+        'AM-DSB-SC', 'FM', 'GMSK', 'OQPSK'
+    ]
     
-    try:
-        # Load the dataset
-        data, labels, snr_values = load_rml2018_hdf5(input_file)
-        
-        # Process labels (convert from one-hot if needed)
-        labels = process_labels(labels)
-        
-        # Ensure data is in the right format (samples, 2, length)
-        if len(data.shape) == 3 and data.shape[1] == 2:
-            print("Data already in correct format (samples, 2, length)")
-        elif len(data.shape) == 3 and data.shape[2] == 2:
-            print("Transposing data from (samples, length, 2) to (samples, 2, length)")
-            data = np.transpose(data, (0, 2, 1))
-        else:
-            print(f"Warning: Unexpected data shape {data.shape}")
-            print("Assuming data needs reshaping...")
-            # Try to reshape to standard format
-            if data.shape[0] > 1000:  # Likely samples dimension
-                samples = data.shape[0]
-                # Assume the rest needs to be reshaped to (2, length)
-                remaining = np.prod(data.shape[1:])
-                if remaining % 2 == 0:
-                    length = remaining // 2
-                    data = data.reshape(samples, 2, length)
-                    print(f"Reshaped to: {data.shape}")
-                else:
-                    raise ValueError(f"Cannot reshape data with {remaining} elements to (samples, 2, length)")
-        
-        # Get unique SNR values
-        unique_snrs = np.unique(snr_values)
-        print(f"Unique SNR values: {unique_snrs}")
-        print(f"Number of classes: {len(np.unique(labels))}")
-        
-        # Set random seed for reproducibility
-        np.random.seed(2018)
-        
-        # Process each SNR level
+    # Get unique values
+    unique_snrs = np.unique(snr_values)
+    unique_classes = np.unique(labels)
+    
+    print(f"Unique SNR values: {unique_snrs}")
+    print(f"Number of classes: {len(unique_classes)}")
+    print(f"Label range: {labels.min()} to {labels.max()}")
+    print(f"Total samples: {data.shape[0]:,}")
+    
+    # Use same seed for reproducibility
+    np.random.seed(2018)
+    
+    # Create 6:3:1 splits for entire dataset
+    print(f"\nCreating 6:3:1 splits...")
+    
+    # For each (modulation, SNR) combination, create stratified split
+    train_indices = []
+    val_indices = []
+    test_indices = []
+    
+    for mod_class in unique_classes:
         for snr in unique_snrs:
-            print(f"\nProcessing SNR = {snr} dB")
+            # Find samples for this (mod, snr) combination
+            mask = (labels == mod_class) & (snr_values == snr)
+            class_snr_indices = np.where(mask)[0]
             
-            # Get samples for this SNR level
-            snr_mask = snr_values == snr
-            snr_data = data[snr_mask]
-            snr_labels = labels[snr_mask]
-            
-            if len(snr_data) == 0:
-                print(f"No data found for SNR {snr}, skipping...")
+            if len(class_snr_indices) == 0:
                 continue
                 
-            print(f"Total samples for SNR {snr}: {snr_data.shape[0]}")
-            print(f"Data shape: {snr_data.shape}")
-            print(f"Label shape: {snr_labels.shape}")
-            print(f"Label range: {snr_labels.min()} to {snr_labels.max()}")
+            # Create 6:3:1 split for this combination
+            n_samples = len(class_snr_indices)
+            n_train = int(0.6 * n_samples)
+            n_val = int(0.3 * n_samples) 
+            n_test = n_samples - n_train - n_val
             
-            # Create train/test split (80/20)
-            n_samples = snr_data.shape[0]
-            n_train = int(0.8 * n_samples)
+            # Shuffle indices for this combination
+            np.random.shuffle(class_snr_indices)
             
-            # Create indices and shuffle
-            indices = np.arange(n_samples)
-            np.random.shuffle(indices)
-            
-            train_indices = indices[:n_train]
-            test_indices = indices[n_train:]
-            
-            # Split data
-            X_train = snr_data[train_indices]
-            y_train = snr_labels[train_indices]
-            X_test = snr_data[test_indices]
-            y_test = snr_labels[test_indices]
-            
-            print(f"Train samples: {X_train.shape[0]}")
-            print(f"Test samples: {X_test.shape[0]}")
-            
-            # Create indices for datasets (required by MAC framework)
-            train_idx_tensor = np.arange(len(X_train))
-            test_idx_tensor = np.arange(len(X_test))
-            
-            # Save datasets with MV4 naming convention as expected by util.py
-            train_filename = os.path.join(output_dir, f"RML2018_MV4_snr_{snr}_train_dataset")
-            test_filename = os.path.join(output_dir, f"RML2018_MV4_snr_{snr}_test_dataset")
-            
-            save_tensor_dataset(X_train, y_train, train_idx_tensor, train_filename)
-            save_tensor_dataset(X_test, y_test, test_idx_tensor, test_filename)
-            
-            print(f"Saved {train_filename}")
-            print(f"Saved {test_filename}")
+            # Split
+            train_indices.extend(class_snr_indices[:n_train])
+            val_indices.extend(class_snr_indices[n_train:n_train+n_val])
+            test_indices.extend(class_snr_indices[n_train+n_val:])
+    
+    # Convert to numpy arrays and shuffle
+    train_indices = np.array(train_indices)
+    val_indices = np.array(val_indices)
+    test_indices = np.array(test_indices)
+    
+    np.random.shuffle(train_indices)
+    np.random.shuffle(val_indices)
+    np.random.shuffle(test_indices)
+    
+    # Split data
+    X_train = data[train_indices]
+    X_val = data[val_indices]
+    X_test = data[test_indices]
+    
+    y_train = labels[train_indices]
+    y_val = labels[val_indices]
+    y_test = labels[test_indices]
+    
+    n_total = len(data)
+    print(f"\nSplit sizes:")
+    print(f"Train: {len(train_indices)} samples ({len(train_indices)/n_total*100:.1f}%)")
+    print(f"Val:   {len(val_indices)} samples ({len(val_indices)/n_total*100:.1f}%)")
+    print(f"Test:  {len(test_indices)} samples ({len(test_indices)/n_total*100:.1f}%)")
+    
+    print(f"\nData shapes:")
+    print(f"X_train: {X_train.shape}")
+    print(f"X_val:   {X_val.shape}")
+    print(f"X_test:  {X_test.shape}")
+    
+    print(f"\nLabel shapes:")
+    print(f"y_train: {y_train.shape}")
+    print(f"y_val:   {y_val.shape}")
+    print(f"y_test:  {y_test.shape}")
+    
+    # Create TensorDatasets for each SNR level
+    print(f"\nSaving individual SNR datasets...")
+    for snr in tqdm(unique_snrs, desc="Processing SNR levels"):
+        # Get train indices for this SNR
+        train_snr_mask = snr_values[train_indices] == snr
+        val_snr_mask = snr_values[val_indices] == snr
+        test_snr_mask = snr_values[test_indices] == snr
         
-        print("\nRML2018 preprocessing completed successfully!")
-        print(f"Generated datasets for {len(unique_snrs)} SNR levels")
+        if not np.any(train_snr_mask):
+            continue
+            
+        # Extract data for this SNR
+        X_snr_train = X_train[train_snr_mask]
+        X_snr_val = X_val[val_snr_mask]
+        X_snr_test = X_test[test_snr_mask]
+        
+        y_snr_train = y_train[train_snr_mask]
+        y_snr_val = y_val[val_snr_mask]
+        y_snr_test = y_test[test_snr_mask]
+        
+        # Create TensorDatasets for this SNR
+        snr_train_dataset = TensorDataset(
+            torch.from_numpy(X_snr_train).float(),
+            torch.from_numpy(y_snr_train).long(),
+            torch.arange(len(X_snr_train))
+        )
+        
+        snr_val_dataset = TensorDataset(
+            torch.from_numpy(X_snr_val).float(),
+            torch.from_numpy(y_snr_val).long(),
+            torch.arange(len(X_snr_val))
+        )
+        
+        snr_test_dataset = TensorDataset(
+            torch.from_numpy(X_snr_test).float(),
+            torch.from_numpy(y_snr_test).long(),
+            torch.arange(len(X_snr_test))
+        )
+        
+        # Save with MV4 naming convention for compatibility (same as util.py expects)
+        save_pickle(snr_train_dataset, f'data/processed/RML2018/RML2018_MV4_snr_{snr}_train_dataset')
+        save_pickle(snr_val_dataset, f'data/processed/RML2018/RML2018_MV4_snr_{snr}_val_dataset')
+        save_pickle(snr_test_dataset, f'data/processed/RML2018/RML2018_MV4_snr_{snr}_test_dataset')
+    
+    # Save split information for verification
+    split_info = {
+        'class_names': class_names,
+        'unique_snrs': unique_snrs.tolist(),
+        'unique_classes': unique_classes.tolist(),
+        'train_indices': train_indices.tolist(),
+        'val_indices': val_indices.tolist(),
+        'test_indices': test_indices.tolist(),
+        'train_size': len(train_indices),
+        'val_size': len(val_indices),
+        'test_size': len(test_indices),
+        'total_size': n_total,
+        'train_ratio': len(train_indices) / n_total,
+        'val_ratio': len(val_indices) / n_total,
+        'test_ratio': len(test_indices) / n_total
+    }
+    
+    save_pickle(split_info, 'data/processed/RML2018/split_info.pkl')
+    
+    print(f"\n✅ RML2018 preprocessing complete!")
+    print(f"Generated {len(unique_snrs)} SNR-specific datasets")
+    print(f"Split ratios: Train={split_info['train_ratio']:.3f}, Val={split_info['val_ratio']:.3f}, Test={split_info['test_ratio']:.3f}")
+    
+    return True
+
+def verify_rml2018_splits():
+    """Verify the generated splits are correct"""
+    print("\n" + "=" * 60)
+    print("VERIFYING RML2018 SPLITS")
+    print("=" * 60)
+    
+    # Load split info
+    split_info = load_pickle('data/processed/RML2018/split_info.pkl')
+    
+    print(f"Total samples: {split_info['total_size']:,}")
+    print(f"Train: {split_info['train_size']:,} ({split_info['train_ratio']:.1%})")
+    print(f"Val:   {split_info['val_size']:,} ({split_info['val_ratio']:.1%})")
+    print(f"Test:  {split_info['test_size']:,} ({split_info['test_ratio']:.1%})")
+    
+    # Check if ratios are close to 6:3:1
+    expected_ratios = [0.6, 0.3, 0.1]
+    actual_ratios = [split_info['train_ratio'], split_info['val_ratio'], split_info['test_ratio']]
+    
+    print(f"\n6:3:1 Ratio Check:")
+    for name, expected, actual in zip(['Train', 'Val', 'Test'], expected_ratios, actual_ratios):
+        diff = abs(expected - actual)
+        status = "✅" if diff < 0.01 else "❌"
+        print(f"{status} {name}: Expected {expected:.1%}, Got {actual:.1%} (diff: {diff:.3f})")
+    
+    # Test loading a few datasets
+    print(f"\nTesting dataset loading...")
+    try:
+        # Test one SNR dataset (check what SNRs we have)
+        available_snrs = split_info['unique_snrs']
+        test_snr = available_snrs[len(available_snrs)//2]  # Pick middle SNR
+        
+        train_file = f'data/processed/RML2018/RML2018_MV4_snr_{test_snr}_train_dataset'
+        val_file = f'data/processed/RML2018/RML2018_MV4_snr_{test_snr}_val_dataset'
+        test_file = f'data/processed/RML2018/RML2018_MV4_snr_{test_snr}_test_dataset'
+        
+        train_dataset = load_pickle(train_file)
+        val_dataset = load_pickle(val_file)
+        test_dataset = load_pickle(test_file)
+        
+        print(f"✅ SNR={test_snr} datasets loaded successfully")
+        print(f"   Train: {len(train_dataset)} samples")
+        print(f"   Val:   {len(val_dataset)} samples")
+        print(f"   Test:  {len(test_dataset)} samples")
+        
+        # Test data format
+        sample_data, sample_label, sample_idx = train_dataset[0]
+        print(f"✅ Data format verified: shape={sample_data.shape}, label={sample_label.item()}")
+        print(f"   Expected shape: (2, 1024), Got: {sample_data.shape}")
         
     except Exception as e:
-        print(f"Error during preprocessing: {e}")
-        import traceback
-        traceback.print_exc()
-        print("Note: This is a template script. You may need to adjust the data loading")
-        print("logic based on the actual format of your RML2018 HDF5 file.")
+        print(f"❌ Error loading datasets: {e}")
+        return False
+    
+    return True
 
 if __name__ == "__main__":
-    main()
+    # Create corrected 6:3:1 splits
+    success = create_631_split_rml2018()
+    
+    if success:
+        # Verify the splits
+        verify_rml2018_splits()
+    else:
+        print("❌ Failed to create RML2018 splits")
